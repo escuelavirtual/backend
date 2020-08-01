@@ -8,11 +8,15 @@ const app = express();
 //conectamos a la base de datos
 conectarDB();
 
+
+//MIDDLEWARES
 //inicializamos las cors
 app.use(cors());
 
 //habilitamos express.json
 app.use(express.json({extended : true}));
+
+
 
 //puerto de la app
 const port = process.env.PORT || 4000;
