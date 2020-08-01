@@ -46,6 +46,11 @@ const userSchema = mongoose.Schema({
     resources : {
         type : Array,
         default : []
+    },
+
+    created : {
+        type : Date,
+        default : Date.now()
     }
 
 });
