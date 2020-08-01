@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         unique : true
     },
 
-    rols : {
+    roles : {
         type : Array,
         default : []
     }, 

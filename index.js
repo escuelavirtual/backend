@@ -33,4 +33,5 @@ app.get('/', (req, res) => {
 //arrancar la app
 app.listen(port, '0.0.0.0', () => {
     console.log(`arrancando la app desde el puerto ${port}`);
+    console.log(process.env.SECRET)
 });
