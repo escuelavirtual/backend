@@ -1,32 +1,32 @@
 const express = require('express');
-const conectarDB = require('./config/db');
+const connectDB = require('./config/db');
 const cors = require('cors');
 
-//creamos el servidor
+//creation of the service
 const app = express();
 
-//conectamos a la base de datos
-conectarDB();
+//connecting to database
+connectDB();
 
-//inicializamos las cors
+//initialize cors
 app.use(cors());
 
-//habilitamos express.json
+//enable express.json
 app.use(express.json({extended : true}));
 
-//puerto de la app
+//app port
 const port = process.env.PORT || 4000;
 
-//importamos las rutas
+//import routes
 
 //
 
-//definir la pagina principal
+//home page
 app.get('/', (req, res) => {
     res.send('hello world');
 });
 
-//arrancar la app
+//run app
 app.listen(port, '0.0.0.0', () => {
-    console.log(`arrancando la app desde el puerto ${port}`);
+    console.log(`run app from the port ${port}`);
 });
