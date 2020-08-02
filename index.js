@@ -20,7 +20,7 @@ app.use(express.json({extended : true}));
 const port = process.env.PORT || 4000;
 
 //import routes
-app.use("/api/user", require("./routes/user"));
+app.use("/api/user/v1", require("./routes/user"));
 //
 
 //home page

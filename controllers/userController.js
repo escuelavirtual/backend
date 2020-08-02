@@ -1,4 +1,4 @@
-const User = require("../model/userModel");
+const User = require("../models/user");
 const {validationResult} = require("express-validator");
 
 
@@ -17,7 +17,7 @@ exports.createUser = async (req, res) => {
         const user = new User(req.body);
 
         //save user in the database
-        user.save()
+        await user.save()
 
         //return a json with the user
         res.json(user);
