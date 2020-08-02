@@ -14,8 +14,8 @@ https://www.baeldung.com/rest-versioning
 
 Para nuestro proyecto, usaremos la forma:
 ```
-http://host/v1/users
-http://host/v1/courses
+http://host/api/v1/users
+http://host/api/v1/courses
 ```
 
 
