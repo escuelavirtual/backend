@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         unique : true
     },
 
-    rols : {
+    roles : {
         type : Array,
         default : []
     }, 
@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
         default : []
     },
 
-    class : {
+    courses : {
         type : Array,
         default : []
     }, 
