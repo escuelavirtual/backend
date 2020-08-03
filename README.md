@@ -36,7 +36,23 @@ Entidad Evaluacion: Tipo (Autoevaluacion, revisada por el profesor), Profesor, C
 
 Entidad Institucion: Una institucion puede crear sus propias aulas/areas (por ejemplo, Primer año, segundo año) y sus propios cursos. (Esta puede acceder a su nube mediante una url personalizada o desde una instalacion local). Su comportamiento es similar a una institucion academica.
 
-Esta sección esta sujeta a futuras revisiones.
+*Esta sección esta sujeta a futuras revisiones.*
+
+### Observaciones
+
+Dato a considerar: Un curso puede tener varios niveles, y el avance al nivel siguiente puede estar sujeto a la aprobacion del profesor o de las autoevaluaciones.
+Por ejemplo, un curso de Analisis matematico, el profesor lo puede dividir en varios niveles, Funciones, Limites, Derivadas e Integrales. El avance de cada nivel puede depender de la aprobacion del nivel anterior.
+
+En cada recurso de un curso, los alumnos participantes pueden dejar comentarios o feedback.
+
+Dato a tener en cuenta: Puede haber aulas o cursos privados donde solo es accesible mediante un codigo de invitacion, los mismos no seran visibles en el buscador de cursos.
+
+El sistema ademas de estar disponible en la nube, puede ser instalado en un servidor local, donde cualquier universidad, institucion o escuela, mediante su intranet, puede hacer uso de este sistema.
+Por lo tanto, el sistema debera ser adaptable para que pueda ser instalado en un servidor local. Algo asi como wordpress que cuenta su servicio en la nube y tambien se puede instalar en cualquier servidor para su uso.
+
+Dato a tener  en cuenta: En cada curso puede haber un foro de discusion
+
+*Esta sección esta sujeta a futuras revisiones.*
 
 ### Recursos
 
