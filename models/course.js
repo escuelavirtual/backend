@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const courseSchema = mongoose.Schema({
-  courses: {
+  parts: {
     type: Array,
     default: [],
   },
@@ -10,7 +10,7 @@ const courseSchema = mongoose.Schema({
 
   description: String,
 
-  temario: String,
+  summary: String,
 
   start_date: {
     type: Date,
@@ -31,10 +31,6 @@ const courseSchema = mongoose.Schema({
     default: [],
   },
 
-  students: {
-    type: Array,
-    default: [],
-  },
 });
 
 module.exports = mongoose.model("Course", courseSchema);
