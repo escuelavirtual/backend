@@ -19,8 +19,8 @@
     "nodemon",
     "dotenv"
   ],
-  "author": "jonathanLozaiza",
-  "license": "ISC",
+  "author": "escueladigital",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
