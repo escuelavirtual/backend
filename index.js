@@ -1,13 +1,14 @@
-const express = require("express");
-const connectDB = require("./config/db");
-const cors = require("cors");
+const express = require('express');
+const connectDB = require('./config/db');
+const cors = require('cors');
+const db = require('../backend/util/database');
 
 //creation of the service
 const app = express();
 
 //connecting to database
 connectDB();
-
+db.testDataBase();
 //MIDDLEWARES
 
 //initialize cors
@@ -20,8 +21,8 @@ app.use(express.json({ extended: true }));
 const port = process.env.PORT || 4000;
 
 //import routes
-app.use("/api/v1/user", require("./routes/user"));
-app.use("/api/v1/auth", require("./routes/auth"));
+app.use('/api/v1/user', require('./routes/user'));
+app.use('/api/v1/auth', require('./routes/auth'));
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -32,11 +33,11 @@ app.use((error, req, res, next) => {
 //
 
 //home page
-app.get("/", (req, res) => {
-  res.send("hello world");
+app.get('/', (req, res) => {
+  res.send('hello world');
 });
 
 //run app
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`run app from the port ${port}`);
 });
