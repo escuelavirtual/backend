@@ -4,7 +4,7 @@
   "description": "backend en node.js con express, mongoose, jsonwebtoken y dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha",
     "start": "node .",
     "dev": "nodemon ."
   },
@@ -19,15 +19,24 @@
     "nodemon",
     "dotenv"
   ],
-  "author": "jonathanLozaiza",
-  "license": "ISC",
+  "author": "escueladigital",
+  "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.4.2",
     "mongoose": "^5.9.27",
-    "nodemon": "^2.0.4"
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.4",
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.1",
+    "sinon": "^9.0.2"
   }
 }
