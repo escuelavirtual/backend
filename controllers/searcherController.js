@@ -18,7 +18,8 @@ exports.searcher = async (req, res) => {
 
         const courses = await Course.findAll({
             where: {
-                title: title
+                title: title,
+                isPrivate: false
             }
         })
 
