@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
-const db = require('../backend/util/database');
+const db = require('../util/database');
 
 //creation of the service
 const app = express();
