@@ -6,11 +6,20 @@ const courseSchema = mongoose.Schema({
     default: [],
   },
 
-  title: String,
+  title: {
+    type: String,
+    required : true,
+  },
 
-  description: String,
+  description: {
+    type: String,
+    required : true
+  },
 
-  summary: String,
+  summary: {
+    type: String,
+    required: true
+  },
 
   start_date: {
     type: Date,
