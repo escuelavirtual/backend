@@ -2,7 +2,20 @@
 
 ## Contenido
 
-### Guidelines
+### Configuración del proyecto
+
+Para instalar este proyecto, clona el repositorio.
+
+Luego en tu terminal:
+* `cd ruta / a / su / clon`
+* `npm install`
+* `prueba npm`
+
+Cambie el nombre del archivo ubicado en el directorio principal `.env.example` a` .env` si aún no lo ha hecho.
+
+¡Y debería estar listo para comenzar!
+
+### Convenciones
 
 Se debe utilizar el idioma ingles para nombrar a las clases, variables y constantes, nombre de funciones, etc. Los nombres de las clases (javascript)
 
