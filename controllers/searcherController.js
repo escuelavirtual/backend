@@ -50,7 +50,7 @@ exports.searcher = async (req, res) => {
             res.json(coursesOtherThings);
         }
 
-        res.status(404).send({msg: "No se encuentran cursos"})
+        res.status(404).send({msg: "Don´t find courses"})
 
     }catch(error){
         console.log(error);
