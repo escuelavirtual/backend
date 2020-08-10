@@ -5,6 +5,6 @@ const searchController = require("../controllers/searchController");
 const searchCategoryController = require("../controllers/searcherCategoryController");
 
 router.get("/search", is_auth, searchController.searcher);
-router.get("/searchCategory/:category", is_auth, searchCategoryController.searcher)
+router.get("/search/category/:category", is_auth, searchCategoryController.searcher)
 
 module.exports = router;
