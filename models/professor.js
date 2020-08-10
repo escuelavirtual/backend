@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const teacherSchema = mongoose.Schema({
+const professorSchema = mongoose.Schema({
   courses: {
     type: Array,
     default: [],
@@ -9,4 +9,4 @@ const teacherSchema = mongoose.Schema({
   rating: Number,
 });
 
-module.exports = mongoose.model("Teacher", teacherSchema);
+module.exports = mongoose.model("Professor", professorSchema);
