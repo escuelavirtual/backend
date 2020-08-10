@@ -1,20 +1,12 @@
-const Sequelize = require('sequelize');
-const {sequelize} = require('../util/database');
-const User = require('./user')
+const mongoose = require("mongoose");
 
-const Professor = sequelize.define('professor', {
-    id_professor: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
+const professorSchema = mongoose.Schema({
+  courses: {
+    type: Array,
+    default: [],
+  },
 
-    },
-    valuation: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    }
-})
+  rating: Number,
+});
 
-
-
-module.exports = Professor;
+module.exports = mongoose.model("Professor", professorSchema);
