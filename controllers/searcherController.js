@@ -10,20 +10,47 @@ exports.searcher = async (req, res) => {
 
     try{
 
-        const {title} = req.body;
+        const {info} = req.body;
 
-        if(!title){
+        if(!info){
             return res.status(404).json({msg:"there is no course with the title supplied"});
         }
 
-        const courses = await Course.findAll({
+        const coursesTitle = await Course.findAll({
             where: {
-                title: title
+                title: info,
+                isPrivate: false
             }
         })
 
-        res.json(courses);
+        if(coursesTitle){
+            res.json(coursesTitle);
+        }
 
+        const coursesSummary = await Course.findAll({
+            where: {
+                summary: info,
+                isPrivate: false 
+            }
+        })
+
+        if(coursesSummary){
+            res.json(coursesSummary);
+        } 
+
+        const coursesOtherThings = await Course.findAll({
+            where: {
+                description: info,
+                code: info,
+                isPrivate: false
+            }
+        })
+
+        if(coursesOtherThings){
+            res.json(coursesOtherThings);
+        }
+
+        res.status(404).send({msg: "Don´t find courses"})
 
     }catch(error){
         console.log(error);

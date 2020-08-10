@@ -10,9 +10,21 @@ const Course = sequelize.define("course", {
     autoIncrement: true,
   },
 
-  parts: {
-    type: Sequelize.ARRAY,
-    defaultValue: [],
+  id_professor: {
+    type: DataTypes.INTEGER,
+
+    references: {
+      // This is a reference to another model
+      model: Professor,
+
+      // This is the column name of the referenced model
+      key: 'id_professor',
+    }
+  },
+
+  code: {
+    type: Sequelize.STRING,
+    allowNull : false
   },
 
   title: {
@@ -43,9 +55,9 @@ const Course = sequelize.define("course", {
     defaultValue: [],
   },
 
-  students: {
-    type: Sequelize.ARRAY,
-    defaultValue: [],
+  isPrivate: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 
 });
