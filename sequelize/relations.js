@@ -12,7 +12,8 @@ User.hasOne(Professor, {
 
 Professor.hasMany(Course, {
     foreignKey: {
+        name: 'id_professor',
         allowNull: false
     }
 });
-Course.belongsTo(Professor);
+// Course.belongsTo(Professor);

@@ -2,7 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const db = require('./util/database');
-require('./asociation');
+require('./sequelize/relations');
 //creation of the service
 const app = express();
 
