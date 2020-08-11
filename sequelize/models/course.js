@@ -38,6 +38,14 @@ const Course = sequelize.define('course', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
+  },
+  rating:{
+    type:Sequelize.DOUBLE,
+    allowNull:true
+  },
+  category:{
+    type:Sequelize.STRING,
+    allowNull:false
   }
 });
 
