@@ -30,13 +30,13 @@ Create table USER (
 	lastname Varchar(50) NOT NULL,
 	email Varchar(50) NOT NULL,
 	pass Varchar(50) NOT NULL,
- Primary Key (id)) ENGINE = MyISAM;
+ Primary Key (id));
 
 Create table PROFESSOR (
 	id_professor Int NOT NULL,
 	valuation Int NOT NULL,
 	UNIQUE (id_professor),
- Primary Key (id_professor)) ENGINE = MyISAM;
+ Primary Key (id_professor));
 
 Create table COURSE (
 	id_course Varchar(50) NOT NULL,
@@ -47,34 +47,39 @@ Create table COURSE (
 	end_date Date,
 	requirements Varchar(50) NOT NULL,
 	isPrivate Bool NOT NULL,
+	code Varchar(16) NOT NULL,
+	UNIQUE (code),
  Primary Key (id_course)) ENGINE = MyISAM;
 
 Create table STUDENT (
 	id_student Int NOT NULL,
 	id_group_activity Int NOT NULL,
-	UNIQUE (id_student),
+	code Varchar(16) NOT NULL,
+	UNIQUE (code),
  Primary Key (id_student)) ENGINE = MyISAM;
 
 Create table GROUP (
 	id_group Int NOT NULL AUTO_INCREMENT,
-	id_student Int NOT NULL,
 	id_course Varchar(50) NOT NULL,
+	id_student Int NOT NULL,
+	code Varchar(16) NOT NULL,
+	UNIQUE (code),
  Primary Key (id_group)) ENGINE = MyISAM;
 
 Create table EXAMINATION (
 	id_examination Int NOT NULL AUTO_INCREMENT,
-	id_student Int NOT NULL,
 	id_module Int,
 	type Varchar(50) NOT NULL,
 	name Varchar(50) NOT NULL,
 	grade Double NOT NULL,
+	id_student Int NOT NULL,
  Primary Key (id_examination)) ENGINE = MyISAM;
 
 Create table GRADE_REPORT_PER_COURSE (
 	id_grade Int NOT NULL,
-	id_student Int NOT NULL,
 	final_grade Double NOT NULL,
 	isApproved Bool NOT NULL,
+	id_student Int NOT NULL,
  Primary Key (id_grade)) ENGINE = MyISAM;
 
 Create table TOPIC (
@@ -112,7 +117,7 @@ Create table ANSWER (
 
 
 Alter table STUDENT add Foreign Key (id_student) references USER (id) on delete  restrict on update  restrict;
-Alter table PROFESSOR add Foreign Key (id_professor) references USER (id) on delete  restrict on update  restrict;
+Alter table PROFESSOR add Foreign Key (id_professor) references USER (id);
 Alter table COURSE add Foreign Key (id_professor) references PROFESSOR (id_professor) on delete  restrict on update  restrict;
 Alter table GROUP add Foreign Key (id_course) references COURSE (id_course) on delete  restrict on update  restrict;
 Alter table MODULE add Foreign Key (id_course) references COURSE (id_course) on delete  restrict on update  restrict;

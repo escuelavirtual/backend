@@ -31,6 +31,7 @@
     "mariadb": "^2.4.2",
     "mongoose": "^5.9.27",
     "mysql2": "^2.1.0",
+    "nanoid": "^3.1.12",
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.4"
   },
