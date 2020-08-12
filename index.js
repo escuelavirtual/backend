@@ -30,6 +30,7 @@ const port = process.env.PORT || 4000;
 //import routes
 app.use('/api/v1/user', require('./routes/user'));
 app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/courses', require('./routes/courses'));
 app.use('/api/v1/course',require('./routes/course'));
 app.use((error, req, res, next) => {
   console.log(error);
