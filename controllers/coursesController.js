@@ -12,7 +12,8 @@ courseCtrl.createCourse = async (req, res) => {
         requirements, 
         isPrivate, 
         rating, 
-        category } = req.body;
+        category,
+        id_professor } = req.body;
     try {
         const newCourse = await Course.create({
             code:newCodigo, 
@@ -24,7 +25,7 @@ courseCtrl.createCourse = async (req, res) => {
             isPrivate, 
             rating, 
             category,  
-            id_professor:1
+            id_professor
         },{
             fields:['code','title','description','start_date','finish_date','requirements','isPrivate', 'rating','category','createdAt','updatedAt','id_professor']
         });
@@ -38,4 +39,24 @@ courseCtrl.createCourse = async (req, res) => {
 
 
 }
+
+courseCtrl.deleteCourse = async (req,res) => {
+    let id_course=req.params.id;
+    const courseToDelete= await Course.findByPk(id_course);
+    try{
+        if(courseToDelete){
+            res.json(
+                {
+                    ok:true,
+                    message:'The sourse has been succesfully finded and it will be deleted',
+                    courseToDelete
+                });
+        await courseToDelete.destroy();      
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:'The course doesn´t exist'});
+    }
+}
+
 module.exports = courseCtrl;
