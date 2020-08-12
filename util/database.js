@@ -17,7 +17,10 @@ const sequelize = new Sequelize(
     logging: false,
   }
 );
-
+sequelize.sync()
+.then((info)=> {
+    console.log('Tables Created: ');
+});
 async function testDataBase() {
   try {
     await sequelize.authenticate();

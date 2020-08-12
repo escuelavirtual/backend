@@ -1,4 +1,4 @@
-const Course = require('../models/course')
+const Course = require('../sequelize/models/course')
 const {validationResult} = require('express-validator')
 
 //searcher course
