@@ -46,6 +46,10 @@ const Course = sequelize.define('course', {
   category:{
     type:Sequelize.STRING,
     allowNull:false
+  },
+  status:{
+    type:Sequelize.STRING,
+    allowNull:true
   }
 });
 

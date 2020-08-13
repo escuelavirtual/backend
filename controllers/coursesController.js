@@ -59,4 +59,29 @@ courseCtrl.deleteCourse = async (req,res) => {
     }
 }
 
+courseCtrl.updateCourse= async (req,res) => {
+    let updateID=req.params.id;
+    const courseUpdate=await Course.findByPk(updateID);
+    //let title=req.body.title;
+    try {
+        if(courseUpdate){
+            courseUpdate.title=req.body.title;
+            courseUpdate.save();
+            res.json(
+                {
+                ok:true,
+                message:'Test update',
+                courseUpdate  
+                });
+        }
+        
+        
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json({message:'Failed update course'});
+    }
+}
+
+
 module.exports = courseCtrl;
