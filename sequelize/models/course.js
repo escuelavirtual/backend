@@ -51,6 +51,6 @@ const Course = sequelize.define('course', {
     type:Sequelize.STRING,
     allowNull:true
   }
-});
+},{paranoid:true});
 
 module.exports = Course
