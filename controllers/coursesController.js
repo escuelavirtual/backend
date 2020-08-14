@@ -30,7 +30,7 @@ courseCtrl.createCourse = async (req, res) => {
             fields:['code','title','description','start_date','finish_date','requirements','isPrivate', 'rating','category','createdAt','updatedAt','id_professor']
         });
         if (newCourse) {
-            res.json({ message: 'course create successfully', data: newCourse });
+            res.status(201).json({ message: 'course create successfully', data: newCourse });
         }
     } catch(error) {
             console.log(error);
