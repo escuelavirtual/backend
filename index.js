@@ -4,8 +4,7 @@ const express = require('express');
 const mongoose = require('./config/db/mongoose');
 const cors = require('cors');
 const mysql = require('./config/db/mysql');
-//library for the X-WWW-FORM-URLENCODED
-const bodyParser = require('body-parser');
+
 const listEndpoints = require('express-list-endpoints');
 
 require('./sequelize/relations');
@@ -21,10 +20,8 @@ mysql.testDataBase();
 //initialize cors
 app.use(cors());
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
-//
+app.use(express.urlencoded());
+
 //enable express.json
 app.use(express.json({ extended: true }));
 
