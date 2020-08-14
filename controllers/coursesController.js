@@ -30,7 +30,7 @@ courseCtrl.createCourse = async (req, res) => {
             fields:['code','title','description','start_date','finish_date','requirements','isPrivate', 'rating','category','createdAt','updatedAt','id_professor']
         });
         if (newCourse) {
-            res.json({ message: 'course create successfully', data: newCourse });
+            res.status(201).json({ message: 'course create successfully', data: newCourse });
         }
     } catch(error) {
             console.log(error);
@@ -65,8 +65,16 @@ courseCtrl.updateCourse= async (req,res) => {
     //let title=req.body.title;
     try {
         if(courseUpdate){
-            courseUpdate.title=req.body.title;
-            courseUpdate.save();
+            courseUpdate.update(
+                {
+                    title:req.body.title,
+                    description:req.body.description,
+                    start_date:req.body.start_date,
+                    finish_date:req.body.finish_date,
+                    isPrivate:req.body.isPrivate,
+                    status:req.body.status,
+                    category:req.body.category
+                });
             res.json(
                 {
                 ok:true,
@@ -83,5 +91,24 @@ courseCtrl.updateCourse= async (req,res) => {
     }
 }
 
-
+//this method has the duty of seek all the courses, to be used in postman
+courseCtrl.searchCourse = async (req,res)=> {
+    const allCourses=await Course.findAll();
+    try{
+        if(allCourses){
+            res.json(
+                {
+                    ok:true,
+                    message:'query executed correctly',
+                    allCourses
+                });
+        }
+    }catch(error){
+        res.status(500).json(
+            {
+                ok:false,
+                error
+            })
+    }
+}
 module.exports = courseCtrl;

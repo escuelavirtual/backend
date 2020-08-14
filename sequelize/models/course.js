@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const {sequelize} = require("../../util/database");
+const {sequelize} = require("../../config/db/mysql");
 
 const Course = sequelize.define('course', {
   id_course : {
@@ -51,6 +51,6 @@ const Course = sequelize.define('course', {
     type:Sequelize.STRING,
     allowNull:true
   }
-});
+},{paranoid:true});
 
 module.exports = Course

@@ -2,7 +2,7 @@ const User = require("../sequelize/models/user");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "variables.env" });
+require("dotenv").config();
 
 exports.register = (req, res) => {
   //validate errors on request

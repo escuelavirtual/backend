@@ -1,17 +1,21 @@
+const debug =require('debug')('server:debug');
 const express = require('express');
-const connectDB = require('./config/db');
+
+const mongoose = require('./config/db/mongoose');
 const cors = require('cors');
-const db = require('./util/database');
+const mysql = require('./config/db/mysql');
 //library for the X-WWW-FORM-URLENCODED
 const bodyParser = require('body-parser');
+const listEndpoints = require('express-list-endpoints');
 
 require('./sequelize/relations');
+
 //creation of the service
 const app = express();
 
 //connecting to database
-connectDB();
-db.testDataBase();
+//mongoose.testDataBase();
+mysql.testDataBase();
 //MIDDLEWARES
 
 //initialize cors
@@ -46,7 +50,11 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
+console.log(listEndpoints(app));
+
 //run app
-app.listen(port, '0.0.0.0', () => {
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`run app from the port ${port}`);
 });
+
+module.exports = app;
