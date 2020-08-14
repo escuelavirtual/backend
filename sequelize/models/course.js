@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const {sequelize} = require("../../config/db/mysql");
 
 const Course = sequelize.define('course', {
-  id_course : {
+  id : {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,

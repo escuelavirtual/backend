@@ -3,7 +3,7 @@ const {sequelize} = require('../../config/db/mysql');
 const User = require('./user');
 
 const Professor = sequelize.define('professor', {
-    id_professor: {
+    id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
