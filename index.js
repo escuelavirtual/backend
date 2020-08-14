@@ -1,4 +1,3 @@
-const debug =require('debug')('server:debug');
 const express = require('express');
 
 const mongoose = require('./config/db/mongoose');
@@ -20,7 +19,7 @@ mysql.testDataBase();
 //initialize cors
 app.use(cors());
 // parse application/x-www-form-urlencoded
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
 //enable express.json
 app.use(express.json({ extended: true }));
