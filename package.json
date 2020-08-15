@@ -45,6 +45,7 @@
     "debug": "^4.1.1",
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0",
     "sinon": "^9.0.2"
   }
 }
