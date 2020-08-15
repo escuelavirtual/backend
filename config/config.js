@@ -1,8 +1,8 @@
 module.exports = {
   development: {
     username: 'root',
-    password: '',
-    database: 'escuela',
+    password: '240298',
+    database: 'escuela_virtual',
     host: '127.0.0.1',
     port: 3306,
     dialect: 'mysql',
