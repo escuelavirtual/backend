@@ -18,11 +18,6 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize.sync()
-.then((info)=> {
-    console.log('Tables Created: ');
-});
-
 async function testDataBase() {
   try {
     await sequelize.authenticate();
