@@ -23,10 +23,10 @@ exports.login = async (req, res, next) => {
   }
 
   try {
-    const email = req.body.email;
+    //const email = req.body.email;
     const password = req.body.password;
 
-    const fetchedUser = await User.findAll({ where: { email: email } });
+    const fetchedUser = await User.findOne({ where: { email: req.body.email } });
     if (!fetchedUser) {
       const error = new Error("User does not exists!");
       error.statusCode = 404;
