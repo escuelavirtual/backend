@@ -4,7 +4,7 @@ const Course = require('./models/course');
 
 User.hasOne(Professor, {
     foreignKey: {
-      name: 'id_professor',
+      name: 'id_user',
       allowNull: false
     }
   });

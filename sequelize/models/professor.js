@@ -1,19 +1,21 @@
 const Sequelize = require('sequelize');
-const {sequelize} = require('../../util/database');
+const {sequelize} = require('../../config/db/mysql');
 const User = require('./user');
 
 const Professor = sequelize.define('professor', {
-    id_professor: {
+    id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-
+        autoIncrement:true
     },
     valuation: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-})
+},{
+    paranoid:true
+});
 
 
 

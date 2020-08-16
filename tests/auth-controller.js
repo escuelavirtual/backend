@@ -1,7 +1,7 @@
 const expect = require("chai").expect;
 const sinon = require("sinon");
 
-const User = require("../models/user");
+const User = require("../sequelize/models/user");
 const AuthController = require("../controllers/authController");
 const bcrypt = require("bcrypt");
 

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USERNAME,
@@ -16,10 +17,7 @@ const sequelize = new Sequelize(
     logging: false,
   }
 );
-sequelize.sync()
-.then((info)=> {
-    console.log('Tables Created: ');
-});
+
 async function testDataBase() {
   try {
     await sequelize.authenticate();

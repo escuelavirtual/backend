@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
-const {sequelize} = require("../../util/database");
+const {sequelize} = require("../../config/db/mysql");
 
 const Course = sequelize.define('course', {
-  id_course : {
+  id : {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -20,10 +20,10 @@ const Course = sequelize.define('course', {
     type: Sequelize.STRING,
     allowNull : false,
   },
-  start_date: {
+  startedAt: {
     type: Sequelize.DATE
   },
-  finish_date: {
+  finishedAt: {
     type: Sequelize.DATE,
   },
   requirements: {
@@ -44,13 +44,13 @@ const Course = sequelize.define('course', {
     allowNull:true
   },
   category:{
-    type:Sequelize.STRING,
+    type:Sequelize.INTEGER,
     allowNull:false
   },
   status:{
     type:Sequelize.STRING,
     allowNull:true
   }
-});
+},{paranoid:true});
 
 module.exports = Course

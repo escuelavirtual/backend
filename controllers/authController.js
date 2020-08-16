@@ -2,7 +2,7 @@ const User = require("../sequelize/models/user");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "variables.env" });
+require("dotenv").config();
 
 exports.register = (req, res) => {
   //validate errors on request
@@ -23,10 +23,10 @@ exports.login = async (req, res, next) => {
   }
 
   try {
-    const email = req.body.email;
+    //const email = req.body.email;
     const password = req.body.password;
 
-    const fetchedUser = await User.findAll({ where: { email: email } });
+    const fetchedUser = await User.findOne({ where: { email: req.body.email } });
     if (!fetchedUser) {
       const error = new Error("User does not exists!");
       error.statusCode = 404;
@@ -60,3 +60,18 @@ exports.login = async (req, res, next) => {
     return err;
   }
 };
+
+exports.verifyToken=(req,res,next)=>{
+  let token=req.get('token');//Authenticate
+  jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
+    //decoded is the payload
+    if(error){
+      return res.status(401).json({
+        ok:false,
+        error
+      });
+    }
+    req.user=decoded.user;  
+  });
+  next();
+}

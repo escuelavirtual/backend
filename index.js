@@ -1,26 +1,26 @@
 const express = require('express');
-const connectDB = require('./config/db');
+
+const mongoose = require('./config/db/mongoose');
 const cors = require('cors');
-const db = require('./util/database');
-//library for the X-WWW-FORM-URLENCODED
-const bodyParser = require('body-parser');
+const mysql = require('./config/db/mysql');
+
+const listEndpoints = require('express-list-endpoints');
 
 require('./sequelize/relations');
+
 //creation of the service
 const app = express();
 
 //connecting to database
-connectDB();
-db.testDataBase();
+//mongoose.testDataBase();
+mysql.testDataBase();
 //MIDDLEWARES
 
 //initialize cors
 app.use(cors());
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
-//
+app.use(express.urlencoded({ extended: false }));
+
 //enable express.json
 app.use(express.json({ extended: true }));
 
@@ -32,6 +32,7 @@ app.use('/api/v1/user', require('./routes/user'));
 app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/courses', require('./routes/courses'));
 app.use('/api/v1/course',require('./routes/course'));
+app.use('/api/v1/login',require('./routes/login'));
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -46,7 +47,11 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
+console.log(listEndpoints(app));
+
 //run app
-app.listen(port, '0.0.0.0', () => {
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`run app from the port ${port}`);
 });
+
+module.exports = app;
