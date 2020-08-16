@@ -9,7 +9,7 @@ Para instalar este proyecto, clona el repositorio.
 Luego en tu terminal:
 * `cd ruta / a / su / clon`
 * `npm install`
-* `prueba npm`
+* `npm test`
 
 Cambie el nombre del archivo ubicado en el directorio principal `.env.example` a` .env` si aún no lo ha hecho.
 
