@@ -1,6 +1,6 @@
 const User = require("../sequelize/models/user");
 const {validationResult} = require("express-validator");
-
+const bcrypt=require('bcrypt');
 
 //create user
 
@@ -14,10 +14,15 @@ exports.createUser = async (req, res) => {
 
     try{
         //create user with req.body
-        const user = new User(req.body);
-
+        //const user = new User(req.body);
+        const user= await User.create({
+                firstname:req.body.firstname,
+                lastname:req.body.lastname,
+                email:req.body.email,
+                password:bcrypt.hashSync(req.body.password,10)
+        })
         //save user in the database
-        await user.save()
+        //await user.save()
 
         //return a json with the user
         res.json(user);

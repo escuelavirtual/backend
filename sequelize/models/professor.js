@@ -7,13 +7,15 @@ const Professor = sequelize.define('professor', {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-
+        autoIncrement:true
     },
     valuation: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-})
+},{
+    paranoid:true
+});
 
 
 

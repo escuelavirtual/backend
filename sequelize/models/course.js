@@ -20,10 +20,10 @@ const Course = sequelize.define('course', {
     type: Sequelize.STRING,
     allowNull : false,
   },
-  start_date: {
+  startedAt: {
     type: Sequelize.DATE
   },
-  finish_date: {
+  finishedAt: {
     type: Sequelize.DATE,
   },
   requirements: {
@@ -44,7 +44,7 @@ const Course = sequelize.define('course', {
     allowNull:true
   },
   category:{
-    type:Sequelize.STRING,
+    type:Sequelize.INTEGER,
     allowNull:false
   },
   status:{
