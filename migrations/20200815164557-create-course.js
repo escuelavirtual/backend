@@ -63,9 +63,19 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addColumn(
+      'courses',
+      'deletedAt',
+      {
+          type: Sequelize.DATE,
+          allowNull: true,
+          validate: {
+          }
+      });
   },
-
+  
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('courses');
+    await queryInterface.removeColumn('courses' ,'deletedAt');
   }
 };
