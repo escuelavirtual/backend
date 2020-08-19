@@ -1,7 +1,7 @@
 const {Router}=require('express');
 const router = Router();
 const {createCourse,deleteCourse,updateCourse,searchCourse}=require('../controllers/coursesController');
-const {verifyToken}=require('../controllers/authController');
+const {verifyToken}=require('../middlewares/is-auth');
 
 router.post('/',verifyToken, createCourse);
 router.delete('/:id',verifyToken,deleteCourse);
