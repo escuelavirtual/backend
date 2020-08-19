@@ -42,10 +42,8 @@ app.use((error, req, res, next) => {
 
 //home page
 app.get('/', (req, res) => {
-  res.send('hello world');
+  res.send(listEndpoints(app));
 });
-
-console.log(listEndpoints(app));
 
 //run app
 const server = app.listen(port, '0.0.0.0', () => {
