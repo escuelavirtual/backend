@@ -35,6 +35,8 @@ Se utilizara el estilo UPPERCASE para los nombres de las variables globales
 
 Es deseable el uso del estilo PascalCase para los nombres de las clases.
 
+Para más detalles, consulte esta [guía](https://google.github.io/styleguide/jsguide.html)
+
 ### API Endpoints
 
 Utilizaremos versiones para los Endpoints, puedes encontrar información sobre las mismas en estos recursos.
