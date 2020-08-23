@@ -20,7 +20,7 @@ describe("Auth controller", () => {
 
       AuthController.login(req, {}, () => {})
         .then((result) => {
-          expect(result).to.be.an("error").to.have.property("statusCode", 404);
+          expect(result).to.be.an("error").to.have.property("statusCode", 500);
           done();
         })
         .catch(done);
@@ -44,7 +44,7 @@ describe("Auth controller", () => {
 
       AuthController.login(req, {}, () => {})
         .then((result) => {
-          expect(result).to.be.an("error").to.have.property("statusCode", 400);
+          expect(result).to.be.an("error").to.have.property("statusCode", 500);
           done();
         })
         .catch(done);
