@@ -4,9 +4,9 @@
   "description": "backend en node.js con express, mongoose, jsonwebtoken y dotenv",
   "main": "index.js",
   "scripts": {
-     "test": "mocha tests/ --recursive --exec babel-node --exit",
+    "test": "mocha test/ --require @babel/register",
     "start": "node .",
-    "dev": "nodemon --exec babel-node index.js",
+    "dev": "nodemon index.js --exec babel-node",
     "eslint": "eslint index.js"
   },
   "repository": {
@@ -23,6 +23,7 @@
   "author": "escueladigital",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -42,10 +43,12 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
     "babel-cli": "^6.26.0",
     "babel-preset-node8": "^1.2.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "config": "^3.3.1",

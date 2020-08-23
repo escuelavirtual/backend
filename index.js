@@ -53,4 +53,4 @@ app.listen(port, "0.0.0.0", () => {
     console.log(`run app from the port ${port}`);
 });
 
-export default app;
+module.exports = app;
