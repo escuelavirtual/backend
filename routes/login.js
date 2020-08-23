@@ -1,6 +1,7 @@
-const express=require('express');
+import express from 'express';
+import  authController from '../controllers/authController';
 const router=express.Router();
-const authController=require('../controllers/authController');
+
 
 router.post('/',authController.login);
 

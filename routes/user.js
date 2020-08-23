@@ -1,7 +1,9 @@
-const express = require("express");
+import express from "express"
+import {check} from "express-validator"
+import userController from "../controllers/userController"
 const router = express.Router();
-const {check} = require("express-validator"); //library for validation user data
-const userController = require("../controllers/userController");
+// const {check} = require("express-validator"); //library for validation user data
+// const userController = require("../controllers/userController");
 
 //create user
 //this endpoint receives the path and middlewares for the user data
