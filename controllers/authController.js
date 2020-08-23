@@ -8,7 +8,7 @@ exports.register = (req, res) => {
   //validate errors on request
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(500).json({ errors: errors.array() });
   }
 
   //TODO:
@@ -19,7 +19,7 @@ exports.register = (req, res) => {
 exports.login = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(500).json({ errors: errors.array() });
   }
 
   try {
@@ -27,21 +27,22 @@ exports.login = async (req, res, next) => {
     const password = req.body.password;
 
     const fetchedUser = await User.findOne({ where: { email: req.body.email } });
+    
     if (!fetchedUser) {
       const error = new Error("User does not exists!");
-      error.statusCode = 404;
+      error.statusCode = 500;
       throw error;
     }
 
     const arePasswordEqual = await bcrypt.compare(password, fetchedUser.password);
     if (!arePasswordEqual) {
       const error = new Error("Passwords does not match!");
-      error.statusCode = 400;
+      error.statusCode = 500;
       throw error;
     }
     const token = jwt.sign(
       {
-        username: fetchedUser.username,
+        email: fetchedUser.email,
         password: fetchedUser.password,
       },
       process.env.JWT_SECRET,
@@ -61,17 +62,3 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.verifyToken=(req,res,next)=>{
-  let token=req.get('token');//Authenticate
-  jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
-    //decoded is the payload
-    if(error){
-      return res.status(401).json({
-        ok:false,
-        error
-      });
-    }
-    req.user=decoded.user;  
-  });
-  next();
-}

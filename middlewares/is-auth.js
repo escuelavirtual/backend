@@ -1,29 +1,19 @@
+//require("dotenv").config();
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
-module.exports = (req, res, next) => {
-  const authHeader = req.get("Authorization");
-  if (!authHeader) {
-    const error = new Error("Not authenticated.");
-    error.statusCode = 401;
-    throw error;
-  }
-  const token = authHeader.split(" ")[1];
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(token, process.env.SECRETA);
-  } catch (err) {
-    err.statusCode = 500;
-    throw err;
-  }
-  if (!decodedToken) {
-    const error = new Error("Not authenticated.");
-    error.statusCode = 401;
-    throw error;
-  }
 
-  //TODO:
-  //variables a devolver
-  //req.username = decodedToken.username;
+exports.verifyToken=(req,res,next)=>{
+  let token=req.body.token;//Authenticate
+  
+  jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
+    //decoded is the payload
+    if(error){
+      return res.status(401).json({
+        ok:false,
+        error
+      });
+    }
+    req.user=decoded.user;  
+  });
   next();
-};
+}

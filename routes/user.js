@@ -11,5 +11,5 @@ router.post("/", [
     check('password', 'password is required').not().isEmpty(),
     check('email', 'Email is required').not().isEmpty()
 ], userController.createUser);
-
+//router.get("/",userController.getUsers);
 module.exports = router;
