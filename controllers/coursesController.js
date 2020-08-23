@@ -4,37 +4,27 @@ const courseCtrl = {};
 
 
 courseCtrl.createCourse = async (req, res) => {
-    const newCodigo = nanoid(10);
+    const newCode = nanoid(10);
     const { title, 
         description, 
-        start_date, 
-        finish_date, 
-        requirements, 
-        isPrivate, 
-        rating, 
+        isPrivate,
         category,
         id_professor } = req.body;
     try {
         const newCourse = await Course.create({
-            code:newCodigo, 
-            title, 
-            description, 
-            start_date, 
-            finish_date, 
-            requirements, 
-            isPrivate, 
-            rating, 
-            category,  
-            id_professor
-        },{
-            fields:['code','title','description','start_date','finish_date','requirements','isPrivate', 'rating','category','createdAt','updatedAt','id_professor']
-        });
-        if (newCourse) {
-            res.status(201).json({ message: 'course create successfully', data: newCourse });
-        }
+            invitationCode:newCode, 
+            title: title, 
+            description: description,              
+            isPrivate: isPrivate,         
+            category: category,  
+            id_professor: id_professor
+        })
+        
+        res.status(201).json({ message: 'course create successfully', data: newCourse });
+        
     } catch(error) {
             console.log(error);
-            res.status(500).json({message:'Error-No se almaceno en la BD MySql'})
+            res.status(500).json({message:'an error has ocurred'})
     }
 
 

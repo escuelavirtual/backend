@@ -9,7 +9,7 @@ exports.createUser = async (req, res) => {
     //we check if there is an error with the request
     const errores = validationResult(req);
     if(!errores){
-        return res.status(400).json({errores:errores.array()});
+        return res.status(500).json({errores:errores.array()});
     }
 
     try{
@@ -25,7 +25,7 @@ exports.createUser = async (req, res) => {
         //await user.save()
 
         //return a json with the user
-        res.json(user);
+        res.status(201).json(user);
     }catch(error){
         console.log(error);
         res.status(500).json({msg:"There was a mistake"});

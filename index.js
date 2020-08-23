@@ -1,5 +1,5 @@
 const express = require('express');
-
+const bodyParser = require('body-parser');
 const mongoose = require('./config/db/mongoose');
 const cors = require('cors');
 const mysql = require('./config/db/mysql');
@@ -18,14 +18,15 @@ mysql.testDataBase();
 
 //initialize cors
 app.use(cors());
-// parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: false }));
 
 //enable express.json
-app.use(express.json({ extended: true }));
+app.use(bodyParser.json());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //app port
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 //import routes
 app.use('/api/v1/user', require('./routes/user'));

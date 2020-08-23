@@ -1,0 +1,32 @@
+POST http://localhost:3000/api/v1/user HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Alejandro",
+    "lastname": "Cayssials",
+    "email": "demo@webxander.com",
+    "password": "secret"
+}
+
+###
+
+POST http://localhost:3000/api/v1/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "demo@webxander.com",
+    "password": "secret"
+}
+
+###
+
+POST http://localhost:3000/api/v1/courses HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Curso de PHP 2",
+    "id_professor": 1,
+    "description": "Cursito de PHP 2",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDZTaDFadHY1bG5xdEpXQS5FaUVzVGVacllEWkd0UG1yZnRrci5rQVNqLk5yQktLc0JobTBtIiwiaWF0IjoxNTk4MDgwNzUzLCJleHAiOjE2MDI0MDA3NTN9.fITMz4Yv5a7-B71q-PE_WTbihPCfma_IWYHc78Y7TMA"
+}
+
