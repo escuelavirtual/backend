@@ -19,9 +19,9 @@ module.exports = {
          createdAt: new Date(),
       updatedAt: new Date()
     },{
-        name: 'Programacion',
-        slug: 'Programacion',
-         createdAt: new Date(),
+       name: 'Programacion',
+       slug: 'Programacion',
+        createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
