@@ -1,7 +1,8 @@
-import express from "express"
-import {check} from "express-validator"
-import userController from "../controllers/userController"
+const express = require("express");
 const router = express.Router();
+const {check} = require("express-validator"); //library for validation user data
+const userController = require("../controllers/userController");
+
 // const {check} = require("express-validator"); //library for validation user data
 // const userController = require("../controllers/userController");
 

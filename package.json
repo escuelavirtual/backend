@@ -4,9 +4,9 @@
   "description": "backend en node.js con express, mongoose, jsonwebtoken y dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/ --require @babel/register",
+    "test": "mocha tests/ --recursive --exec babel-node --exit",
     "start": "node .",
-    "dev": "nodemon index.js --exec babel-node",
+    "dev": "nodemon index.js",
     "eslint": "eslint index.js"
   },
   "repository": {
@@ -40,15 +40,8 @@
     "sequelize": "^6.3.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.4",
-    "@babel/node": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/register": "^7.10.5",
     "babel-cli": "^6.26.0",
     "babel-preset-node8": "^1.2.0",
-    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "config": "^3.3.1",

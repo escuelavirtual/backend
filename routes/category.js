@@ -1,4 +1,4 @@
-import {Router} from 'express';
+const {Router}=require('express');
 const ListCategory = require("../controllers/CategoryController.js")
 
 const router = Router();

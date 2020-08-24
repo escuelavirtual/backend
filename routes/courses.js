@@ -1,7 +1,7 @@
-import {Router} from 'express';
-import {createCourse,deleteCourse,updateCourse,searchCourse} from '../controllers/coursesController';
-import {verifyToken} from '../middlewares/is-auth';
+const {Router}=require('express');
 const router = Router();
+const {createCourse,deleteCourse,updateCourse,searchCourse}=require('../controllers/coursesController');
+const {verifyToken}=require('../middlewares/is-auth');
 
 
 router.post('/',verifyToken, createCourse);

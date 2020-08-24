@@ -1,8 +1,6 @@
-import  User from "../sequelize/models/user"
-import {validationResult} from "express-validator"
-import  bcrypt from 'bcrypt'
-
-//create user
+const User = require("../sequelize/models/user");
+const {validationResult} = require("express-validator");
+const bcrypt=require('bcrypt')
 
 exports.createUser = async (req, res) => {
 

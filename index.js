@@ -1,12 +1,11 @@
-import express from "express";
-import cors from "cors";
-import mysql from "./config/db/mysql";
-import listEndpoints from "express-list-endpoints";
-import morgan from "morgan";
-import assert from 'assert';
+const express = require("express");
+const cors = require("cors");
+const mysql = require("./config/db/mysql");
+const morgan = require("morgan");
+const listEndpoints = require("express-list-endpoints");
 
 // require("./sequelize/relations");
-import "./sequelize/relations";
+require("./sequelize/relations");
 
 //creation of the service
 const app = express();

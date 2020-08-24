@@ -1,13 +1,9 @@
-// const expect = require("chai").expect;
-import {expect} from "chai"
-// const sinon = require("sinon");
-import sinon from "sinon"
-// const User = require("../sequelize/models/user");
-import User  from "../sequelize/models/user"
-// const AuthController = require("../controllers/authController");
-import AuthController from "../controllers/authController.js"
-// const bcrypt = require("bcrypt");
-import bcrypt from "bcrypt"
+const expect = require("chai").expect;
+const sinon = require("sinon");
+
+const User = require("../sequelize/models/user");
+const AuthController = require("../controllers/authController");
+const bcrypt = require("bcrypt");
 
 describe("Auth controller", () => {
   describe("Login", () => {
