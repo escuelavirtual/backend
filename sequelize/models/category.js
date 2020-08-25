@@ -9,11 +9,11 @@ const Category = sequelize.define('categories', {
     autoIncrement: true,
   },
   name: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(60),
     allowNull: false,
   },
   slug: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(60),
     allowNull: false,
   }
 });
