@@ -3,15 +3,19 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Enrollments', {
       //se require comentar students
-      id_student: {
+      student_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'students', key: 'id' }
       },
-      id_course: {
+      course_id: {
          type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'courses', key: 'id' }
+      },
+      calification:{
+        type: Sequelize.DOUBLE,
+        allowNull: false,
       }
     });
   },

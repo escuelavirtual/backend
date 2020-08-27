@@ -9,12 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       //se requiere comentar group_activiy
-      id_group_activity:{
+      group_activity_id:{
         type:Sequelize.INTEGER,
         references:{model:'group_activities',key:'id'},
         allowNull:false
       },
-      id_user:{
+      user_id:{
          type:Sequelize.INTEGER,
          allowNull:false,
          references:{model:'users',key:'id'}

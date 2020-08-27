@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      id_professor: {
+      professor_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'professors', key: 'id' }
@@ -19,7 +19,7 @@ module.exports = {
         allowNull : false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull : false,
       },
       requirements: {
@@ -39,7 +39,7 @@ module.exports = {
         type:Sequelize.DOUBLE,
         allowNull:true
       },
-      category:{
+      category_id:{
         type:Sequelize.INTEGER,
         allowNull:false,
         references: { model: 'categories', key: 'id' }
