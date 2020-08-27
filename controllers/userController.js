@@ -1,8 +1,6 @@
 const User = require("../sequelize/models/user");
 const {validationResult} = require("express-validator");
-const bcrypt=require('bcrypt');
-
-//create user
+const bcrypt=require('bcrypt')
 
 exports.createUser = async (req, res) => {
 

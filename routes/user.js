@@ -3,6 +3,9 @@ const router = express.Router();
 const {check} = require("express-validator"); //library for validation user data
 const userController = require("../controllers/userController");
 
+// const {check} = require("express-validator"); //library for validation user data
+// const userController = require("../controllers/userController");
+
 //create user
 //this endpoint receives the path and middlewares for the user data
 router.post("/", [
