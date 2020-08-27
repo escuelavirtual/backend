@@ -34,7 +34,7 @@ app.use("/api/v1/user", require("./routes/user"));
 app.use("/api/v1/courses", require("./routes/courses"));
 app.use("/api/v1/login",require("./routes/login"));
 app.use("/api/v1/category",require("./routes/category"));
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
     console.log(error);
     const status = error.statusCode || 500;
     const message = error.message;
