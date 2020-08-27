@@ -1,11 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const mysql = require("./config/db/mysql");
+const express = require('express');
+const bodyParser = require('body-parser');
+//const mongoose = require('./config/db/mongoose');
+const cors = require('cors');
+const mysql = require('./config/db/mysql');
 const morgan = require("morgan");
-const listEndpoints = require("express-list-endpoints");
+const listEndpoints = require('express-list-endpoints');
 
-// require("./sequelize/relations");
-require("./sequelize/relations");
+require('./sequelize/relations');
 
 //creation of the service
 const app = express();
@@ -18,14 +19,15 @@ app.use(morgan("dev"));
 
 //initialize cors
 app.use(cors());
-// parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: false }));
 
 //enable express.json
-app.use(express.json({ extended: true }));
+app.use(bodyParser.json());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //app port
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 //import routes
 app.use("/api/v1/user", require("./routes/user"));

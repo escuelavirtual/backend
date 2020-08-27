@@ -8,10 +8,6 @@ const Course = sequelize.define('courses', {
     primaryKey: true,
     autoIncrement: true,
   },
-  code: {
-    type: Sequelize.STRING,
-    allowNull : false
-  },
   title: {
     type: Sequelize.STRING,
     allowNull : false,
@@ -19,12 +15,6 @@ const Course = sequelize.define('courses', {
   description: {
     type: Sequelize.STRING,
     allowNull : false,
-  },
-  startedAt: {
-    type: Sequelize.DATE
-  },
-  finishedAt: {
-    type: Sequelize.DATE,
   },
   requirements: {
     type: Sequelize.STRING
@@ -34,9 +24,9 @@ const Course = sequelize.define('courses', {
     allowNull: false,
     defaultValue: false,
   },
-  code: {
+  invitationCode: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true
   },
   rating:{
@@ -45,11 +35,23 @@ const Course = sequelize.define('courses', {
   },
   category:{
     type:Sequelize.INTEGER,
-    allowNull:false
+    allowNull:true
   },
   status:{
     type:Sequelize.STRING,
     allowNull:true
+  },
+  startedAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  finishedAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  deletedAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
   }
 },{
   paranoid:true

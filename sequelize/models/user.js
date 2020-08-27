@@ -23,7 +23,13 @@ const User = sequelize.define('users', {
   password: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  deletedAt: {
+      type: Sequelize.DATE,
+      allowNull: true,
   }
+},{
+  paranoid:true
 });
 
 

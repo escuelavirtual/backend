@@ -1,0 +1,33 @@
+POST http://localhost:3000/api/v1/user HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "User",
+    "lastname": "Demo",
+    "email": "demo@webxander.com",
+    "password": "secret"
+}
+
+###
+
+POST http://localhost:3000/api/v1/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "demo@webxander.com",
+    "password": "secret"
+}
+
+###
+
+POST http://localhost:3000/api/v1/courses HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDZTaDFadHY1bG5xdEpXQS5FaUVzVGVacllEWkd0UG1yZnRrci5rQVNqLk5yQktLc0JobTBtIiwiaWF0IjoxNTk4MjI2ODY1LCJleHAiOjE2MDI1NDY4NjV9.SE0zPr2x4O_XGEVVLD7Vd4un0Ak7yLBea7WXv9u1d34
+
+{
+    "title": "Curso de PHP 2",
+    "id_professor": 1,
+    "category": 1,
+    "description": "Cursito de PHP 2"
+}
+

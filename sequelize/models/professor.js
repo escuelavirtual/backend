@@ -11,6 +11,10 @@ const Professor = sequelize.define('professors', {
     valuation: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
     }
 },{
     paranoid:true
