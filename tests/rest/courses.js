@@ -1,3 +1,4 @@
+  
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require("jsonwebtoken");
@@ -6,7 +7,6 @@ const bcrypt = require('bcrypt');
 const app = require('../../index');
 
 const { expect } = chai;
-
 chai.use(chaiHttp);
 
 describe('Create course', () => {

@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 const {sequelize} = require('../../config/db/mysql');
-const User = require('./user');
 
-const Professor = sequelize.define('professor', {
+const Professor = sequelize.define('professors', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
