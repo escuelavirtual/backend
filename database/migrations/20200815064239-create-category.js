@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING(50),
          allowNull: false,
       },
-     createdAt: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
@@ -27,6 +27,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Categories');
+    await queryInterface.dropTable('categories');
   }
 };

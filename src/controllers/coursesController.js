@@ -1,5 +1,5 @@
-const Course = require('../sequelize/models/course');
-const {nanoid}=require('nanoid');
+const Course = require('../models/course');
+const { nanoid } = require('nanoid');
 const courseCtrl = {};
 
 
@@ -8,16 +8,16 @@ courseCtrl.createCourse = async (req, res) => {
     const { title, 
         description, 
         isPrivate,
-        category,
-        id_professor } = req.body;
+        categoryId,
+        professorId } = req.body;
     try {
         const newCourse = await Course.create({
             invitationCode:newCode, 
             title: title, 
             description: description,              
             isPrivate: isPrivate,         
-            category: category,  
-            id_professor: id_professor
+            categoryId: categoryId,  
+            professorId: professorId
         })
         
         res.status(201).json({ message: 'course create successfully', data: newCourse });
@@ -31,8 +31,8 @@ courseCtrl.createCourse = async (req, res) => {
 }
 
 courseCtrl.deleteCourse = async (req,res) => {
-    let id_course=req.params.id;
-    const courseToDelete= await Course.findByPk(id_course);
+    let courseId=req.params.id;
+    const courseToDelete= await Course.findByPk(courseId);
     try{
         if(courseToDelete){
             res.json(
@@ -50,8 +50,8 @@ courseCtrl.deleteCourse = async (req,res) => {
 }
 
 courseCtrl.updateCourse= async (req,res) => {
-    let updateID=req.params.id;
-    const courseUpdate=await Course.findByPk(updateID);
+    let courseId = req.params.id;
+    const courseUpdate = await Course.findByPk(courseId);
     //let title=req.body.title;
     try {
         if(courseUpdate){
@@ -63,7 +63,7 @@ courseCtrl.updateCourse= async (req,res) => {
                     finish_date:req.body.finish_date,
                     isPrivate:req.body.isPrivate,
                     status:req.body.status,
-                    category:req.body.category
+                    categoryId:req.body.categoryId
                 });
             res.json(
                 {

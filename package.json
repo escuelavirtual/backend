@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "backend en node.js con express, mongoose, jsonwebtoken y dotenv",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha tests/ --recursive --exec babel-node --exit",
     "start": "node .",
-    "dev": "nodemon index.js",
-    "eslint": "eslint index.js"
+    "dev": "nodemon .",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "nodemon",
     "dotenv"
   ],
-  "author": "escueladigital",
+  "author": "Escuela Virtual",
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.11.2",

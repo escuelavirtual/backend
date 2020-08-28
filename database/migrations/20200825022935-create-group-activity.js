@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_module:{
+      moduleId:{
         type:Sequelize.INTEGER,
         allowNull: false,
-        references:{model:'modules',key:'id'}
+        references: { model: 'modules', key: 'id' }
       },
       activity_name: {
         type: Sequelize.STRING(50),

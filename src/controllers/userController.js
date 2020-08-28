@@ -1,13 +1,13 @@
-const User = require("../sequelize/models/user");
+const User = require("../models/user");
 const {validationResult} = require("express-validator");
-const bcrypt=require('bcrypt')
+const bcrypt = require("bcrypt");
 
 exports.createUser = async (req, res) => {
 
     //we check if there is an error with the request
-    const errores = validationResult(req);
-    if(!errores){
-        return res.status(500).json({errores:errores.array()});
+    const err = validationResult(req);
+    if(!err){
+        return res.status(500).json({err: err.array()});
     }
 
     try{

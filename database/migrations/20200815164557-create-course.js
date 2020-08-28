@@ -9,10 +9,15 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      id_professor: {
+      professorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'professors', key: 'id' }
+      },
+      categoryId:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references: { model: 'categories', key: 'id' }
       },
       title: {
         type: Sequelize.STRING,
@@ -30,7 +35,7 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      code: {
+      invitationCode: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
@@ -38,11 +43,6 @@ module.exports = {
       rating:{
         type:Sequelize.DOUBLE,
         allowNull:true
-      },
-      category:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references: { model: 'categories', key: 'id' }
       },
       status:{
         type:Sequelize.STRING,
@@ -60,6 +60,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DATE
       }
     });

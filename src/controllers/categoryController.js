@@ -1,8 +1,8 @@
-const Category = require('../sequelize/models/category')
+const Category = require('../models/category')
 
 
 //list category
-exports.listcategory = async (req, res) => {
+exports.listCategories = async (req, res) => {
 
     const id = req.params.id
    try{

@@ -1,7 +1,9 @@
-const Sequelize = require('sequelize');
-const {sequelize} = require('../../config/db/mysql');
+const Sequelize = require("sequelize");
+const { sequelize } = require("../../config/db/mysql");
+const Course = require("./course");
+const User = require("./user");
 
-const Professor = sequelize.define('professors', {
+const Professor = sequelize.define("professors", {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -20,6 +22,7 @@ const Professor = sequelize.define('professors', {
     paranoid:true
 });
 
+Professor.hasMany(Course);
 
 
 module.exports = Professor;

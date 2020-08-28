@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
-const {sequelize} = require("../../config/db/mysql");
+const { sequelize } = require("../../config/db/mysql");
 
 const Course = sequelize.define('courses', {
-  id : {
+  id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -33,7 +33,7 @@ const Course = sequelize.define('courses', {
     type:Sequelize.DOUBLE,
     allowNull:true
   },
-  category:{
+  categoryId:{
     type:Sequelize.INTEGER,
     allowNull:true
   },
@@ -56,5 +56,7 @@ const Course = sequelize.define('courses', {
 },{
   paranoid:true
 });
+
+//Course.belongsTo(Professor);
 
 module.exports = Course

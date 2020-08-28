@@ -1,4 +1,7 @@
-const Modules = sequelize.define('Modules', {
+const Sequelize = require('sequelize');
+const { sequelize } = require('../../config/db/mysql');
+
+const Module = sequelize.define('modules', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -15,4 +18,4 @@ const Modules = sequelize.define('Modules', {
 
 
 
-module.exports = Modules;
+module.exports = Module;

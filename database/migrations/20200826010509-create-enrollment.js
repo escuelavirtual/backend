@@ -1,14 +1,14 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Enrollments', {
+    await queryInterface.createTable('enrollments', {
       //se require comentar students
-      id_student: {
+      studentId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'students', key: 'id' }
       },
-      id_course: {
+      courseId: {
          type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'courses', key: 'id' }
@@ -16,6 +16,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Enrollments');
+    await queryInterface.dropTable('enrollments');
   }
 };

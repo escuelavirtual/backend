@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {check} = require("express-validator"); //library for validation user data
-const userController = require("../controllers/userController");
+const userController = require("../../controllers/userController");
 
 // const {check} = require("express-validator"); //library for validation user data
 // const userController = require("../controllers/userController");
