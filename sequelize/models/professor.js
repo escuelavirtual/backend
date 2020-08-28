@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const {sequelize} = require('../../config/db/mysql');
+const Sequelize = require("sequelize");
+const {sequelize} = require("../../config/db/mysql");
 
-const Professor = sequelize.define('professors', {
+const Professor = sequelize.define("professors", {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,

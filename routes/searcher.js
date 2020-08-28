@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {verifyToken} = require("../middlewares/is-auth");
-const searchController = require("../controllers/searchController");
-const searchCategoryController = require("../controllers/searcherCategoryController");
+const SearchController = require("../controllers/SearchController");
+const SearchCategoryController = require("../controllers/SearcherCategoryController");
 
-router.get("/search", verifyToken, searchController.searcher);
-router.get("/search/category/:category", verifyToken, searchCategoryController.searcher)
+router.get("/search", SearchController.searcher);
+router.get("/search/category/:category", SearchCategoryController.searcher);
 
 module.exports = router;

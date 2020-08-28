@@ -1,5 +1,5 @@
 const Course = require("../sequelize/models/course");
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 
 //Searcher course with category
 exports.searcher = async (req, res) => {
@@ -12,7 +12,7 @@ exports.searcher = async (req, res) => {
         const summary = req.params.category;
 
         if(!summary){
-            return res.status(400).send("Don´t have a category")
+            return res.status(400).send("Don´t have a category");
         }
 
         const course = Course.findAll({
@@ -20,11 +20,11 @@ exports.searcher = async (req, res) => {
                 summary,
                 isPrivate: false
             }
-        })
+        });
 
         res.json(course);
     }catch(error){
         console.log(error);
         res.status(500).json({msg:error});
     }
-}
+};

@@ -1,6 +1,6 @@
-const {DataTypes} = require('sequelize');
-const {sequelize} = require('../../config/db/mysql');
-const Professor = sequelize.define('professors', {
+const {DataTypes} = require("sequelize");
+const {sequelize} = require("../../config/db/mysql");
+const Professor = sequelize.define("professors", {
 
     id: {
         type: DataTypes.INTEGER,
@@ -9,20 +9,20 @@ const Professor = sequelize.define('professors', {
         autoIncrement:true
     },
     activity_name:{
-      type:DataTypes.STRING(50),
-       allowNull:false
+        type:DataTypes.STRING(50),
+        allowNull:false
     },
     instructions:{
-      type:DataTypes.STRING(200),
-      allowNull:false
+        type:DataTypes.STRING(200),
+        allowNull:false
     },
     grade:{
-      type:DataTypes.DOUBLE,
-      allowNull:false
+        type:DataTypes.DOUBLE,
+        allowNull:false
     },
     comments:{
-      type:DataTypes.STRING(200),
-      allowNull:false
+        type:DataTypes.STRING(200),
+        allowNull:false
     }
 
 },{

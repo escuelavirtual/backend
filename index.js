@@ -1,12 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 //const mongoose = require('./config/db/mongoose');
-const cors = require('cors');
-const mysql = require('./config/db/mysql');
+const cors = require("cors");
+const mysql = require("./config/db/mysql");
 const morgan = require("morgan");
-const listEndpoints = require('express-list-endpoints');
+const listEndpoints = require("express-list-endpoints");
 
-require('./sequelize/relations');
+require("./sequelize/relations");
 
 //creation of the service
 const app = express();

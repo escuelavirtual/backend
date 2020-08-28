@@ -1,7 +1,7 @@
-const Course = require('../sequelize/models/course');
-const {nanoid}=require('nanoid');
-const courseCtrl = {};
+const Course = require("../sequelize/models/course");
+const { nanoid } = require("nanoid");
 
+const courseCtrl = {};
 
 courseCtrl.createCourse = async (req, res) => {
     const newCode = nanoid(10);
@@ -18,17 +18,15 @@ courseCtrl.createCourse = async (req, res) => {
             isPrivate: isPrivate,         
             category: category,  
             id_professor: id_professor
-        })
+        });
         
-        res.status(201).json({ message: 'course create successfully', data: newCourse });
+        res.status(201).json({ message: "course create successfully", data: newCourse });
         
     } catch(error) {
-            console.log(error);
-            res.status(500).json({message:'an error has ocurred'})
+        console.log(error);
+        res.status(500).json({message:"an error has ocurred"});
     }
-
-
-}
+};
 
 courseCtrl.deleteCourse = async (req,res) => {
     let id_course=req.params.id;
@@ -38,16 +36,16 @@ courseCtrl.deleteCourse = async (req,res) => {
             res.json(
                 {
                     ok:true,
-                    message:'The sourse has been succesfully finded and it will be deleted',
+                    message:"The sourse has been succesfully finded and it will be deleted",
                     courseToDelete
                 });
-        await courseToDelete.destroy();      
+            await courseToDelete.destroy();      
         }
     }catch(error){
         console.log(error);
-        res.status(500).json({message:'The course doesn´t exist'});
+        res.status(500).json({message:"The course doesn´t exist"});
     }
-}
+};
 
 courseCtrl.updateCourse= async (req,res) => {
     let updateID=req.params.id;
@@ -67,19 +65,16 @@ courseCtrl.updateCourse= async (req,res) => {
                 });
             res.json(
                 {
-                ok:true,
-                message:'Test update',
-                courseUpdate  
+                    ok:true,
+                    message:"Test update",
+                    courseUpdate  
                 });
-        }
-        
-        
+        }                
     } catch (error) {
-        console.log(error);
-        
-        return res.status(500).json({message:'Failed update course'});
+        console.log(error);       
+        return res.status(500).json({message:"Failed update course"});
     }
-}
+};
 
 //this method has the duty of seek all the courses, to be used in postman
 courseCtrl.searchCourse = async (req,res)=> {
@@ -89,7 +84,7 @@ courseCtrl.searchCourse = async (req,res)=> {
             res.json(
                 {
                     ok:true,
-                    message:'query executed correctly',
+                    message:"query executed correctly",
                     allCourses
                 });
         }
@@ -98,7 +93,8 @@ courseCtrl.searchCourse = async (req,res)=> {
             {
                 ok:false,
                 error
-            })
+            });
     }
-}
+};
+
 module.exports = courseCtrl;

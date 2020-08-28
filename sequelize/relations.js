@@ -1,19 +1,19 @@
-const User=require('./models/user');
-const Professor=require('./models/professor');
-const Course = require('./models/course');
-const Enrollment = require("./models/enrollment")
+const User=require("./models/user");
+const Professor=require("./models/professor");
+const Course = require("./models/course");
+const Enrollment = require("./models/enrollment");
 
 User.hasOne(Professor, {
     foreignKey: {
-      name: 'id_user',
-      allowNull: false
+        name: "id_user",
+        allowNull: false
     }
-  });
+});
 // Professor.belongsTo(User);
 
 Professor.hasMany(Course, {
     foreignKey: {
-        name: 'id_professor',
+        name: "id_professor",
         allowNull: false
     }
 });

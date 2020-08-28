@@ -1,5 +1,5 @@
-const Course = require('../sequelize/models/course')
-const {validationResult} = require('express-validator')
+const Course = require("../sequelize/models/course");
+const { validationResult } = require("express-validator");
 
 //searcher course
 exports.searcher = async (req, res) => {
@@ -21,7 +21,7 @@ exports.searcher = async (req, res) => {
                 title: info,
                 isPrivate: false
             }
-        })
+        });
 
         if(coursesTitle){
             res.json(coursesTitle);
@@ -32,7 +32,7 @@ exports.searcher = async (req, res) => {
                 summary: info,
                 isPrivate: false 
             }
-        })
+        });
 
         if(coursesSummary){
             res.json(coursesSummary);
@@ -44,16 +44,16 @@ exports.searcher = async (req, res) => {
                 code: info,
                 isPrivate: false
             }
-        })
+        });
 
         if(coursesOtherThings){
             res.json(coursesOtherThings);
         }
 
-        res.status(404).send({msg: "Don´t find courses"})
+        res.status(404).send({msg: "Don´t find courses"});
 
     }catch(error){
         console.log(error);
         res.status(500).json({msg:error});
     }
-}
+};

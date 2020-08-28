@@ -1,65 +1,65 @@
   
-const chai = require('chai');
-const chaiHttp = require('chai-http');
+const chai = require("chai");
+const chaiHttp = require("chai-http");
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
-const app = require('../../index');
+const app = require("../../index");
 
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Create course', () => {
+describe("Create course", () => {
     
     let server = null;
     //let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDZTaDFadHY1bG5xdEpXQS5FaUVzVGVacllEWkd0UG1yZnRrci5rQVNqLk5yQktLc0JobTBtIiwiaWF0IjoxNTk4MDgwNzUzLCJleHAiOjE2MDI0MDA3NTN9.fITMz4Yv5a7-B71q-PE_WTbihPCfma_IWYHc78Y7TMA";
     let token;
 
     beforeEach((done) => {
-        server = app.listen(done)
+        server = app.listen(done);
 
         token = jwt.sign(
             {
-              email: 'test@webxander.com',
-              password: bcrypt.hashSync('secret',10),
+                email: "test@webxander.com",
+                password: bcrypt.hashSync("secret",10),
             },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES }
-          );
+        );
       
         
-    })
+    });
     
-    describe('POST /api/v1/courses', () => {
+    describe("POST /api/v1/courses", () => {
         //setTimeout(500);
 
-        it('should return as course created', (done) => {
+        it("should return as course created", (done) => {
 
             chai.request(server)
-                .post('/api/v1/courses')
-                .set( 'Authorization', `Bearer ${token}` )
-                .set( 'Connection', 'close' )
+                .post("/api/v1/courses")
+                .set( "Authorization", `Bearer ${token}` )
+                .set( "Connection", "close" )
                 .send({
                     
-                    'title': 'Demo',
-                    'description': 'My demo course',
-                    'category': 1,
-                    'id_professor': 1
+                    "title": "Demo",
+                    "description": "My demo course",
+                    "category": 1,
+                    "id_professor": 1
 
 
                 })
                 .end(function(err, res){
 
-                    if (err) done(err)
+                    if (err) done(err);
                     //console.log(res);
-                    let msg = JSON.parse(res.text).message
+                    let msg = JSON.parse(res.text).message;
                     
-                    expect(msg).equals('course create successfully');
+                    expect(msg).equals("course create successfully");
                     expect(res).to.have.status(201);
-                    done()
+                    done();
                    
                 });
 
-        })
-    })
-})
+        });
+    });
+});

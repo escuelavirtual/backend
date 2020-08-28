@@ -1,4 +1,4 @@
-const Modules = sequelize.define('Modules', {
+const Modules = sequelize.define("Modules", {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,

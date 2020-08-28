@@ -1,8 +1,8 @@
-const {Router}=require('express');
-const ListCategory = require("../controllers/CategoryController.js")
+const { Router } = require("express");
+const Category = require("../controllers/CategoryController.js");
 
 const router = Router();
 
-router.get('/',ListCategory.listcategory);
+router.get("/", Category.listcategory);
 
 module.exports=router;
