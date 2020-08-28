@@ -70,4 +70,26 @@ describe('Professor  API',()=>{
         });
             
     })
+    describe('POST /api/v1/professors',()=>{
+        it('Should be an error because a bad request',(done)=>{
+            chai.request(app)
+                .post('/api/v1/professors')
+                    .send({
+                            'firstname':'John',
+                            'lastname':'Freedom',
+                            //'email':'john@gmail.com',
+                            'password':'123',
+                            'valuation':5
+                    })
+                    .end((err,res)=>{
+                        if(err){
+                            done(err);
+                        }
+                        expect(res).to.have.status(400);
+                        done();
+                    })
+
+        })
+            
+   }) 
 });

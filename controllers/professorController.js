@@ -10,6 +10,12 @@ exports.getProfessors = async(req,res)=>{
 
 exports.createProfessor=async(req,res)=>{
     try{
+        if(req.body.email==null||req.body.password==null||req.body.firstname==null||req.body.lastname==null){
+            return res.status(400).json({
+                ok:false,
+                message:'Bad request'
+            })
+        }
         const user=await User.create({
         firstname:req.body.firstname,
         lastname:req.body.lastname,
@@ -21,6 +27,7 @@ exports.createProfessor=async(req,res)=>{
            id_user:id,
            valuation:req.body.valuation
         });
+         
         res.status(201).json({
             ok:true,
             message:'User created with professsor rol',
@@ -28,9 +35,10 @@ exports.createProfessor=async(req,res)=>{
             professor
         })
     }catch(error){
+       
         res.status(500).json({
             ok:false,
-            error
+            message:'Internal error'
         })
     }
     
