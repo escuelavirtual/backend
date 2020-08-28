@@ -30,7 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 
 //import routes
-app.use("/api/v1/user", require("./routes/user"));
+app.use('/api/v1/user', require('./routes/user'));
+app.use('/api/v1/professors',require('./routes/professors'));
 app.use("/api/v1/courses", require("./routes/courses"));
 app.use("/api/v1/login",require("./routes/login"));
 app.use("/api/v1/category",require("./routes/category"));
