@@ -1,32 +1,22 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
-const app = require('../../index');
-
+const app = require('../../src/index');
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('User tests', () => {
-    
-    let server = null;
-
-    beforeEach((done) => {
-        server = app.listen(done)
-        
-    })
 
     describe('POST /api/v1/login', () => {
-        //setTimeout(500);
-
+        
         it('should return as user authenticated', (done) => {            
 
-            chai.request(server)
+            chai.request(app)
                 .post('/api/v1/login')
                 .set( 'Connection', 'close' )
                 .send({
                     
-                    'email': 'test@webxander.com',
+                    'email': 'demo@webxander.com',
                     'password': 'secret'
 
 
@@ -40,20 +30,17 @@ describe('User tests', () => {
                     done()
                    
                 });
-
         })
-
 
         it('should return an error', (done) => {            
 
-            chai.request(server)
+            chai.request(app)
                 .post('/api/v1/login')
                 .set( 'Connection', 'close' )
                 .send({
                     
                     'email': 'fake@school.com',
                     'password': 'secret'
-
 
                 })
                 .end(function(err, res){
@@ -63,7 +50,6 @@ describe('User tests', () => {
                     done()
                    
                 });
-
         })
     })
 })
