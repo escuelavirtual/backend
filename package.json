@@ -2,11 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "backend en node.js con express, mongoose, jsonwebtoken y dotenv",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha tests/ --recursive --exec babel-node --exit",
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,10 @@
     "nodemon",
     "dotenv"
   ],
-  "author": "escueladigital",
+  "author": "Escuela Virtual",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -32,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.4.2",
     "mongoose": "^5.9.27",
+    "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "nanoid": "^3.1.12",
     "sequelize": "^6.3.4"
@@ -43,6 +46,7 @@
     "chai-http": "^4.3.0",
     "config": "^3.3.1",
     "debug": "^4.1.1",
+    "eslint": "^7.7.0",
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
     "sequelize-cli": "^6.2.0",
