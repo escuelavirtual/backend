@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 async function testDataBase() {
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully "MySQL".');
+    //console.log('Connection has been established successfully "MySQL".');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }

@@ -7,12 +7,10 @@
 Para instalar este proyecto, clona el repositorio.
 
 Luego en tu terminal:
-* `cd ruta / a / su / clon`
+* `cd ruta/a/su/clon`
 * `npm install`
 
 Cambie el nombre del archivo ubicado en el directorio principal `.env.example` a` .env` si aún no lo ha hecho. Configure las credenciales de acceso a tu base de datos, previamente debes tener instalado y corriendo **mysql** en tu computadora.
-
-Por otra parte también debes configurar dichas credenciales en el archivo config/config.js dentro del apartado `development`.
 
 Ejecutar las migraciones:
 
@@ -27,7 +25,6 @@ Para ejecutar los tests:
 * `npm test`
 
 
-
 ¡Y debería estar listo para comenzar!
 
 ### Convenciones
@@ -39,7 +36,7 @@ Se utilizara el estilo camelCase para los nombres de las variables y funciones.
 Ejemplos:
 ```
 firstName = 'Alejandro'
-schoolName = 'Belgran'
+schoolName = 'Belgrano'
 
 title = 'PHP - Nivel principiante'
 
