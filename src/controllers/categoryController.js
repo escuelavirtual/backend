@@ -11,10 +11,10 @@ exports.listCategories = async (req, res) => {
         page = 1
       }
       //only show 2 data
-      mostrarpaginas=2
-      start = (page - 1) * mostrarpaginas  
+      let showData = 2
+      start = (page - 1) * showData  
       const category = await Category.findAndCountAll({
-        offset:start,limit:mostrarpaginas,order:[
+        offset:start,limit:showData,order:[
           ['name']
         ]
       })
