@@ -6,32 +6,19 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('User tests', () => {
-    let server = null
-
-    beforeEach((done) => {
-        server = app.listen(done)
-        
-    }),
 
     describe('POST /api/v1/login', () => {
         
         it('should return as user authenticated', (done) => {            
 
-            chai.request(server)
-            chai.request(app)
             chai.request(app)
                 .post('/api/v1/login')
                 .set( 'Connection', 'close' )
                 .send({
                     
-                    'email': 'test@webxander.com',
-                    'password': 'secret',
-                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDZTaDFadHY1bG5xdEpXQS5FaUVzVGVacllEWkd0UG1yZnRrci5rQVNqLk5yQktLc0JobTBtIiwiaWF0IjoxNTk4MDgwNzUzLCJleHAiOjE2MDI0MDA3NTN9.fITMz4Yv5a7-B71q-PE_WTbihPCfma_IWYHc78Y7TMA",
-
-                    'email': 'demo@webxander.com',
-                    'password': 'secret',
                     'email': 'demo@webxander.com',
                     'password': 'secret'
+
 
                 })
                 .end(function(err, res){
@@ -48,12 +35,11 @@ describe('User tests', () => {
         it('should return an error', (done) => {            
 
             chai.request(app)
-            chai.request(app)
                 .post('/api/v1/login')
                 .set( 'Connection', 'close' )
                 .send({
+                    
                     'email': 'fake@school.com',
-                    'password': 'secret',
                     'password': 'secret'
 
                 })
