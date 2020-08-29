@@ -26,7 +26,7 @@ describe('Professor  API',() => {
             })
     });
     
-    it('Should return a user with professor role created',(done)=>{
+    it('Should return an user with professor role created',(done)=>{
         chai.request(app)
             .post('/api/v1/professors')
             .set('Connection','close')
@@ -35,7 +35,8 @@ describe('Professor  API',() => {
                 'lastname':'Freedom',
                 'email':'john@gmail.com',
                 'password':'123',
-                'valuation':5
+                'valuation':5,
+                'profile_image':'dog'
 
             })
             .end((err,res)=>{
