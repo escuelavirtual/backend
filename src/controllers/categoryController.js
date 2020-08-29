@@ -4,12 +4,13 @@ const Category = require('../models/category')
 //list category
 exports.listCategories = async (req, res) => {
 
-    // const id = req.params.id
-   try{
+    try{
       let page = req.query.page 
+      //set page default undefined
       if(page == undefined){
         page = 1
       }
+      //only show 2 data
       mostrarpaginas=2
       start = (page - 1) * mostrarpaginas  
       const category = await Category.findAndCountAll({

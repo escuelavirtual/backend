@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../../index');
+const app = require('../../src/index');
 const {expect} = chai;
 chai.use(chaiHttp)
 
@@ -13,8 +13,6 @@ describe('Category Test',() => {
 
 
     describe('GET /api/v1/category',()=>{
-        //starting test
-        //mal definido el endpoint te muestra una lista larga ... :/
         it('should return as category list',(done)=>{
             chai.request(server)
             .get('/api/v1/category')
