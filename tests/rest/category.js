@@ -6,15 +6,10 @@ chai.use(chaiHttp)
 
 describe('Category Test',() => {
 
-    let server = null;
-    beforeEach((done) => {
-        server = app.listen(done)
-    }),
-
 
     describe('GET /api/v1/category',()=>{
         it('should return as category list',(done)=>{
-            chai.request(server)
+            chai.request(app)
             .get('/api/v1/category')
             .end(function(err,res){
                 if(err) done(err);
