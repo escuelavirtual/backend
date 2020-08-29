@@ -14,7 +14,7 @@ module.exports = {
         references: { model: 'modules', key: 'id' }
       },
       activity_name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       instructions: {

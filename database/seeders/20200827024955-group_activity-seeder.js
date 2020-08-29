@@ -3,12 +3,29 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('group_activities', [{
-      module_id: 1,
+      moduleId: 1,
       activity_name:'derrivadas en matematicas',
       instructions:'realizar del 1 al 10',
       grade:5,
       comments:'ninguno',
        createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      moduleId: 2,
+      activity_name:'Analisis de datos en python',
+      instructions:'uso de pandas y numpy',
+      grade:6,
+      comments:'ninguno',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      moduleId: 3,
+      activity_name:'calculo del numero cuantico y sping magnetico del 1 al 10',
+      instructions:'realizar del 1 al 10',
+      grade:7,
+      comments:'ninguno',
+      createdAt: new Date(),
       updatedAt: new Date()
     }
   ]);
@@ -24,21 +41,3 @@ module.exports = {
   }
 };
 
-// ,{
-//   module_id: 2,
-//   activity_name:'Analisis de datos en python',
-//   instructions:'uso de pandas y numpy',
-//   grade:6,
-//   comments:'ninguno',
-//     user_id: new Date(),
-//   updatedAt: new Date()
-// },
-// {
-//   module_id: 3,
-//   activity_name:'calculo del numero cuantico y sping magnetico del 1 al 10',
-//   instructions:'realizar del 1 al 10',
-//   grade:7,
-//   comments:'ninguno',
-//   createdAt: new Date(),
-//   updatedAt: new Date()
-// }

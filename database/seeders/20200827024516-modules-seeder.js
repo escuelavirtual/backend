@@ -3,9 +3,20 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('modules', [{
-      courses_id: 1,
+      courseId: 1,
       description: 'El curso brinda programa especial de Matematica',
        createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      courseId: 2,
+      description: 'El curso brinda programa especial de Programacion',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      courseId: 3,
+      description: 'El curso brinda programa especial de Mecanica cuantica',
+      createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
@@ -19,15 +30,3 @@ module.exports = {
      */
   }
 };
-// ,{
-//   courses_id: 1,
-//   description: 'El curso brinda programa especial de Programacion',
-//   createdAt: new Date(),
-//   updatedAt: new Date()
-// },
-// {
-//   courses_id: 3,
-//   description: 'El curso brinda programa especial de Mecanica cuantica',
-//   createdAt: new Date(),
-//   updatedAt: new Date()
-// }

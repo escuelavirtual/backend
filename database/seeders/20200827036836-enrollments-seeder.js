@@ -3,10 +3,14 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('enrollments', [{
-      id_student: 1,
-      id_course:1,
-       createdAt: new Date(),
-      updatedAt: new Date()
+      studentId: 1,
+      courseId:1,
+    },{
+      studentId: 2,
+      courseId:2,
+    },{
+      studentId: 3,
+      courseId:3,
     }]);
   },
 
@@ -20,14 +24,3 @@ module.exports = {
   }
 };
 
-// ,{
-//   id_student: 2,
-//   id_course:2,
-//      createdAt: new Date(),
-//   updatedAt: new Date()
-// },{
-//   id_student: 3,
-//   id_course:3,
-//   createdAt: new Date(),
-//   updatedAt: new Date()
-// }

@@ -3,10 +3,20 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('students', [{
-      group_activity_id: 1,
-      user_id:1,
-      code:'QSPQ-5',
+      group_activityId: 1,
+      userId:4,
        createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      group_activityId: 2,
+      userId:5,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      group_activityId:3,
+      userId:6,
+      createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
@@ -21,17 +31,3 @@ module.exports = {
   }
 };
 
-// ,{
-//   group_activity_id: 2,
-//   user_id:2,
-//     code:'SGQL-5',
-//     user_id: new Date(),
-//   updatedAt: new Date()
-// },
-// {
-//   group_activity_id:3,
-//   user_id:3,
-//   code:'XAQL-5',
-//   createdAt: new Date(),
-//   updatedAt: new Date()
-// }

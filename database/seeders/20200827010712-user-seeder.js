@@ -6,7 +6,6 @@ module.exports = {
       firstname: 'Carlos',
       lastname: 'Sanchez',
       email:'carlos@hotmail.com',
-      profile_image:'65497797.jpg',
       password:'123456',
        createdAt: new Date(),
       updatedAt: new Date()
@@ -14,7 +13,6 @@ module.exports = {
       firstname: 'Israel',
       lastname: 'Perez',
       email:'israel@hotmail.com',
-      profile_image:'13547946.jpg',
       password:'123456',
       createdAt: new Date(),
       updatedAt: new Date()
@@ -23,7 +21,30 @@ module.exports = {
       firstname: 'Jose',
       lastname: 'Merino',
       email:'jose@hotmail.com',
-      profile_image:'4916474.jpg',
+      password:'123456',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      firstname: 'Raul',
+      lastname: 'Dominguez',
+      email:'raul@hotmail.com',
+      password:'123456',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      firstname: 'Angel',
+      lastname: 'Torres',
+      email:'angel@hotmail.com',
+      password:'123456',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      firstname: 'Maria',
+      lastname: 'Ruiz',
+      email:'maria@hotmail.com',
       password:'123456',
       createdAt: new Date(),
       updatedAt: new Date()
