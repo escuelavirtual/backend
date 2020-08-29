@@ -3,14 +3,25 @@ const Professor = require('../models/professor');
 const User = require('../models/user');
 
 exports.getProfessors = async(req,res)=>{
-    res.json({
-        ok:true
-    });
+    try{
+        const professor=await Professor.findAll();
+        res.status(200).json({
+            ok:true,
+            professor
+        });
+
+    }catch(error){
+        res.status(500).json({
+            ok:false,
+            message:'We couldn´t find the professors'
+        })
+    }
+    
 }
 
 exports.createProfessor=async(req,res)=>{
     try{
-        if(req.body.email==null||req.body.password==null||req.body.firstname==null||req.body.lastname==null){
+        if(req.body.email==null||req.body.password==null||req.body.firstname==null||req.body.lastname==null||req.body.profile_image==null){
             return res.status(400).json({
                 ok:false,
                 message:'Bad request'
@@ -20,6 +31,7 @@ exports.createProfessor=async(req,res)=>{
         firstname:req.body.firstname,
         lastname:req.body.lastname,
         email:req.body.email,
+        profile_image:req.body.profile_image,
         password:bcrypt.hashSync(req.body.password,10)
         });
         const id=user.id;
