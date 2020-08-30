@@ -35,9 +35,7 @@ describe('Professor  API',() => {
                 'lastname':'Freedom',
                 'email':'john@gmail.com',
                 'password':'123',
-                'valuation':5,
-                'profile_image':'dog'
-
+                'valuation':5
             })
             .end((err,res)=>{
                 if(err){

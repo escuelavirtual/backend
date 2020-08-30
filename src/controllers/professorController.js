@@ -21,7 +21,7 @@ exports.getProfessors = async(req,res)=>{
 
 exports.createProfessor=async(req,res)=>{
     try{
-        if(req.body.email==null||req.body.password==null||req.body.firstname==null||req.body.lastname==null||req.body.profile_image==null){
+        if(req.body.email==null||req.body.password==null||req.body.firstname==null||req.body.lastname==null){
             return res.status(400).json({
                 ok:false,
                 message:'Bad request'
