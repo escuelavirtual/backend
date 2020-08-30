@@ -9,7 +9,7 @@ describe('User tests', () => {
 
     describe('POST /api/v1/login', () => {
         
-        it('should return as user authenticated', (done) => {            
+        it('should return as user authenticated', (done) => {
 
             chai.request(app)
                 .post('/api/v1/login')

@@ -3,9 +3,20 @@ const Professor = require('../models/professor');
 const User = require('../models/user');
 
 exports.getProfessors = async(req,res)=>{
-    res.json({
-        ok:true
-    });
+    try{
+        const professor=await Professor.findAll();
+        res.status(200).json({
+            ok:true,
+            professor
+        });
+
+    }catch(error){
+        res.status(500).json({
+            ok:false,
+            message:'We couldn´t find the professors'
+        })
+    }
+    
 }
 
 exports.createProfessor=async(req,res)=>{
@@ -20,6 +31,7 @@ exports.createProfessor=async(req,res)=>{
         firstname:req.body.firstname,
         lastname:req.body.lastname,
         email:req.body.email,
+        profile_image:req.body.profile_image,
         password:bcrypt.hashSync(req.body.password,10)
         });
         const id=user.id;

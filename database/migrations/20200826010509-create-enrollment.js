@@ -12,6 +12,10 @@ module.exports = {
          type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'courses', key: 'id' }
+      },
+      calification:{
+        type: Sequelize.DOUBLE,
+        allowNull: false,
       }
     });
   },

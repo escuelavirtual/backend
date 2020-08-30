@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false,
       },
       instructions: {
-        type: Sequelize.STRING(200),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       grade: {
@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
       comments: {
-        type: Sequelize.STRING(200),
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       createdAt: {
