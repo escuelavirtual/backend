@@ -1,26 +1,27 @@
 'use strict';
+var faker = require('faker');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
    return queryInterface.bulkInsert('categories', [{
-      name: 'Dessarrollo Web',
-      slug: 'desarrollo-web',
+      name: faker.lorem.word(),
+      slug: faker.lorem.slug(),
        createdAt: new Date(),
        updatedAt: new Date()
     },{
-        name: 'Matematicas',
-        slug: 'Matematicas',
+      name: faker.lorem.word(),
+      slug: faker.lorem.slug(),
          createdAt: new Date(),
          updatedAt: new Date()
     },
     {
-        name: 'Fisica',
-        slug: 'Fisica',
+      name: faker.lorem.word(),
+      slug: faker.lorem.slug(),
          createdAt: new Date(),
          updatedAt: new Date()
     },{
-       name: 'Programacion',
-       slug: 'Programacion',
+      name: faker.lorem.word(),
+      slug: faker.lorem.slug(),
         createdAt: new Date(),
         updatedAt: new Date()
     },

@@ -1,24 +1,25 @@
 'use strict';
+var faker = require('faker');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('modules', [{
       courseId: 1,
-      title:"math",
-      description: 'El curso brinda programa especial de Matematica',
+      title:faker.lorem.word(),
+      description: faker.lorem.text(),
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       courseId: 2,
-      title:"programacion",
-      description: 'El curso brinda programa especial de Programacion',
+      title:faker.lorem.word(),
+      description: faker.lorem.text(),
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
       courseId: 3,
-      title:"mecanica",
-      description: 'El curso brinda programa especial de Mecanica cuantica',
+      title:faker.lorem.word(),
+      description:faker.lorem.text(),
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
