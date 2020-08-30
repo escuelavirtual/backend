@@ -1,28 +1,9 @@
 'use strict';
-var faker = require('faker');
+const Factor = require("../class_seeders/index")
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('modules', [{
-      courseId: 1,
-      title:faker.lorem.word(),
-      description: faker.lorem.text(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      courseId: 2,
-      title:faker.lorem.word(),
-      description: faker.lorem.text(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      courseId: 3,
-      title:faker.lorem.word(),
-      description:faker.lorem.text(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    return queryInterface.bulkInsert('modules',Factor.getModule());
   },
 
   down: async (queryInterface, Sequelize) => {
