@@ -1,13 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-//const mongoose = require('./config/db/mongoose');
-const cors = require('cors');
-const mysql = require('../config/db/mysql');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const mysql = require("../config/db/mysql");
 const morgan = require("morgan");
-const listEndpoints = require('express-list-endpoints');
+const exphbs = require("express-handlebars");
+const path = require('path');
 
 //creation of the service
 const app = express();
+
+app.engine("hbs", exphbs({extname: ".hbs"}));
+app.set("view engine", "hbs");
+
+
+console.log(__dirname)
+app.use(express.static(path.join(__dirname, '/public')));
 
 //connecting to database
 mysql.testDataBase();
@@ -28,25 +35,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app port
 const port = process.env.PORT || 3000;
 
-//require('./api/routes');
-
-app.use("/api/v1/user", require("./api/routes/user"));
-app.use("/api/v1/professors",require("./api/routes/professors"));
-app.use("/api/v1/courses", require("./api/routes/courses"));
-app.use("/api/v1/login",require("./api/routes/login"));
-app.use("/api/v1/category",require("./api/routes/category"));
-
-app.use((error, req, res, next) => {
-    console.log(error);
-    const status = error.statusCode || 500;
-    const message = error.message;
-    const data = error.data;
-    res.status(status).json({ message: message, data: data });
-});
-
-app.get("/", (req, res) => {
-    res.send(listEndpoints(app));
-});
+require('./api/routes/index')(app);
+require('./web/routes')(app);
 
 
 //run app

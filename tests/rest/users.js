@@ -3,13 +3,16 @@ const chaiHttp = require('chai-http');
 const app = require('../../src/index');
 const { expect } = chai;
 
+const User = require("../../src/models/user");
+const bcrypt = require("bcrypt");
+
 chai.use(chaiHttp);
 
 describe('User tests', () => {
 
     describe('POST /api/v1/login', () => {
         
-        it('should return as user authenticated', (done) => {            
+        it('should return as user authenticated', (done) => {
 
             chai.request(app)
                 .post('/api/v1/login')
