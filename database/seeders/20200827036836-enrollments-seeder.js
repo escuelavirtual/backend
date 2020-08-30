@@ -5,12 +5,15 @@ module.exports = {
     return queryInterface.bulkInsert('enrollments', [{
       studentId: 1,
       courseId:1,
+      calification:15
     },{
       studentId: 2,
       courseId:2,
+      calification:10
     },{
       studentId: 3,
       courseId:3,
+      calification:16
     }]);
   },
 
