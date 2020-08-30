@@ -3,9 +3,6 @@ const chaiHttp = require('chai-http');
 const app = require('../../src/index');
 const { expect } = chai;
 
-const User = require("../../src/models/user");
-const bcrypt = require("bcrypt");
-
 chai.use(chaiHttp);
 
 describe('User tests', () => {
