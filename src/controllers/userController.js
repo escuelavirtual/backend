@@ -26,6 +26,6 @@ exports.createUser = async (req, res) => {
         res.status(201).json(user);
     }catch(error){
         console.log(error);
-        res.status(500).json({msg:"There was a mistake"});
+        res.status(500).json({msg:"There was a mista0ke"});
     }
 }

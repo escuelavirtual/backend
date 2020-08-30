@@ -23,7 +23,8 @@ module.exports = {
        slug: 'Programacion',
         createdAt: new Date(),
         updatedAt: new Date()
-    }]);
+    },
+  ]);
   },
   down: async (queryInterface, Sequelize) => {
    return queryInterface.bulkDelete('categories', null, {});
