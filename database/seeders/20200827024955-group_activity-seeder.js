@@ -1,9 +1,9 @@
 'use strict';
-const Factor = require("../class_seeders/index")
+const GroupsActivity = require("../factories/GroupsActivity")
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('group_activities',Factor.getGroupActivity());
+    return queryInterface.bulkInsert('group_activities',GroupsActivity(3));
   },
 
   down: async (queryInterface, Sequelize) => {
