@@ -76,4 +76,4 @@ An API documentation generator for JavaScript: https://github.com/jsdoc/jsdoc
 
 ## Contribuir
 
-Si desea contribuir con nosotros, pongase en contacto.
+Si desea contribuir con nosotros, lea  nuestro [CONTRIBUTING.md](https://github.com/escuelavirtual/backend/CONTRIBUTING.md)
