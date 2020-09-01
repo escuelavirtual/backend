@@ -9,12 +9,30 @@ const path = require('path');
 //creation of the service
 const app = express();
 
-app.engine("hbs", exphbs({extname: ".hbs"}));
+// app.engine("hbs", exphbs({extname: ".hbs"}));
+
+
+
 app.set("view engine", "hbs");
+
+app.engine(".hbs",exphbs({
+    layoutsDir: path.join(__dirname,"../views/layouts"),
+    defaultLayout:'main',
+    extname: ".hbs",
+    partialsDir: path.join(__dirname,"../views/partials"),
+}))
+
+// exphbs.registerPartial("navbar",'{{navbar}}')
+
+// console.log(path.join(__dirname,"../views/layouts"))
+
+app.set('views', path.join(__dirname,'../views'));
 
 
 console.log(__dirname)
 app.use(express.static(path.join(__dirname, '/public')));
+
+
 
 //connecting to database
 mysql.testDataBase();
