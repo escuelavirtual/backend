@@ -16,7 +16,7 @@ module.exports = function(app) {
      });
 
     app.get(WEB_BASE_URL, (req, res) => {
-        res.render('home');
+        res.render('home'); 
     });
 
 }

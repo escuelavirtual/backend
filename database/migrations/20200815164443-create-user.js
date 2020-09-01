@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -18,10 +18,6 @@ module.exports = {
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      profile_image:{
         type: Sequelize.STRING,
         allowNull: false,
       },
