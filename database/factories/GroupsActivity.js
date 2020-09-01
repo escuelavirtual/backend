@@ -1,8 +1,8 @@
 const faker = require("faker");
 const GroupsActivity = (records) => {
-  let arrgroup = [];
+  let rows = [];
   for (let i = 1; i <= records; i++) {
-    let obj = {
+    let row = {
       moduleId: i,
       activity_name: faker.lorem.word(),
       instructions: faker.commerce.productDescription(),
@@ -11,8 +11,8 @@ const GroupsActivity = (records) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    arrgroup.push(obj);
+    rows.push(row);
   }
-  return arrgroup;
+  return rows;
 };
 module.exports = GroupsActivity;

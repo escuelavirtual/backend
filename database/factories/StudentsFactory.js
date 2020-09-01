@@ -1,14 +1,14 @@
 const StudentsFactory = (records) => {
-  let arrstudent = [];
+  let rows = [];
   for (let i = 1; i <= records; i++) {
-    let obj = {
+    let row = {
       group_activityId: i,
       userId: i + 3,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    arrstudent.push(obj);
+    rows.push(row);
   }
-  return arrstudent;
+  return rows;
 };
 module.exports = StudentsFactory;

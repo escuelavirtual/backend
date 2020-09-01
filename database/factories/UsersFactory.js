@@ -1,8 +1,8 @@
 const faker = require("faker");
 const UserFactory = (records) => {
-  let arruser = [];
+  let rows = [];
   for (let i = 0; i < records; i++) {
-    let obj = {
+    let row = {
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       email: faker.internet.email(),
@@ -10,8 +10,8 @@ const UserFactory = (records) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    arruser.push(obj);
+    rows.push(row);
   }
-  return arruser;
+  return rows;
 };
 module.exports = UserFactory;

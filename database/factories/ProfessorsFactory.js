@@ -1,15 +1,15 @@
 const faker = require("faker");
 const ProfessorsFactory = (records) => {
-  let arrprofessors = [];
+  let rows = [];
   for (let i = 1; i <= records; i++) {
-    let obj = {
+    let row = {
       userId: i,
       valuation: faker.random.number(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    arrprofessors.push(obj);
+    rows.push(row);
   }
-  return arrprofessors;
+  return rows;
 };
 module.exports = ProfessorsFactory;

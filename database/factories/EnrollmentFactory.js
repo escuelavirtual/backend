@@ -1,14 +1,14 @@
 const faker = require("faker");
 const EnrollmentFactory = (records) => {
-  let arrenrollment = [];
+  let rows = [];
   for (let i = 1; i <= records; i++) {
-    let obj = {
+    let row = {
       studentId: i,
       courseId: i,
       calification: faker.random.number(),
     };
-    arrenrollment.push(obj);
+    rows.push(row);
   }
-  return arrenrollment;
+  return rows;
 };
 module.exports = EnrollmentFactory;

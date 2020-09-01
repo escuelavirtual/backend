@@ -1,16 +1,16 @@
 const faker = require("faker");
 const ModulesFactory = (records) => {
-  let arrmodule = [];
+  let rows = [];
   for (let i = 1; i <= records; i++) {
-    let obj = {
+    let row = {
       courseId: i,
       title: faker.lorem.word(),
       description: faker.lorem.text(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    arrmodule.push(obj);
+    rows.push(row);
   }
-  return arrmodule;
+  return rows;
 };
 module.exports = ModulesFactory;
