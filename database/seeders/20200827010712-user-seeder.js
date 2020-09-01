@@ -6,5 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('users',UsersFactory(6));
   },
   down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('users',null,{});
+
   }
 };
