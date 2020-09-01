@@ -1,4 +1,4 @@
-'use strict';
+
 const GroupsActivity = require("../factories/GroupsActivity")
 
 module.exports = {

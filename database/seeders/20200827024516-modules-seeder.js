@@ -1,4 +1,4 @@
-'use strict';
+
 const ModulesFactory = require("../factories/ModulesFactory")
 
 module.exports = {
@@ -8,5 +8,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('modules',null,{});
+
   }
 };

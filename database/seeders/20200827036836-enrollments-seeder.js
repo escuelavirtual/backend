@@ -1,4 +1,4 @@
-'use strict';
+
 const EnrollmentFactory = require("../factories/EnrollmentFactory")
 
 module.exports = {

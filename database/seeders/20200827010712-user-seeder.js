@@ -1,4 +1,4 @@
-'use strict';
+
 const UsersFactory = require("../factories/UsersFactory")
 
 module.exports = {
