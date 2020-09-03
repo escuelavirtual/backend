@@ -12,7 +12,7 @@ const Professor = sequelize.define("professors", {
     },
     valuation: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     deletedAt: {
         type: Sequelize.DATE,
