@@ -4,8 +4,9 @@ module.exports = function(app) {
 
     const API_BASE_URL = "/api/v1";
 
-    const routes = [
-        { path: "/user", file: "./user" },
+
+    const routes = [ 
+        { path: "/students", file: "./students" },
         { path: "/professors", file: "./professors" },
         { path: "/courses", file: "./courses" },
         { path: "/login", file: "./login" },

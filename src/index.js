@@ -1,3 +1,4 @@
+const debug = require("debug")("debug");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -9,12 +10,20 @@ const path = require('path');
 //creation of the service
 const app = express();
 
-app.engine("hbs", exphbs({extname: ".hbs"}));
 app.set("view engine", "hbs");
 
+app.engine(".hbs",exphbs({
+    layoutsDir: path.join(__dirname,"../views/layouts"),
+    defaultLayout:'main',
+    extname: ".hbs",
+    partialsDir: path.join(__dirname,"../views/partials"),
+}));
 
-console.log(__dirname)
+app.set('views', path.join(__dirname,'../views'));
+
 app.use(express.static(path.join(__dirname, '/public')));
+
+
 
 //connecting to database
 mysql.testDataBase();
@@ -41,7 +50,7 @@ require('./web/routes')(app);
 
 //run app
 app.listen(port, "0.0.0.0", () => {
-    console.log(`run app from the port ${port}`);
+    debug(`listening in port: ${port}`);
 });
 
 module.exports = app;

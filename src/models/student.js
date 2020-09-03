@@ -1,24 +1,23 @@
-const { Model } = require("sequelize");
-const User = require("./user");
+const Sequelize = require("sequelize");
+const { sequelize } = require("../../config/db/mysql");
+const Course = require("./course");
 
-module.exports = (sequelize, DataTypes) => {
-  class Student extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(model) {
-      model.belongsTo(User);
+const Student = sequelize.define("students", {
+    id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement:true
+    },
+    deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
     }
-  };
+},{
+    paranoid:true
+});
 
-  Student.init({
-    code: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'student',
-  });
+Student.hasMany(Course);
 
-  return Student;
-};
+
+module.exports = Student;

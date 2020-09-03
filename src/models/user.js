@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../../config/db/mysql');
 const Professor = require("./professor");
+const Student = require("./student");
 
 const User = sequelize.define('users', {
     id: {
@@ -19,7 +20,7 @@ const User = sequelize.define('users', {
     },
     profile_image:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     email: {
         type: Sequelize.STRING,
@@ -38,5 +39,6 @@ const User = sequelize.define('users', {
 });
 
 User.hasOne(Professor);
+User.hasOne(Student);
 
 module.exports = User;
