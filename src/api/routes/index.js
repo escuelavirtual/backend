@@ -4,18 +4,20 @@ module.exports = function(app) {
 
     const API_BASE_URL = "/api/v1";
 
+
     const routes = [ 
         { path: "/students", file: "./students" },
         { path: "/professors", file: "./professors" },
-        { path: "/courses",  file: "./courses" },
+        { path: "/courses", file: "./courses" },
         { path: "/login", file: "./login" },
         { path: "/category", file: "./category" },
-     ];
+        { path: "/answer", file: "./answers" },
+    ];
 
-     routes.forEach( route => {
+    routes.forEach(route => {
         app.use(API_BASE_URL + route.path, require(route.file));
-     }); 
-    
+    });
+
 
     app.use((error, req, res, next) => {
         console.log(error);
