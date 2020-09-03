@@ -6,29 +6,27 @@ const app = require('../../src/index');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe('Professor  API', () => {
+describe('Student  API', () => {
 
-    it('Should get all the users with the professor rol', (done) => {
+    it('Should return a student', (done) => {
         chai.request(app)
-            .get('/api/v1/professors')
+            .get('/api/v1/students/1')
             .end((error, res) => {
                 expect(res).to.have.status(200);
-
-                let professors = JSON.parse(res.text);
-
-                expect(professors).to.have.property("professors");
+                //console.log(JSON.parse(res.text));
+                expect(JSON.parse(res.text)).to.have.all.keys("id", "userId", "firstname", "lastname", "email", "createdAt");
                 done();
             })
     });
 
-    it('Should return an user with professor role created', (done) => {
+    it('Should return an student created', (done) => {
         chai.request(app)
-            .post('/api/v1/professors')
+            .post('/api/v1/students')
             .set('Connection', 'close')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
-                'email': 'john@gmail.com',
+                'email': 'student@gmail.com',
                 'password': '123'
             })
             .end((err, res) => {
@@ -42,7 +40,7 @@ describe('Professor  API', () => {
 
     it('Should be an error because a bad request', (done) => {
         chai.request(app)
-            .post('/api/v1/professors')
+            .post('/api/v1/students')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
