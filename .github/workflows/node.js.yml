@@ -29,3 +29,9 @@ jobs:
     - run: npm test
       env:
         DB_TYPE: ${{ secrets.DB_TYPE }}
+        JWT_SECRET: secret
+        JWT_EXPIRES: 5d
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
