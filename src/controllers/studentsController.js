@@ -1,24 +1,25 @@
 const e = require("debug")("error:data")
 const { check } = require("express-validator"); //library for validation user data
-const UserService=require('../services/userService');
-const StudentService=require('../services/studentService');
+const UserService = require('../services/userService');
+const StudentService = require('../services/studentService');
 
 
 class StudentsController {
-    constructor(req, res){
-        this.req = req;
-        this.res = res;
-    }
+    
     static async create(req, res) {
         try {
             
             const user = await UserService.CreateUser(req.body,res);
-            const student=await StudentService.createStudent(user.id);
+            const student = await StudentService.createStudent(user.id);
             return res.status(201).json({
                 message: 'Student has created',
                 data: {
                     id: student.id,
-                    user:user
+                    userId: user.id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    email: user.email,
+                    createdAt: user.createdAt
                 }
             });
         } catch (err) {
