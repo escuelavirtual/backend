@@ -1,51 +1,29 @@
 const e = require("debug")("error:data")
-const bcrypt = require('bcrypt');
-const Student = require('../models/student');
-const User = require('../models/user');
+const { check } = require("express-validator"); //library for validation user data
+const UserService=require('../services/userService');
+const StudentService=require('../services/studentService');
+
 
 class StudentsController {
     constructor(req, res){
         this.req = req;
         this.res = res;
     }
-
     static async create(req, res) {
-
-        const data = req.body;
         try {
-            if (!data.email || !data.password || !data.firstname || !data.lastname) {
-                return res.status(400).json({ message: 'Bad request' })
-            }
-    
-            const user = await User.create({
-                firstname: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                password: bcrypt.hashSync(data.password, 10)
-            });
-    
-            const student = await Student.create({
-                userId: user.id
-            });
-    
-            res.status(201).json({
+            
+            const user = await UserService.CreateUser(req.body,res);
+            const student=await StudentService.createStudent(user.id);
+            return res.status(201).json({
                 message: 'Student has created',
                 data: {
                     id: student.id,
-                    userId: user.id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    email: user.email,
-                    createdAt: user.createdAt
+                    user:user
                 }
-
             });
-
         } catch (err) {
-    
             e(err.message);
-            res.status(500).json({ message: err.message })
-            
+            return res.status(500).json({ message: err.message })
         }
     }
 

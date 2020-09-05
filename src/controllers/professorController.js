@@ -24,7 +24,7 @@ exports.createProfessor = async (req, res) => {
         if (req.body.email == null || req.body.password == null || req.body.firstname == null || req.body.lastname == null) {
             return res.status(400).json({ message: 'Bad request' })
         }
-
+        
         const user = await User.create({
             firstname: req.body.firstname,
             lastname: req.body.lastname,

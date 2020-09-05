@@ -8,7 +8,7 @@ const StudentsFactory = (records) => {
         };
         rows.push(row);
     }
-    return rows;
+    return rows; 
 };
 
 module.exports = StudentsFactory;
