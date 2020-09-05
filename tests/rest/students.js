@@ -46,7 +46,6 @@ describe('Student  API', () => {
                 'lastname': 'Freedom',
                 //'email':'john@gmail.com',
                 'password': '123',
-                'valuation': 5
             })
             .end((err, res) => {
                 if (err) { done(err); }

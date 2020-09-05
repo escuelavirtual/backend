@@ -1,18 +1,17 @@
 const User = require("../models/user"); // aacaa
 const bcrypt = require("bcrypt");
-var e = require('debug')("error:data")
-
+var e = require('debug')("error:data");
 
 class UserService {
     constructor(req, res){
         this.req = req;
         this.res = res;
     }
-    static async CreateUser (body,res){
+    static async createUser(body){
     try{
        
         const {firstname,lastname,email,password} = body
-        const user =await User.create({
+        const user = await User.create({
             firstname,lastname,email,password:bcrypt.hashSync(password,10)
         })
         return user

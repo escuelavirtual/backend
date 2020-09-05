@@ -9,8 +9,9 @@ class StudentsController {
     static async create(req, res) {
         try {
             
-            const user = await UserService.CreateUser(req.body,res);
+            const user = await UserService.createUser(req.body);
             const student = await StudentService.createStudent(user.id);
+
             return res.status(201).json({
                 message: 'Student has created',
                 data: {
@@ -24,7 +25,7 @@ class StudentsController {
             });
         } catch (err) {
             e(err.message);
-            return res.status(500).json({ message: err.message })
+            return res.status(400).json({ message: err.message })
         }
     }
 

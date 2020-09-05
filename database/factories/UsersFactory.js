@@ -1,4 +1,5 @@
 const faker = require("faker");
+
 const UserFactory = (records) => {
   let rows = [];
   for (let i = 0; i < records; i++) {
