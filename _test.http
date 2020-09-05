@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/v1/user HTTP/1.1
+POST http://localhost:3000/api/v1/students HTTP/1.1
 content-type: application/json
 
 {
@@ -7,6 +7,28 @@ content-type: application/json
     "email": "demo@webxander.com",
     "password": "secret"
 }
+
+###
+
+POST http://localhost:3000/api/v1/professors HTTP/1.1
+content-type: application/json
+
+{
+    "firstname": "Teacher",
+    "lastname": "Demo",
+    "email": "teacher@webxander.com",
+    "password": "secret"
+}
+
+###
+
+GET http://localhost:3000/api/v1/students HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/api/v1/professors HTTP/1.1
+content-type: application/json
 
 ###
 
@@ -22,12 +44,135 @@ content-type: application/json
 
 POST http://localhost:3000/api/v1/courses HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJDZTaDFadHY1bG5xdEpXQS5FaUVzVGVacllEWkd0UG1yZnRrci5rQVNqLk5yQktLc0JobTBtIiwiaWF0IjoxNTk4MjI2ODY1LCJleHAiOjE2MDI1NDY4NjV9.SE0zPr2x4O_XGEVVLD7Vd4un0Ak7yLBea7WXv9u1d34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
 
 {
     "title": "Curso de PHP 2",
-    "id_professor": 1,
-    "category": 1,
+    "professorId": 1,
+    "categoryId": 1,
     "description": "Cursito de PHP 2"
 }
+
+###
+
+PUT http://localhost:3000/api/v1/courses/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1,
+    "title": "Curso de PHP 2",
+    "professorId": 1,
+    "categoryId": 1,
+    "description": "Cursito de PHP 2"
+}
+
+###
+
+DELETE http://localhost:3000/api/v1/courses/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1
+}
+
+###
+
+GET http://localhost:3000/api/v1/categories/1 HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/api/v1/courses/1 HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/api/v1/courses/1/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+###
+
+POST http://localhost:3000/api/v1/courses/1/modules HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "title": "Introducción a la Ciencias Fisicas"
+}
+
+###
+
+PUT http://localhost:3000/api/v1/courses/1/modules HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1,
+    "title": "Introducción a la Ciencias Fisicas II"
+}
+
+###
+
+DELETE http://localhost:3000/api/v1/courses/1/modules HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1
+}
+
+###
+
+GET http://localhost:3000/api/v1/courses/1/modules HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+
+###
+
+GET http://localhost:3000/api/v1/courses/1/1/documents HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+###
+
+POST http://localhost:3000/api/v1/courses/1/1/documents HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "title": "Introducción breve"
+}
+
+###
+
+PUT http://localhost:3000/api/v1/courses/1/1/documents HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1,
+    "title": "Introducción breve de PHP"
+}
+
+###
+
+DELETE http://localhost:3000/api/v1/courses/1/1/documents HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+{
+    "id": 1
+}
+
+###
+
+GET http://localhost:3000/api/v1/courses/1/1/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9Ad2VieGFuZGVyLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZtUjZZeldmYjBoQkh1eXJWUmUwWS4yZlQuT3N3VVNUay5zUDg2Lms5alZvbnVwRnpuUHI2IiwiaWF0IjoxNTk5MTE0MzA5LCJleHAiOjE2MDM0MzQzMDl9.RwLaGKjCvmAvvrx0FvdlORgl9QTNDjOrhoNXS9QiJGM
+
+###
 

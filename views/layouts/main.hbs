@@ -4,52 +4,42 @@
     <meta charset="UTF-8">
     <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-        <link rel="stylesheet" href="/css/style.css">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
     <title>Document</title>
 </head>
 <body>
 
-
+    {{!--we need use blocks and user extends constantly --}}
     <div class="main">
     <header>
-         <h1>Escuela Virtual</h1>
-         <ul class="nav">
-            <!-- Navigation item -->
-            <li>
-                <a href="">Cursos</a>
-                
-                    <input type="text" name="search" placeholder="Busqueda...">
-                    <input type="button" value="Buscar!">
-                
-            </li>
-
-            
-            <li class="nav-item">
-                <a href="">Iniciar sesion</a>
-                <span>Registrese:</span>
-                <a href="">Profesor</a>
-                <a href="">Estudiante</a>
-            </li>
-        </ul>
+           {{> navbar }}
     </header>
     <main class="container">
+
+        <div class="row">
+            <div class="col-md-3">
         <!-- Left sidebar -->
-        <aside class="sidebar">
+         <aside class="sidebar">
             <h3>Categories</h3>
-        </aside>
+        </aside> 
+            </div>
+
+            <div class="col-md-9">
 
         <!-- Main content -->
         <article class="content">
             {{{ body }}}
         </article>
+            </div>
+
+        </div>
 
     
     </main>
-    <footer>
+   <footer>
         School Footer - Welcome
-    </footer>
+    </footer> 
 </div>
 
    

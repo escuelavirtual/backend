@@ -1,5 +1,7 @@
 # Backend - Plataforma de aprendizaje en linea
 
+![Node.js CI](https://github.com/escuelavirtual/backend/workflows/Node.js%20CI/badge.svg?branch=dev)
+
 ## Contenido
 
 ### Configuración del proyecto
@@ -76,4 +78,4 @@ An API documentation generator for JavaScript: https://github.com/jsdoc/jsdoc
 
 ## Contribuir
 
-Si desea contribuir con nosotros, lea  nuestro [CONTRIBUTING.md](https://github.com/escuelavirtual/backend/CONTRIBUTING.md)
+Si desea contribuir con nosotros, lea  nuestro [CONTRIBUTING.md](https://github.com/escuelavirtual/backend/blob/master/CONTRIBUTING.md)

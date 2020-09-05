@@ -1,3 +1,4 @@
+const app = require("debug")("app:database");
 require('dotenv').config();
 const Sequelize = require('sequelize');
 
@@ -21,7 +22,7 @@ const sequelize = new Sequelize(
 async function testDataBase() {
   try {
     await sequelize.authenticate();
-    //console.log('Connection has been established successfully "MySQL".');
+    app('Connection has been established successfully "MySQL".');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
