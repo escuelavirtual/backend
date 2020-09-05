@@ -13,6 +13,7 @@ exports.createUser = async (req, res) => {
     try{
         //create user with req.body
         //const user = new User(req.body);
+        console.log(req.body)
         const user= await User.create({
                 firstname:req.body.firstname,
                 lastname:req.body.lastname,
