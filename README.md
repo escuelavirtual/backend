@@ -1,6 +1,7 @@
 # Backend - Plataforma de aprendizaje en linea
 
 ![Node.js CI](https://github.com/escuelavirtual/backend/workflows/Node.js%20CI/badge.svg?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/escuelavirtual/backend/badge.svg)](https://coveralls.io/github/escuelavirtual/backend)
 
 ## Contenido
 
