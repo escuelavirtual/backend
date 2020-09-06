@@ -1,5 +1,8 @@
 # Backend - Plataforma de aprendizaje en linea
 
+![Node.js CI](https://github.com/escuelavirtual/backend/workflows/Node.js%20CI/badge.svg?branch=dev)
+[![Build Status](https://travis-ci.org/escuelavirtual/backend.svg?branch=master)](https://travis-ci.org/escuelavirtual/backend)
+[![Coverage Status](https://coveralls.io/repos/github/escuelavirtual/backend/badge.svg?branch=dev)](https://coveralls.io/github/escuelavirtual/backend?branch=dev)
 ## Contenido
 
 ### Configuración del proyecto
