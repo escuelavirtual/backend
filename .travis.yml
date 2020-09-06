@@ -4,10 +4,6 @@ node_js:
 env:
   global:
     - COVERALLS_PARALLEL=true
-jobs:
-  include:
-    - stage: Produce Coverage
-      node_js: node
-      script: nyc report --reporter=text-lcov | coveralls
+after_success: npm run coverage
 notifications:
   webhooks: https://coveralls.io/webhook
