@@ -1,21 +1,49 @@
-const Student=require('../models/student');
-var e = require('debug')("error:data");
+const Student = require('../models/student');
+const User = require('../models/user');
+const e = require('debug')("error:data");
+
 class StudentService {
-    constructor(req, res){
-        this.req = req;
-        this.res = res;
-    }
-    static async createStudent(id){
-        try{
+
+    static async createStudent(id) {
+        try {
             const student = await Student.create({
-                    userId:id
+                userId: id
             });
+
             return student;
-        }catch(err){
-            e.log(err);
-            return res.status(500).json({message:'Problem register Student'});
+
+        } catch (err) {
+
+            e(err);
+            return new Error('An error has ocurred');
         }
-        
+
+    }
+
+    static async get(id) {
+        try {
+            
+            const student = await Student.findByPk(id);
+            
+            const user = await User.findByPk(student.userId);
+
+            e(student);
+
+            return {
+                id: student.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                userId: student.userId,
+                createdAt: student.createdAt 
+               };
+
+        } catch (err) {
+
+            e(err);
+            return new Error('An error has ocurred');
+        }
+
     }
 }
-module.exports=StudentService;
+module.exports = StudentService;
