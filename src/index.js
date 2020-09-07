@@ -49,8 +49,8 @@ require('./web/routes')(app);
 
 
 //run app
-app.listen(port, "0.0.0.0", () => {
+const server = app.listen(port, "0.0.0.0", () => {
     console.log(`listening in port: ${port}`);
 });
 
-module.exports = app;
+module.exports = server;
