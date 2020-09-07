@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {check} = require("express-validator"); //library for validation user data
 const StudentsController = require("../../controllers/studentsController");
-const { body, validationResult } = require('express-validator');
+const { validator } = require('../middlewares/validator');
+const UserService = require('../../services/userService');
 
+router.post("/", validator(UserService.validate()), StudentsController.create);
 
-router.post("/", StudentsController.create);
-
-router.get("/:id", StudentsController.getStudent);
+router.get("/:id", StudentsController.show);
 
 module.exports = router;

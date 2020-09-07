@@ -20,7 +20,7 @@ courseCtrl.createCourse = async (req, res) => {
             professorId: professorId
         })
         
-        res.status(201).json({ message: 'course create successfully', data: newCourse });
+        res.status(201).json({ message: 'the course has been created', data: newCourse });
         
     } catch(error) {
             console.log(error);

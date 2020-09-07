@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../../src/index');
+const server = require('../../src/index');
 
 //Assertion style
 const expect = chai.expect;
@@ -8,8 +8,12 @@ chai.use(chaiHttp);
 
 describe('Student  API', () => {
 
+    afterEach( () => {
+        server.close();
+    });
+
     it('Should return a student', (done) => {
-        chai.request(app)
+        chai.request(server)
             .get('/api/v1/students/1')
             .end((error, res) => {
                 expect(res).to.have.status(200);
@@ -20,14 +24,14 @@ describe('Student  API', () => {
     });
 
     it('Should return an student created', (done) => {
-        chai.request(app)
+        chai.request(server)
             .post('/api/v1/students')
             .set('Connection', 'close')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
                 'email': 'student@gmail.com',
-                'password': '123'
+                'password': '123456'
             })
             .end((err, res) => {
                 if (err) { done(err); }
@@ -39,16 +43,17 @@ describe('Student  API', () => {
     });
 
     it('Should be an error because a bad request', (done) => {
-        chai.request(app)
+        chai.request(server)
             .post('/api/v1/students')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
                 //'email':'john@gmail.com',
-                'password': '123',
+                'password': '123456',
             })
             .end((err, res) => {
                 if (err) { done(err); }
+                
                 expect(res).to.have.status(400);
                 done();
             })

@@ -1,5 +1,5 @@
-const e = require("debug")("error:data")
-const { check } = require("express-validator"); //library for validation user data
+const e = require("debug")("error:data");
+const log = require("debug")("test:log");
 const UserService = require('../services/userService');
 const StudentService = require('../services/studentService');
 
@@ -7,13 +7,14 @@ const StudentService = require('../services/studentService');
 class StudentsController {
     
     static async create(req, res) {
+        
         try {
             
             const user = await UserService.createUser(req.body);
             const student = await StudentService.createStudent(user.id);
 
             return res.status(201).json({
-                message: 'Student has created',
+                message: 'the student has been created',
                 data: {
                     id: student.id,
                     userId: user.id,
@@ -29,20 +30,12 @@ class StudentsController {
         }
     }
 
+    static async show(req, res){
 
-    static getStudent(req, res){
-
-        const data = {
-            id: req.params.id,
-            firstname: "Alejandro",
-            lastname: "Cayssials",
-            email: "demo@escuela.com",
-            userId: 4,
-            createdAt: Date.now() 
-           };
-        console.log(data);
+        const student = await StudentService.get(req.params.id);
         
-        res.json(data);
+        log(student);        
+        return res.json(student);
     }
 }
 

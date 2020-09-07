@@ -1,24 +1,32 @@
-const User = require("../models/user"); // aacaa
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
-var e = require('debug')("error:data");
+const e = require('debug')("error:data");
+const { body } = require('express-validator');
 
 class UserService {
-    constructor(req, res){
-        this.req = req;
-        this.res = res;
+
+    static validate(){
+        return [
+            body('email').isEmail().isLength({ min: 3 }),
+            body('password').isLength({ min: 6 }),
+            body('firstname').notEmpty().isLength({ min: 3 }),
+            body('lastname').notEmpty().isLength({ min: 3 })
+        ];
     }
-    static async createUser(body){
-    try{
-       
-        const {firstname,lastname,email,password} = body
-        const user = await User.create({
-            firstname,lastname,email,password:bcrypt.hashSync(password,10)
-        })
-        return user
-    }catch(err){
-         e.log(err);
-         return res.status(500).json({message:'Problem register User'});
-    }
+
+    static async createUser(body) {
+        try {
+
+            const { firstname, lastname, email, password } = body
+            const user = await User.create({
+                firstname, lastname, email, password: bcrypt.hashSync(password, 10)
+            })
+            return user;
+
+        } catch (err) {
+            e(err);
+            return new Error('An error has ocurred');
+        }
     }
 }
 module.exports = UserService;

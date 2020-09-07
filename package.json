@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "nyc mocha tests/ --recursive --exec babel-node --exit --timeout 10000",
+    "test-watch": "mocha tests/ --recursive --exec babel-node --exit --timeout 10000 --watch",
     "test-coverage": "nyc --reporter=html mocha tests/ --recursive --exec babel-node --exit --timeout 10000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "node .",
