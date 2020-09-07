@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../../src/index');
+const server = require('../../src/index');
 
 //Assertion style
 const expect = chai.expect;
@@ -8,8 +8,12 @@ chai.use(chaiHttp);
 
 describe('Professor  API', () => {
 
+    afterEach( () => {
+        server.close();
+    });
+
     it('Should get all the users with the professor rol', (done) => {
-        chai.request(app)
+        chai.request(server)
             .get('/api/v1/professors')
             .end((error, res) => {
                 expect(res).to.have.status(200);
@@ -22,14 +26,14 @@ describe('Professor  API', () => {
     });
 
     it('Should return an user with professor role created', (done) => {
-        chai.request(app)
+        chai.request(server)
             .post('/api/v1/professors')
             .set('Connection', 'close')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
                 'email': 'john@gmail.com',
-                'password': '123'
+                'password': '123456'
             })
             .end((err, res) => {
                 if (err) { done(err); }
@@ -41,14 +45,13 @@ describe('Professor  API', () => {
     });
 
     it('Should be an error because a bad request', (done) => {
-        chai.request(app)
+        chai.request(server)
             .post('/api/v1/professors')
             .send({
                 'firstname': 'John',
                 'lastname': 'Freedom',
                 //'email':'john@gmail.com',
-                'password': '123',
-                'valuation': 5
+                'password': '123456'
             })
             .end((err, res) => {
                 if (err) { done(err); }
