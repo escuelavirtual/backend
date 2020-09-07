@@ -16,7 +16,7 @@ class  LoginService {
                 throw error;
             }
 
-            const token = generateValidToken(user);
+            const token = generateValidToken(user.dataValues);
 
             return res.header('authorization', token).json({ token: token, AccountId: user.id });
 

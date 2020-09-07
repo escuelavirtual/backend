@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 
 
 exports.verifyToken=(req,res,next)=>{
+  //let token=req.get('token');
+  let query = req.header('token');
   
-  let query = req.header('authorization').split(' ');
-  
-  let token = query[1]; //Authenticate
+  let token = query; //Authenticate
   
   jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
     //decoded is the payload
