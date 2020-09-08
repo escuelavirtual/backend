@@ -7,7 +7,7 @@ class CourseController {
     try {
       const CreateCourses = await CourseService.CreateCourse(req.body);
       if (CreateCourses) {
-        return res.status(200).json({
+        return res.status(201).json({
             message: "the course has been created",
             data: CreateCourses
         });
