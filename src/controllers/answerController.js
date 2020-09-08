@@ -1,108 +1,62 @@
-const Answer = require('../models/answer');
-const answerCtrl = {};
+const AnswerService = require('../services/answerService');
 
-answerCtrl.listAll = (req, res) => {
-        return Answer.findAll()
-            .then((data) => {
-                console.log('dato', data);
-                if (data) {
-                    res.json({ ok: true, message: 'query executed correctly', data });
-                } else {
-                    // res.status(404).json({ ok: false, data });
-                    const err = new Error("answer not found!");
-                    err.statusCode = 404;
-                    throw err;
-                }
-            })
-            .catch((err) => {
-                res.status(500).json({ ok: false, err });
-            });
-    },
+class answerController{
 
-    answerCtrl.createAnswer = (req, res) => {
-        const answer = {
-            code,
-            question_id,
-            content,
-            isTrue,
-            score
-        } = req.body;
-        console.log('req.body ', req.body)
-        return Answer.create(answer)
-            .then((data) => {
-                res.status(200).json({ ok: true, message: 'Create successfully', data: data });
-            })
-            .catch((err) => {
-                res.status(500).json({ ok: false, err });
-            });
-    },
+    static async listAll(req,res){
+       try{
+        const allanswers = await AnswerService.findAllAnswer()
+        return res.status(200).json({ok:true,allanswers})
+       }catch(err){
+        return res.status(500).json({ ok: false, err });
+       }
+    }
+    static async createAnswer(req,res){
+        try{
+            const answers = await AnswerService.createAnswer(req.body)
+            return res.status(200).json({ok:true,message:'Created Sucessfull',data:answers})
+        }catch(err){
+            return res.status(500).json({ ok: false, err });
+        }
+    }
+    static async getAnswer(req,res){
+        try{
+            const {id} = req.params
+            const answers = await AnswerService.searchAnswer(id)
+            return res.status(200).json({ok:true,data:answers})
+        }catch(err){
+            return res.status(500).json({ ok: false, err });
+        }
+    }
+    static async getAnswerQuestion(req,res){
+        try{
+            const {question_id} = req.params
+            const getanswer = await AnswerService.getAnswerQuestion(question_id)
+            return res.status(200).json({ok:true,data:getanswer})
+        }catch(err){
+            return res.status(500).json({ ok: false, err });
+        }
+    }
+    static async updateAnswer(req,res){
+        try{
+            const {id} = req.params
+            const updateanswer = await AnswerService.updateAnswer(req.body,id)
+            return res.status(200).json({ok:true,message:'Update Sucessfull',data:updateanswer})
+        }catch(err){
+            return res.status(500).json({ ok: false, err });
+        }
+    }
+    //delete course ...
+    static async deleteAnswer (req,res){
+        try{
+            const {id} = req.params
+            const deleteanswer =  await AnswerService.deleteAnswerQuestion(id)
+            return res.status(200).json(deleteanswer)
+        }catch(err){
+            return res.status(500).json({ ok: false, err });
+        }
+    }
 
-    answerCtrl.getAnswer = (req, res) => {
-        return Answer.findByPk(req.params.id)
-            .then((data) => {
-                console.log('dato', data);
-                if (data) {
-                    res.json({ ok: true, message: 'Query executed correctly', data });
-                } else {
-                    //res.status(404).json({ ok: false, data });
-                    const err = new Error("answer not found!");
-                    err.statusCode = 404;
-                    throw err;
-                }
-            })
-            .catch((err) => {
-                res.status(500).json({ ok: false, err });
-            });
-    },
+}
+module.exports = answerController
 
-    answerCtrl.getAnswerOfQuestion = (req, res) => {
-        return Answer.findAll({ where: { question_id: req.params.question_id } })
-            .then((data) => {
-                console.log('dato', data);
-                if (data) {
-                    res.json({ ok: true, message: 'query executed correctly', data });
-                } else {
-                    // res.status(404).json({ ok: false, data });
-                    const err = new Error("answer not found!");
-                    err.statusCode = 404;
-                    throw err;
-                }
-            })
-            .catch((err) => {
-                res.status(500).json({ ok: false, err });
-            });
-    },
 
-    answerCtrl.deleteAnswer = (req, res) => {
-
-    },
-
-    answerCtrl.updateAnswer = (req, res) => {
-        let id = req.params.id;
-        return Answer.findByPk(id)
-            .then((data) => {
-                console.log('dato', data);
-                if (data) {
-                    const answer = {
-                        id_course,
-                        content,
-                        isTrue,
-                        score
-                    } = req.body;
-                    return data.update(answer);
-                } else {
-                    // res.status(404).json({ ok: false, message: 'answer not found', data });
-                    const err = new Error("answer not found!");
-                    err.statusCode = 404;
-                    throw err;
-                }
-            })
-            .then((data) => {
-                res.json({ ok: true, message: 'update executed correctly', data });
-            })
-            .catch((err) => {
-                res.status(500).json({ ok: false, err });
-            });
-    },
-
-    module.exports = answerCtrl;

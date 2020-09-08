@@ -12,7 +12,6 @@ class StudentsController {
             
             const user = await UserService.createUser(req.body);
             const student = await StudentService.createStudent(user.id);
-
             return res.status(201).json({
                 message: 'the student has been created',
                 data: {

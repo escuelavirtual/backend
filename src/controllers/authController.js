@@ -22,8 +22,7 @@ exports.login = async (req, res, next) => {
             error.statusCode = 500;
             throw error;
         }
-
-        const token = generateValidToken(user);
+        const token = generateValidToken(user.dataValues);
 
         return res.header('authorization', token).json({ token: token, AccountId: user.id });
 
