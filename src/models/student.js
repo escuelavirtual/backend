@@ -16,7 +16,6 @@ const Student = sequelize.define("students", {
 },{
     paranoid:true
 });
-Student.hasMany(Course);
 
 
 
