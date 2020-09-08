@@ -1,5 +1,5 @@
 const e = require("debug")("error:data");
-const ProfessorService = require("../services/ProfessorService");
+const ProfessorService = require("../services/professorService");
 const UserService = require("../services/userService");
 
 class ProfessorController {

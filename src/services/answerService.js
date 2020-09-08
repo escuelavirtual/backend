@@ -45,6 +45,8 @@ class AnswerService {
       const answersearch = await Answer.findByPk(id);
       if (answersearch) {
         return answersearch;
+      }else{
+        return "Don't exists id"
       }
     } catch (err) {
       return new Error("An error has ocurred");
