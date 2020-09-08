@@ -9,10 +9,10 @@ class CourseService {
       body("description").isLength({ min: 6 }),
     ];
   }
-  static async CreateCourse(body) {
+  static async createCourse(data) {
     try {
       const newCode = nanoid(10);
-      const { title, description, isPrivate, categoryId, professorId } = body;
+      const { title, description, isPrivate, categoryId, professorId } = data;
       const postCursos = await Course.create({
         invitationCode: newCode,
         title,
@@ -26,7 +26,7 @@ class CourseService {
       return new Error("An error has ocurred");
     }
   }
-  static async UpdateCourse(body, id) {
+  static async updateCourse(data, id) {
     const courseUpdate = await Course.findByPk(id);
     try {
       const {
@@ -35,7 +35,7 @@ class CourseService {
         isPrivate,
         categoryId,
         professorId,
-      } = body;
+      } = data;
       if (courseUpdate) {
         courseUpdate.update({
           title,description,isPrivate,categoryId,professorId
@@ -47,7 +47,7 @@ class CourseService {
     }
   }
 
-  static async AllCourses() {
+  static async allCourses() {
     try {
       const curso = await Course.findAll();
       return curso;
@@ -56,7 +56,7 @@ class CourseService {
     }
   }
   //delete data ..
-  static async DeleteCourse (id){
+  static async deleteCourse (id){
   try{
     const courseDelete = await Course.findByPk(id);
     if(courseDelete){
