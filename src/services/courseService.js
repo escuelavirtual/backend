@@ -55,7 +55,7 @@ class CourseService {
       return new Error("An error has ocurred");
     }
   }
-  //delete ssucessfull we need cascade change
+  //delete data ..
   static async DeleteCourse (id){
   try{
     const courseDelete = await Course.findByPk(id);

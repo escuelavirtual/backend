@@ -49,6 +49,18 @@ class AnswerService {
       return new Error("An error has ocurred");
     }
   }
+  static async deleteAnswerQuestion(id){
+   try{
+        const answerDelete= await Answer.findByPk(id);
+        if(answerDelete){
+            await answerDelete.destroy()
+            return answerDelete
+        }
+   }catch(err){
+     return new Error("An error has ocurred");
+   }
+  }
+
   static async UpdateAnswer(body, id) {
     try {
       console.log(id);
@@ -68,5 +80,6 @@ class AnswerService {
       return new Error("An error has ocurred");
     }
   }
+
 }
 module.exports = AnswerService;

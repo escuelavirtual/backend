@@ -13,7 +13,6 @@ class answerController{
     }
     static async createAnswer(req,res){
         try{
-            console.log("create ..")
             const answers = await AnswerService.createAnswer(req.body)
             return res.status(200).json({ok:true,message:'Created Sucessfull',data:answers})
         }catch(err){
@@ -51,17 +50,8 @@ class answerController{
     static async deleteAnswer (req,res){
         try{
             const {id} = req.params
-            const answerQuestion = await Answer.findByPk(id);
-            if(answerQuestion){
-                console.log("exits id")
-                Answer.destroy({answerQuestion,
-                    where:{id:id}
-                })
-                // answerQuestion.destroy(answerQuestion);
-                return res.status(200).json(answerQuestion)
-
-            }
-            // const answerQuestion = await AnswerService.UpdateAnswer(req.body,id)
+            const answerQuestion =  await AnswerService.deleteAnswerQuestion(id)
+            return res.status(200).json(answerQuestion)
         }catch(err){
             return res.status(500).json({ ok: false, err });
         }

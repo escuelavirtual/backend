@@ -47,7 +47,6 @@ class CourseController {
        return res.status(500).json({ message: "an error has ocurred" });
     }
   }
-  //we need define cascade method
   static async deleteCouse(req,res){
       try{
           const {id} = req.params
