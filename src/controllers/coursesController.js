@@ -1,15 +1,13 @@
 const CourseService = require("../services/courseService");
-const Course = require("../models/course");
 
 class CourseController {
-  //good
   static async createCourses(req, res) {
     try {
-      const CreateCourses = await CourseService.CreateCourse(req.body);
-      if (CreateCourses) {
+      const coursecreate = await CourseService.createCourses(req.body);
+      if (coursecreate) {
         return res.status(200).json({
             message:"The course has been created",
-            data:CreateCourses
+            data:coursecreate
         });
       }
     } catch (err) {
@@ -17,17 +15,15 @@ class CourseController {
     }
   }
 
-
-  //falta verificar updat ecourses
   static async updateCourses(req, res) {
     try {
       const { id } = req.params;
-    const courseUpdate = await CourseService.UpdateCourse(req.body, id);
-      if(courseUpdate){
+    const courseupdate = await CourseService.updateCourses(req.body, id);
+      if(courseupdate){
         return res.status(200).json({
             ok: true,
             message: "Update Sucessfull",
-            courseUpdate,
+            courseupdate,
           });
       }
     } catch (err) {
@@ -37,11 +33,11 @@ class CourseController {
 
   static async searchCourse(req, res) {
     try {
-      const allCourses = await CourseService.AllCourses();
+      const allcourses = await CourseService.allCourses();
       return res.status(200).json({
         ok: true,
         message: "query executed correctly",
-        allCourses,
+        allcourses,
       });
     } catch (err) {
        return res.status(500).json({ message: "an error has ocurred" });
@@ -50,8 +46,8 @@ class CourseController {
   static async deleteCouse(req,res){
       try{
           const {id} = req.params
-            const courseDelete = await CourseService.DeleteCourse(id);
-            return res.status(200).json({message:"Delete Sucessfull",data:courseDelete})
+            const coursesdelete = await CourseService.deleteCourse(id);
+            return res.status(200).json({message:"Delete Sucessfull",data:coursesdelete})
           
       }catch(err){
         return res.status(500).json({ message: "an error has ocurred" });

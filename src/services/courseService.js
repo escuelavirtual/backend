@@ -9,11 +9,11 @@ class CourseService {
       body("description").isLength({ min: 6 }),
     ];
   }
-  static async CreateCourse(body) {
+  static async createCourses(data) {
     try {
       const newCode = nanoid(10);
-      const { title, description, isPrivate, categoryId, professorId } = body;
-      const postCursos = await Course.create({
+      const { title, description, isPrivate, categoryId, professorId } = data;
+      const createcourses = await Course.create({
         invitationCode: newCode,
         title,
         description,
@@ -21,13 +21,13 @@ class CourseService {
         categoryId,
         professorId,
       });
-      return postCursos;
+      return createcourses;
     } catch (err) {
       return new Error("An error has ocurred");
     }
   }
-  static async UpdateCourse(body, id) {
-    const courseUpdate = await Course.findByPk(id);
+  static async updateCourses(data, id) {
+    const courses = await Course.findByPk(id);
     try {
       const {
         title,
@@ -35,33 +35,32 @@ class CourseService {
         isPrivate,
         categoryId,
         professorId,
-      } = body;
-      if (courseUpdate) {
-        courseUpdate.update({
+      } = data;
+      if (courses) {
+        courses.update({
           title,description,isPrivate,categoryId,professorId
         });
-        return courseUpdate;
+        return courses;
       }
     } catch (err) {
       return new Error("An error has ocurred");
     }
   }
 
-  static async AllCourses() {
+  static async allCourses() {
     try {
-      const curso = await Course.findAll();
-      return curso;
+      const allcourses = await Course.findAll();
+      return allcourses;
     } catch (err) {
       return new Error("An error has ocurred");
     }
   }
-  //delete data ..
-  static async DeleteCourse (id){
+  static async deleteCourse (id){
   try{
-    const courseDelete = await Course.findByPk(id);
-    if(courseDelete){
-        await courseDelete.destroy();
-        return courseDelete
+    const coursedelete = await Course.findByPk(id);
+    if(coursedelete){
+        await coursedelete.destroy();
+        return coursedelete
     
     }
   }catch(err){

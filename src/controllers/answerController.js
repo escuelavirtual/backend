@@ -1,12 +1,11 @@
 const AnswerService = require('../services/answerService');
-const Answer = require('../models/answer');
 
 class answerController{
 
     static async listAll(req,res){
        try{
-        const answers = await AnswerService.findAllAnswer()
-        return res.status(200).json({ok:true,answers})
+        const allanswers = await AnswerService.findAllAnswer()
+        return res.status(200).json({ok:true,allanswers})
        }catch(err){
         return res.status(500).json({ ok: false, err });
        }
@@ -28,11 +27,11 @@ class answerController{
             return res.status(500).json({ ok: false, err });
         }
     }
-    static async getAnswerOfQuestion(req,res){
+    static async getAnswerQuestion(req,res){
         try{
             const {question_id} = req.params
-            const answerQuestion = await AnswerService.getAnswerOfQuestion(question_id)
-            return res.status(200).json({ok:true,data:answerQuestion})
+            const getanswer = await AnswerService.getAnswerQuestion(question_id)
+            return res.status(200).json({ok:true,data:getanswer})
         }catch(err){
             return res.status(500).json({ ok: false, err });
         }
@@ -40,8 +39,8 @@ class answerController{
     static async updateAnswer(req,res){
         try{
             const {id} = req.params
-            const answerQuestion = await AnswerService.UpdateAnswer(req.body,id)
-            return res.status(200).json({ok:true,message:'Update Sucessfull',data:answerQuestion})
+            const updateanswer = await AnswerService.updateAnswer(req.body,id)
+            return res.status(200).json({ok:true,message:'Update Sucessfull',data:updateanswer})
         }catch(err){
             return res.status(500).json({ ok: false, err });
         }
@@ -50,8 +49,8 @@ class answerController{
     static async deleteAnswer (req,res){
         try{
             const {id} = req.params
-            const answerQuestion =  await AnswerService.deleteAnswerQuestion(id)
-            return res.status(200).json(answerQuestion)
+            const deleteanswer =  await AnswerService.deleteAnswerQuestion(id)
+            return res.status(200).json(deleteanswer)
         }catch(err){
             return res.status(500).json({ ok: false, err });
         }

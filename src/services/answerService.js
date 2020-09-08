@@ -1,6 +1,20 @@
 const Answer = require("../models/answer");
+const { check } = require("express-validator"); 
 
 class AnswerService {
+
+  
+  static validate(){
+    return [
+      check('code', 'code is required').not().isEmpty(),
+      check('question_id', 'question_id is required').not().isEmpty(),
+      check('content', 'content is required').not().isEmpty(),
+      check('isTrue', 'isTrue is required').not().isEmpty(),
+      check('score', 'score is required').not().isEmpty(),
+    ];
+}
+
+
   static async findAllAnswer() {
     try {
       const answers = await Answer.findAll();
@@ -11,39 +25,38 @@ class AnswerService {
       return new Error("An error has ocurred");
     }
   }
-  static async createAnswer(body) {
+  static async createAnswer(data) {
     try {
-      const { code, question_id, content, isTrue, score } = body;
-      const answersCourse = await Answer.create({
+      const { code, question_id, content, isTrue, score } = data;
+      const answerscourse = await Answer.create({
         code,
         question_id,
         content,
         isTrue,
         score,
       });
-      return answersCourse;
+      return answerscourse;
     } catch (err) {
       return new Error("An error has ocurred");
     }
   }
   static async searchAnswer(id) {
     try {
-      const answerSearch = await Answer.findByPk(id);
-      if (answerSearch) {
-        return answerSearch;
+      const answersearch = await Answer.findByPk(id);
+      if (answersearch) {
+        return answersearch;
       }
     } catch (err) {
       return new Error("An error has ocurred");
     }
   }
-  static async getAnswerOfQuestion(question_id) {
+  static async getAnswerQuestion(question_id) {
     try {
-      console.log(question_id);
-      const answerQuestion = await Answer.findAll({
+      const answerquestion = await Answer.findAll({
         where: { question_id: question_id },
       });
-      if (answerQuestion) {
-        return answerQuestion;
+      if (answerquestion) {
+        return answerquestion;
       }
     } catch (err) {
       return new Error("An error has ocurred");
@@ -51,30 +64,29 @@ class AnswerService {
   }
   static async deleteAnswerQuestion(id){
    try{
-        const answerDelete= await Answer.findByPk(id);
-        if(answerDelete){
-            await answerDelete.destroy()
-            return answerDelete
+        const answerdelete= await Answer.findByPk(id);
+        if(answerdelete){
+            await answerdelete.destroy()
+            return answerdelete
         }
    }catch(err){
      return new Error("An error has ocurred");
    }
   }
 
-  static async UpdateAnswer(body, id) {
+  static async updateAnswer(data, id) {
     try {
-      console.log(id);
-      const { code, question_id, content, isTrue, score } = body;
-      const answerQuestion = await Answer.findByPk(id);
-      if (answerQuestion) {
-       answerQuestion.update({
+      const { code, question_id, content, isTrue, score } = data;
+      const answerquestion = await Answer.findByPk(id);
+      if (answerquestion) {
+        answerquestion.update({
         code,
         question_id,
         content,
         isTrue,
         score,
        })
-        return answerQuestion;
+        return answerquestion;
       }
     } catch (err) {
       return new Error("An error has ocurred");

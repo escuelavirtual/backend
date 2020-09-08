@@ -14,10 +14,10 @@ class UserService {
         ];
     }
 
-    static async createUser(body) {
+    static async createUser(data) {
         try {
 
-            const { firstname, lastname, email, password } = body
+            const { firstname, lastname, email, password } = data
             const user = await User.create({
                 firstname, lastname, email, password: bcrypt.hashSync(password, 10)
             })
