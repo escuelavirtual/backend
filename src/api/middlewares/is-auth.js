@@ -1,12 +1,12 @@
 //require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const Professor=require("../../models/professor");
+const Professor = require("../../models/professor");
 
 exports.verifyToken=(req,res,next)=>{
   
-  let query = req.get('authorization');
+  let query = req.header('authorization').split(' ');
   
-  let token = query; //Authenticate
+  let token = query[1]; //Authenticate
   
   jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
     //decoded is the payload
