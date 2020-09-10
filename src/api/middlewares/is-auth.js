@@ -17,14 +17,12 @@ exports.verifyToken=(req,res,next)=>{
       });
     }
     req.id = decoded.id;  
-    console.log(req.id);
   });
   next();
 }
 
 exports.verifyProfesssor = async (req,res,next) => {
   let id=req.id;
-  console.log(id);
   const professor= await Professor.findAll({
     where:{
       userId:id
