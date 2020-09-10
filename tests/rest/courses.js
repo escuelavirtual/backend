@@ -13,7 +13,6 @@ describe('Course API', () => {
         email: 'test@webxander.com',
         id: 1,
     };
-
     const token = generateValidToken(user);
 
     afterEach(() => {
@@ -26,7 +25,7 @@ describe('Course API', () => {
 
             chai.request(server)
                 .post('/api/v1/courses')
-                .set( 'Authorization', `Bearer ${token}` )
+                .set( 'Authorization', `${token}` )
                 .set( 'Connection', 'close' )
                 .send({                  
                     'title': 'Demo',
@@ -52,7 +51,7 @@ describe('Course API', () => {
 
             chai.request(server)
                 .post('/api/v1/courses')
-                .set( 'Authorization', `Bearer ${token}` )
+                .set( 'Authorization', `${token}` )
                 .set( 'Connection', 'close' )
                 .send({                  
                     'description': 'My demo course',
