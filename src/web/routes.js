@@ -28,7 +28,19 @@ module.exports = function(app) {
     });
 
     app.get(WEB_BASE_URL + '/courses/document/text', (req, res) => {
-        res.render('course-content'); 
+        res.render('course-content-text'); 
+    });
+
+    app.get(WEB_BASE_URL + '/courses/document/video', (req, res) => {
+        res.render('course-content-video'); 
+    });
+
+    app.get(WEB_BASE_URL + '/courses/document/pdf', (req, res) => {
+        res.render('course-content-pdf'); 
+    });
+
+    app.get(WEB_BASE_URL + '/courses/exam', (req, res) => {
+        res.render('course-exam'); 
     });
 
     app.get(WEB_BASE_URL + '/courses', (req, res) => {

@@ -1,50 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
     <title>Document</title>
 </head>
+
 <body>
 
     {{!--we need use blocks and user extends constantly --}}
     <div class="main">
-    <header>
-           {{> navbar }}
-    </header>
-    <main class="container">
+        <header>
+            {{> navbar }}
+        </header>
+        <main class="container">
 
-        <div class="row">
-            <div class="col-md-3">
-        <!-- Left sidebar -->
-         <aside class="sidebar">
-            <h3>Categories</h3>
-        </aside> 
-            </div>
-
-            <div class="col-md-9">
-
-        <!-- Main content -->
-        <article class="content">
             {{{ body }}}
-        </article>
-            </div>
 
-        </div>
 
-    
-    </main>
-   <footer>
-        School Footer - Welcome
-    </footer> 
-</div>
+        </main>
+        <footer>
+            School Footer - Welcome
+        </footer>
+    </div>
 
-   
-    
-    
+
+
+
 
 </body>
+
 </html>
