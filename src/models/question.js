@@ -23,7 +23,8 @@ const Question = sequelize.define('questions', {
         allowNull: false,
     },
     content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
     },
     minimum: {
         type: Sequelize.INTEGER

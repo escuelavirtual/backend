@@ -23,7 +23,8 @@ module.exports = {
                 allowNull: false,
             },
             content: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                allowNull: false,
             },
             minimum: {
                 type: Sequelize.INTEGER

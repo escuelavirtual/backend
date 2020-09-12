@@ -18,8 +18,7 @@ const Answer = sequelize.define('answers', {
         references: { model: 'questions', key: 'id' }
     },
     content: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.STRING
     },
     isTrue: {
         type: Sequelize.BOOLEAN,
