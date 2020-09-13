@@ -1,6 +1,5 @@
 const AnswerService = require("../services/answerService");
 const questionService = require("../services/questionService");
-const questionController = require("./questionController");
 const typeQuestion = require("../../config/enum/typeOfQuestion");
 
 class answerController {
@@ -15,18 +14,24 @@ class answerController {
     }
 
     static createAnswer(req, res) {
-        let existeQuestion = {};
-        return questionService.exist(req.body.question_id)
-            .then(respuesta => {
-                existeQuestion = respuesta;
-                return AnswerService.validateParameters(respuesta, req.body);
+        let existsQuestion = {};
+        return questionService.findById(req.body.question_id)
+            .then(data => {
+                if (data) {
+                    existsQuestion = data;
+                    const answerVerify = req.body;
+                    answerVerify.type_question_id = data.type_question_id;
+                    return AnswerService.validateParameters(answerVerify);
+                } else {
+                    return Promise.reject({ err: "The question not exists. " });
+                }
             })
             .then(data => {
-                const consulta = (existeQuestion.type_question_id === typeQuestion.QUESTIONABIERTA ? { where: { question_id: req.body.question_id } } : { where: { question_id: req.body.question_id, content: req.body.content } });
-                return AnswerService.findOneBy(consulta);
+                const query = ((existsQuestion.type_question_id === typeQuestion.QUESTIONABIERTA || existsQuestion.type_question_id === typeQuestion.QUESTIONNUMERICA) ? { where: { question_id: req.body.question_id } } : { where: { question_id: req.body.question_id, content: req.body.content } });
+                return AnswerService.findOneBy(query);
             })
             .then(data => {
-                if (data) return Promise.reject({ err: "The answer already exists. " + data.content });
+                if (data) return Promise.reject({ err: "The answer already exists. " });
                 else return AnswerService.create(req.body);
             })
             .then((data) => res.status(200).json({ message: "Successfully created", data }))

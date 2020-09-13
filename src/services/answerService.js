@@ -8,8 +8,8 @@ class AnswerService {
         return [
             check("code", "code is required").not().isEmpty().isAlphanumeric().isLength({ min: 2, max: 15 }),
             check("question_id", "question_id is required").not().isEmpty().isNumeric(),
-            check("isTrue", "isTrue is required").isNumeric().isLength({ min: 1, max: 1 }),
-            check("score", "score is required").isNumeric(),
+            check("isTrue", "isTrue is required").not().isEmpty().isIn([1, 0]),
+            check("score", "score is required").optional().isNumeric(),
         ];
     }
 
@@ -105,50 +105,32 @@ class AnswerService {
         }
     }
 
-
-    /***********************
-     *  question abierta y numerica  solo puede tener una respuesta o graba una vez  y despues modifica
-     *     !answer.isTrue no ingresa cuando vale 0
-     *     en las preguntas abiertas no deberia guardar en content
-     **/
-    static validateParameters(question, answer) {
-        return new Promise((resolve, reject) => { //  !answer.question_id || !question.content ||
-            console.log("question", question.type_question_id);
-            switch (question.type_question_id) {
+    /**
+     * Verification of data to add
+     * @param {Object} answer post data to add
+     * @returns {Promise.resolve} message for correct data
+     * @returns {Promise.reject} alert message, if data is missing
+     */
+    static validateParameters(answer) {
+        return new Promise((resolve, reject) => {
+            console.log("question", answer.type_question_id);
+            switch (answer.type_question_id) {
                 case typeQuestion.QUESTIONABIERTA:
-                    if (!answer.code || !answer.score) { // || !answer.isTrue
-                        reject("Faltan Parametros obligatorios");
+                    if (!answer.code || !answer.score) {
+                        reject("Mandatory parameters are missing");
                     } else {
-                        resolve("Parametros correctos");
+                        resolve("Correct parameters");
                     }
                     break;
                 default:
-                    if (!answer.code || !answer.content || !answer.score) { //!answer.isTrue || 
-                        reject("Faltan parametros obligatorios");
+                    if (!answer.code || !answer.content || !answer.score) {
+                        reject("Mandatory parameters are missing");
                     } else {
-                        resolve("Parametros correctos");
+                        resolve("Correct parameters");
                     }
                     break;
             }
         });
     }
-
-    /******************
-     * 1. ver si exsite la misma respuesta
-     * 2. si es abierta o numerica debe tener solo una respuesta para cada question
-     **/
-    static async getExisteAnswer(question, req, res) {
-        try {
-            const { id } = req.params;
-            let consulta = {};
-            consulta = (question.type_question_id === typeQuestion.QUESTIONABIERTA ? { where: { question_id: req.body.question_id } } : { where: { question_id: req.body.question_id, content: req.body.content } });
-            const existeAnswer = await AnswerService.findOneBy(consulta);
-            return res.status(200).json(existeAnswer);
-        } catch (err) {
-            return res.status(500).json({ err });
-        }
-    }
-
-
 }
 module.exports = AnswerService;

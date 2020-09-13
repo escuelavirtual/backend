@@ -32,7 +32,7 @@ class examController {
             type: req.body.type,
             name_exam: req.body.name_exam
         };
-        return ExamService.findExist(exam)
+        return ExamService.findExists(exam)
             .then(data => ExamService.create(exam))
             .then((data) => res.status(200).json({ message: "Create successfully", data }))
             .catch((err) => res.status(500).json({ err }));

@@ -43,8 +43,6 @@ class ExamService {
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
                 return hereExam;
-            } else {
-                return "Don't exists id";
             }
         } catch (err) {
             return new Error("An error has ocurred");
@@ -107,7 +105,7 @@ class ExamService {
      * @param {object} exam containing info about a post
      * @returns {Promise}  message error if it exists
      */
-    static findExist(exam) {
+    static findExists(exam) {
         return Exam.findOne({ where: { module_id: exam.module_id, name_exam: exam.name_exam } })
             .then((data) => {
                 if (data) {

@@ -94,8 +94,6 @@ class QuestionService {
             const questionSearch = await Question.findByPk(id);
             if (questionSearch) {
                 return questionSearch;
-            } else {
-                return "Question does not exist";
             }
         } catch (err) {
             return new Error("An error has ocurred");
@@ -144,7 +142,13 @@ class QuestionService {
         }
     }
 
-    static findExist(question) {
+    /**
+     * Verify that the question does not exist in the exam before adding
+     * @param {object} question  to add
+     * @returns {Promise} resolve, when the question does not exist in the exam
+     * @returns {Promise} reject, when the question exists in the exam
+     */
+    static findExists(question) {
         return QuestionService.findOneBy({ where: { exam_id: question.exam_id, content: question.content } })
             .then((data) => {
                 if (data) {
@@ -158,11 +162,14 @@ class QuestionService {
             .catch((err) => Promise.reject(err));
     }
 
-    /* question abierta y numerica  solo puede tener una respuesta o graba una vez  y despues modifica
-           !Question.isTrue no ingresa cuando vale 0
-           en las preguntas abiertas no deberia guardar en content
-           */
-    static validarParameter(question) {
+    /**
+     * Valida los parametros del post para guardar la question, comprueba que los paratros no sean nulos y 
+     * los verifica segun el tipo de pregunta
+     * @param {object} question datos del post
+     * @returns {Promise.resolve} message, cuando los parametros son correctos
+     * @returns {Promise.reject} message, cuando algunos de los parametros faltan validateParameters
+     */
+    static validateParameters(question) {
         return new Promise((resolve, reject) => {
             if (!question.exam_id || !question.type_question_id || !question.code || !question.content) {
                 reject("Required parameters are missing");
@@ -188,20 +195,6 @@ class QuestionService {
                 }
             }
         });
-    }
-
-    static exist(id) {
-
-        return Question.findByPk(id)
-            .then((data) => {
-                if (data) {
-                    return Promise.resolve(data);
-                } else {
-                    const err = { statusCode: 404, message: "there is no question" };
-                    return Promise.reject(err);
-                }
-            })
-            .catch((err) => Promise.reject(err));
     }
 }
 module.exports = QuestionService;
