@@ -29,7 +29,7 @@ class questionController {
             .then(data => examService.findById(question.exam_id))
             .then(data => {
                 if (data) {
-                    return QuestionService.findExist(question);
+                    return QuestionService.findExists(question);
                 } else {
                     return res.status(500).json({ err: "Exam does not exist" });
                 }

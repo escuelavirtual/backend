@@ -15,7 +15,7 @@ class QuestionService {
                     throw new Error("Mandatory parameters are missing or out of range");
                 } else return true;
             }),
-            check("code", "code is required").not().isEmpty().isAlphanumeric().isLength({ min: 2, max: 15 }),
+            check("code", "code is required").not().isEmpty().isLength({ min: 2, max: 15 }),
             check("content", "content is required").not().isEmpty().isLength({ min: 2, max: 500 }),
             check("help", "help is optional").optional().isLength({ min: 2, max: 500 }),
             check("minimum").custom((minimum, { req }) => {
@@ -184,8 +184,8 @@ class QuestionService {
                         }
                         break;
                     case typeQuestion.QUESTIONNUMERICA:
-                        if (!question.minimum || !question.top || question.minimum == 0 || question.top == 0) {
-                            reject("Required parameters are missing: minimum or top");
+                        if (!question.minimum || !question.tope || question.minimum == 0 || question.tope == 0) {
+                            reject("Required parameters are missing: minimum or tope");
                         } else {
                             resolve("Correct parameters");
                         }

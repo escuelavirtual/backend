@@ -9,7 +9,7 @@ class ExamService {
 
     static validate() {
         return [
-            check("module_id", "module_id is required").not().isEmpty().isAlphanumeric().isLength({ min: 1, max: 15 }),
+            check("module_id", "module_id is required").not().isEmpty().isNumeric().isLength({ min: 1, max: 15 }),
             check("name_exam", "name_exam is required").not().isEmpty().isLength({ min: 2, max: 500 }),
         ];
     }

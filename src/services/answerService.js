@@ -6,10 +6,19 @@ class AnswerService {
 
     static validate() {
         return [
-            check("code", "code is required").not().isEmpty().isAlphanumeric().isLength({ min: 2, max: 15 }),
+            check("code", "code is required").not().isEmpty().isLength({ min: 2, max: 15 }).withMessage("Allowable range 2-15"),
             check("question_id", "question_id is required").not().isEmpty().isNumeric(),
             check("isTrue", "isTrue is required").not().isEmpty().isIn([1, 0]),
-            check("score", "score is required").optional().isNumeric(),
+            check("score", "score is required").custom((val, { req }) => {
+                if (!val && req.body.isTrue == 1) {
+                    throw new Error("Score is required");
+                } else if (val && req.body.isTrue == 0) {
+                    throw new Error("Score not required, because isTrue = false");
+                } else if (val && req.body.isTrue == 1 && (val < 0 || val > 100)) {
+                    throw new Error("Allowable range 0-100");
+                }
+                return true;
+            })
         ];
     }
 
@@ -116,14 +125,14 @@ class AnswerService {
             console.log("question", answer.type_question_id);
             switch (answer.type_question_id) {
                 case typeQuestion.QUESTIONABIERTA:
-                    if (!answer.code || !answer.score) {
+                    if (!answer.code) {
                         reject("Mandatory parameters are missing");
                     } else {
                         resolve("Correct parameters");
                     }
                     break;
                 default:
-                    if (!answer.code || !answer.content || !answer.score) {
+                    if (!answer.code || !answer.content) {
                         reject("Mandatory parameters are missing");
                     } else {
                         resolve("Correct parameters");
