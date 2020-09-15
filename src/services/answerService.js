@@ -16,8 +16,16 @@ class AnswerService {
                     throw new Error("Score not required, because isTrue = false");
                 } else if (val && req.body.isTrue == 1 && (val < 0 || val > 100)) {
                     throw new Error("Allowable range 0-100");
+                } else {
+                    let cadena = val.toString();
+                    let expresion = /[0-9]{3}|[0-9]{2}/gi;
+                    let hallado = cadena.match(expresion);
+                    if (hallado && hallado.length == 1 && (cadena.length > 1 && cadena.length < 4)) {
+                        return true;
+                    } else {
+                        throw new Error("Only numbers allowed");
+                    }
                 }
-                return true;
             })
         ];
     }
@@ -122,23 +130,11 @@ class AnswerService {
      */
     static validateParameters(answer) {
         return new Promise((resolve, reject) => {
-            console.log("question", answer.type_question_id);
-            switch (answer.type_question_id) {
-                case typeQuestion.QUESTIONABIERTA:
-                    if (!answer.code) {
-                        reject("Mandatory parameters are missing");
-                    } else {
-                        resolve("Correct parameters");
-                    }
-                    break;
-                default:
-                    if (!answer.code || !answer.content) {
-                        reject("Mandatory parameters are missing");
-                    } else {
-                        resolve("Correct parameters");
-                    }
-                    break;
-            }
+            if (answer.type_question_id == typeQuestion.QUESTIONABIERTA && answer.content) {
+                reject("Parameter CONTENT no required ");
+            } else if (answer.type_question_id != typeQuestion.QUESTIONABIERTA && !answer.content) {
+                reject("Mandatory parameters are missing");
+            } else return resolve(1);
         });
     }
 }

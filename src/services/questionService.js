@@ -35,26 +35,23 @@ class QuestionService {
             }),
             check("tope").custom((val, { req }) => {
                 if (!req.body.type_question_id || req.body.type_question_id < 1 || req.body.type_question_id > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) return true;
-                switch (req.body.type_question_id) {
-                    case typeQuestion.QUESTIONNUMERICA:
-                        if (!val || val === 0) throw new Error("Mandatory parameters are missing");
-                        break;
-                    default:
-                        if (!val) return true;
-                        else throw new Error("Parameter NOT required");
+                if (req.body.type_question_id == typeQuestion.QUESTIONNUMERICA && (!val || val === 0)) {
+                    throw new Error("Mandatory parameters are missing");
+                } else if (req.body.type_question_id != typeQuestion.QUESTIONNUMERICA && !val) {
+                    return true;
+                } else if (req.body.type_question_id != typeQuestion.QUESTIONNUMERICA && val) {
+                    throw new Error("Parameter NOT required");
                 }
-                return true;
             }),
             check("length").custom((val, { req }) => {
                 if (!req.body.type_question_id || req.body.type_question_id < 1 || req.body.type_question_id > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) return true;
-                switch (req.body.type_question_id) {
-                    case typeQuestion.QUESTIONABIERTA:
-                        if (!val || val < 1 || val > 500) throw new Error("Mandatory parameters are missing");
-                        break;
-                    default:
-                        if (!val) { return true; } else { throw new Error("Parameter NOT required"); }
+                if (req.body.type_question_id == typeQuestion.QUESTIONABIERTA && (!val || val < 1 || val > 500)) {
+                    throw new Error("Mandatory parameters are missing");
+                } else if (req.body.type_question_id != typeQuestion.QUESTIONABIERTA && !val) {
+                    return true;
+                } else if (req.body.type_question_id != typeQuestion.QUESTIONABIERTA && val) {
+                    throw new Error("Parameter NOT required");
                 }
-                return true;
             })
         ];
     }

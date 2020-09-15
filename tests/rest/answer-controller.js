@@ -32,7 +32,7 @@ describe("Answer tests", () => {
                 });
         })
 
-        it("should return an error if content is empty and type of question is open", (done) => {
+        it("should return a answer created, if content is empty and type of question is open", (done) => {
 
             chai.request(app)
                 .post("/api/v1/answer")
