@@ -1,38 +1,37 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-
+const faker = require("faker");
 const app = require("../../src/index");
-
+const Answer = require("../../src/models/answer");
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe("Answer tests", () => {
+    let num;
+    let res1;
+    let res2;
 
-    describe("Create a answer of Exam", () => {
-        it("should return a answer created", (done) => {
+    before(() => {
+        num = faker.random.number();
+    })
 
-            chai.request(app)
-                .post("/api/v1/answer")
-                .send({
-                    "code": "r11",
-                    "question_id": 3,
-                    "content": "naranja_99",
-                    "isTrue": 1,
-                    "score": 10
-                })
-                .end(function(err, res) {
+    after(async() => {
 
-                    if (err) done(err);
-                    //console.log(res)
+        try {
+            const answer1 = await Answer.findByPk(res1.body.data.id);
+            if (answer1) await answer1.destroy();
+            const answer2 = await Answer.findByPk(res2.body.data.id);
+            if (answer2) await answer2.destroy();
+        } catch (err) {
+            return new Error("An error has ocurred");
+        }
 
-                    expect(res).to.have.status(200);
-                    expect(JSON.parse(res.text)).to.have.all.keys("message", "data");
-                    done();
-                });
-        })
+    });
 
-        it("should return a answer created, if content is empty and type of question is open", (done) => {
+    describe("Create a answer of question open", () => {
+
+        it("should return a answer created, if content is empty", (done) => {
 
             chai.request(app)
                 .post("/api/v1/answer")
@@ -45,8 +44,8 @@ describe("Answer tests", () => {
                 .end(function(err, res) {
 
                     if (err) done(err);
-                    //console.log(res)
 
+                    res1 = res;
                     expect(JSON.parse(res.text)).to.have.all.keys("message", "data");
                     expect(res).to.have.status(200);
 
@@ -54,6 +53,52 @@ describe("Answer tests", () => {
 
                 });
         })
+    })
+
+    describe("Create a answer of closed question multiple choice", () => {
+
+        it("Should return a Answer Created", (done) => {
+
+            chai.request(app)
+                .post("/api/v1/answer")
+                .send({
+                    "code": "r3." + num,
+                    "question_id": 5,
+                    "content": "naranja" + num,
+                    "isTrue": 1,
+                    "score": 10
+                })
+                .end(function(err, res) {
+
+                    if (err) done(err);
+
+                    res2 = res;
+                    expect(res).to.have.status(200);
+                    expect(JSON.parse(res.text)).to.have.all.keys("message", "data");
+                    done();
+                });
+        });
+
+        it("Should return a Error, the content is the same as the previous answer", (done) => {
+
+            chai.request(app)
+                .post("/api/v1/answer")
+                .send({
+                    "code": "r3." + num,
+                    "question_id": 5,
+                    "content": "naranja" + num,
+                    "isTrue": 1,
+                    "score": 10
+                })
+                .end(function(err, res) {
+
+                    if (err) done(err);
+
+                    expect(res).to.have.status(500);
+                    expect(JSON.parse(res.text)).to.have.all.keys("err");
+                    done();
+                });
+        });
 
         it("should return an error if content is empty and type of question is not open", (done) => {
 
@@ -76,7 +121,7 @@ describe("Answer tests", () => {
                     done();
 
                 });
-        })
+        });
 
         it("should return an error if question_id is empty", (done) => {
 
@@ -100,6 +145,5 @@ describe("Answer tests", () => {
                 });
         });
     });
-
 
 })
