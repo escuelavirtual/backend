@@ -10,17 +10,17 @@ class StudentsController {
         
         try {
             
-            const user = await UserService.createUser(req.body);
-            const student = await StudentService.createStudent(user.id);
+            //const user = await UserService.createUser(req.body);
+            const student = await StudentService.createStudent(req.body);
             return res.status(201).json({
                 message: 'the student has been created',
                 data: {
                     id: student.id,
-                    userId: user.id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    email: user.email,
-                    createdAt: user.createdAt
+                    userId: student.userId,
+                    firstname: student.firstname,
+                    lastname: student.lastname,
+                    email: student.email,
+                    createdAt: student.createdAt
                 }
             });
         } catch (err) {
