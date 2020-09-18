@@ -8,12 +8,12 @@ module.exports = {
                 autoIncrement: true,
                 primaryKey: true,
             },
-            exam_id: {
+            examId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: { model: 'exams', key: 'id' }
             },
-            type_question_id: {
+            typeQuestionId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: { model: 'type_questions', key: 'id' }

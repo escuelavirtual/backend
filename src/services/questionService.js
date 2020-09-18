@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 const Question = require("../models/question");
-const exam = require("./examService")
 const { check } = require("express-validator");
 const typeQuestion = require("../../config/enum/typeOfQuestion");
 
@@ -9,9 +8,9 @@ class QuestionService {
     static validate() {
 
         return [
-            check("exam_id", "exam_id is required").not().isEmpty(),
-            check("type_question_id", "type_question_id is required").not().isEmpty().isNumeric().custom((val, { req }) => {
-                if (!val || val < 0 || val > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) {
+            check("examId", "examId is required").not().isEmpty(),
+            check("typeQuestionId", "typeQuestionId is required").not().isEmpty().isNumeric().custom((val, { req }) => {
+                if (!val || val < 0 || val > parseInt(typeQuestion.NUMERICALQUESTION, 10) + 1) {
                     throw new Error("Mandatory parameters are missing or out of range");
                 } else return true;
             }),
@@ -19,12 +18,12 @@ class QuestionService {
             check("content", "content is required").not().isEmpty().isLength({ min: 2, max: 500 }),
             check("help", "help is optional").optional().isLength({ min: 2, max: 500 }),
             check("minimum").custom((minimum, { req }) => {
-                if (!req.body.type_question_id || req.body.type_question_id < 1 || req.body.type_question_id > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) return true;
-                switch (req.body.type_question_id) {
-                    case typeQuestion.QUESTIONABIERTA:
+                if (!req.body.typeQuestionId || req.body.typeQuestionId < 1 || req.body.typeQuestionId > parseInt(typeQuestion.NUMERICALQUESTION, 10) + 1) return true;
+                switch (req.body.typeQuestionId) {
+                    case typeQuestion.OPENQUESTION:
                         if (!minimum || minimum < 1) throw new Error("Mandatory parameters are missing");
                         break;
-                    case typeQuestion.QUESTIONNUMERICA:
+                    case typeQuestion.NUMERICALQUESTION:
                         if (!minimum || minimum === 0) throw new Error("Mandatory parameters are missing");
                         break;
                     default:
@@ -34,22 +33,22 @@ class QuestionService {
                 return true;
             }),
             check("tope").custom((val, { req }) => {
-                if (!req.body.type_question_id || req.body.type_question_id < 1 || req.body.type_question_id > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) return true;
-                if (req.body.type_question_id == typeQuestion.QUESTIONNUMERICA && (!val || val === 0)) {
+                if (!req.body.typeQuestionId || req.body.typeQuestionId < 1 || req.body.typeQuestionId > parseInt(typeQuestion.NUMERICALQUESTION, 10) + 1) return true;
+                if (req.body.typeQuestionId == typeQuestion.NUMERICALQUESTION && (!val || val === 0)) {
                     throw new Error("Mandatory parameters are missing");
-                } else if (req.body.type_question_id != typeQuestion.QUESTIONNUMERICA && !val) {
+                } else if (req.body.typeQuestionId != typeQuestion.NUMERICALQUESTION && !val) {
                     return true;
-                } else if (req.body.type_question_id != typeQuestion.QUESTIONNUMERICA && val) {
+                } else if (req.body.typeQuestionId != typeQuestion.NUMERICALQUESTION && val) {
                     throw new Error("Parameter NOT required");
                 }
             }),
             check("length").custom((val, { req }) => {
-                if (!req.body.type_question_id || req.body.type_question_id < 1 || req.body.type_question_id > parseInt(typeQuestion.QUESTIONNUMERICA, 10) + 1) return true;
-                if (req.body.type_question_id == typeQuestion.QUESTIONABIERTA && (!val || val < 1 || val > 500)) {
+                if (!req.body.typeQuestionId || req.body.typeQuestionId < 1 || req.body.typeQuestionId > parseInt(typeQuestion.NUMERICALQUESTION, 10) + 1) return true;
+                if (req.body.typeQuestionId == typeQuestion.OPENQUESTION && (!val || val < 1 || val > 500)) {
                     throw new Error("Mandatory parameters are missing");
-                } else if (req.body.type_question_id != typeQuestion.QUESTIONABIERTA && !val) {
+                } else if (req.body.typeQuestionId != typeQuestion.OPENQUESTION && !val) {
                     return true;
-                } else if (req.body.type_question_id != typeQuestion.QUESTIONABIERTA && val) {
+                } else if (req.body.typeQuestionId != typeQuestion.OPENQUESTION && val) {
                     throw new Error("Parameter NOT required");
                 }
             })
@@ -69,10 +68,10 @@ class QuestionService {
 
     static async create(data) {
         try {
-            const { exam_id, type_question_id, code, content, minimum, tope, length, help } = data;
+            const { examId, typeQuestionId, code, content, minimum, tope, length, help } = data;
             const question = await Question.create({
-                exam_id,
-                type_question_id,
+                examId,
+                typeQuestionId,
                 code,
                 content,
                 minimum,
@@ -111,12 +110,12 @@ class QuestionService {
 
     static async update(data, id) {
         try {
-            const { code, question_id, content, isTrue, score } = data;
+            const { code, questionId, content, isTrue, score } = data;
             const question = await Question.findByPk(id);
             if (question) {
                 question.update({
                     code,
-                    question_id,
+                    questionId,
                     content,
                     isTrue,
                     score,
@@ -128,11 +127,11 @@ class QuestionService {
         }
     }
 
-    static async findOneBy(consulta) {
+    static async findOneBy(query) {
         try {
-            const questionExiste = await Question.findOne(consulta);
-            if (questionExiste) {
-                return questionExiste;
+            const questionExists = await Question.findOne(query);
+            if (questionExists) {
+                return questionExists;
             }
         } catch (err) {
             return new Error("An error has ocurred");
@@ -146,7 +145,7 @@ class QuestionService {
      * @returns {Promise} reject, when the question exists in the exam
      */
     static findExists(question) {
-        return QuestionService.findOneBy({ where: { exam_id: question.exam_id, content: question.content } })
+        return QuestionService.findOneBy({ where: { examId: question.examId, content: question.content } })
             .then((data) => {
                 if (data) {
                     const err = { error: "The Question already exists" };
@@ -160,19 +159,18 @@ class QuestionService {
     }
 
     /**
-     * Valida los parametros del post para guardar la question, comprueba que los paratros no sean nulos y 
-     * los verifica segun el tipo de pregunta
-     * @param {object} question datos del post
-     * @returns {Promise.resolve} message, cuando los parametros son correctos
-     * @returns {Promise.reject} message, cuando algunos de los parametros faltan validateParameters
+     * Validate the parameters of the post, check that they are not null according to the type of question
+     * @param {object} question post data
+     * @returns {Promise.resolve} message, when the parameters are correct
+     * @returns {Promise.reject} message,  when some of the parameters are missing
      */
     static validateParameters(question) {
         return new Promise((resolve, reject) => {
-            if (!question.exam_id || !question.type_question_id || !question.code || !question.content) {
+            if (!question.examId || !question.typeQuestionId || !question.code || !question.content) {
                 reject("Required parameters are missing");
             } else {
-                switch (question.type_question_id) {
-                    case typeQuestion.QUESTIONABIERTA:
+                switch (question.typeQuestionId) {
+                    case typeQuestion.OPENQUESTION:
                         if (!question.length || question.length == 0) {
                             console.log("Required parameters are missing");
                             reject("Required parameters are missing");
@@ -180,7 +178,7 @@ class QuestionService {
                             resolve("Correct parameters");
                         }
                         break;
-                    case typeQuestion.QUESTIONNUMERICA:
+                    case typeQuestion.NUMERICALQUESTION:
                         if (!question.minimum || !question.tope || question.minimum == 0 || question.tope == 0) {
                             reject("Required parameters are missing: minimum or tope");
                         } else {

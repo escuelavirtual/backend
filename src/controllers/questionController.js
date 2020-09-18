@@ -1,6 +1,7 @@
 const QuestionService = require("../services/questionService");
-const examService = require("../services/examService");
-class questionController {
+const ExamService = require("../services/examService");
+
+class QuestionController {
 
     static getQuestion(req, res) {
         return QuestionService.findById(req.params.id)
@@ -16,8 +17,8 @@ class questionController {
 
     static createQuestion(req, res) {
         const question = {
-                exam_id: req.body.exam_id,
-                type_question_id: req.body.type_question_id,
+                examId: req.body.examId,
+                typeQuestionId: req.body.typeQuestionId,
                 code: req.body.code,
                 content: req.body.content,
                 minimum: req.body.minimum,
@@ -26,7 +27,7 @@ class questionController {
                 help: req.body.help
             } //= req.body;
         return QuestionService.validateParameters(question)
-            .then(data => examService.findById(question.exam_id))
+            .then(data => ExamService.findById(question.examId))
             .then(data => {
                 if (data) {
                     return QuestionService.findExists(question);
@@ -40,4 +41,4 @@ class questionController {
     }
 }
 
-module.exports = questionController;
+module.exports = QuestionController;

@@ -37,7 +37,7 @@ describe("Answer tests", () => {
                 .post("/api/v1/answer")
                 .send({
                     "code": "r11",
-                    "question_id": 1,
+                    "questionId": 1,
                     "isTrue": 1,
                     "score": 10
                 })
@@ -63,7 +63,7 @@ describe("Answer tests", () => {
                 .post("/api/v1/answer")
                 .send({
                     "code": "r3." + num,
-                    "question_id": 5,
+                    "questionId": 5,
                     "content": "naranja" + num,
                     "isTrue": 1,
                     "score": 10
@@ -85,7 +85,7 @@ describe("Answer tests", () => {
                 .post("/api/v1/answer")
                 .send({
                     "code": "r3." + num,
-                    "question_id": 5,
+                    "questionId": 5,
                     "content": "naranja" + num,
                     "isTrue": 1,
                     "score": 10
@@ -106,7 +106,7 @@ describe("Answer tests", () => {
                 .post("/api/v1/answer")
                 .send({
                     "code": "r12",
-                    "question_id": 3,
+                    "questionId": 3,
                     "isTrue": 1,
                     "score": 10
                 })
@@ -123,7 +123,7 @@ describe("Answer tests", () => {
                 });
         });
 
-        it("should return an error if question_id is empty", (done) => {
+        it("should return an error if questionId is empty", (done) => {
 
             chai.request(app)
                 .post("/api/v1/answer")

@@ -1,8 +1,8 @@
 const AnswerService = require("../services/answerService");
-const questionService = require("../services/questionService");
+const QuestionService = require("../services/questionService");
 const typeQuestion = require("../../config/enum/typeOfQuestion");
 
-class answerController {
+class AnswerController {
 
     static async listAll(req, res) {
         try {
@@ -15,19 +15,19 @@ class answerController {
 
     static createAnswer(req, res) {
         let existsQuestion = {};
-        return questionService.findById(req.body.question_id)
+        const answerVerify = req.body;
+        return QuestionService.findById(req.body.questionId)
             .then(data => {
                 if (data) {
                     existsQuestion = data;
-                    const answerVerify = req.body;
-                    answerVerify.type_question_id = data.type_question_id;
+                    answerVerify.typeQuestionId = data.typeQuestionId;
                     return AnswerService.validateParameters(answerVerify);
                 } else {
                     return Promise.reject({ err: "The question not exists. " });
                 }
             })
             .then(data => {
-                const query = ((existsQuestion.type_question_id === typeQuestion.QUESTIONABIERTA || existsQuestion.type_question_id === typeQuestion.QUESTIONNUMERICA) ? { where: { question_id: req.body.question_id } } : { where: { question_id: req.body.question_id, content: req.body.content } });
+                const query = ((existsQuestion.typeQuestionId === typeQuestion.OPENQUESTION || existsQuestion.typeQuestionId === typeQuestion.NUMERICALQUESTION) ? { where: { questionId: req.body.questionId } } : { where: { questionId: req.body.questionId, content: req.body.content } });
                 return AnswerService.findOneBy(query);
             })
             .then(data => {
@@ -50,10 +50,10 @@ class answerController {
 
     static async getByQuestion(req, res) {
         try {
-            const { question_id } = req.params;
-            const consulta = { where: { question_id: question_id } };
-            const getanswer = await AnswerService.findAllBy(consulta);
-            return res.status(200).json({ message: "Sucessfull Ejecution", data: getanswer });
+            const { questionId } = req.params;
+            const query = { where: { questionId: questionId } };
+            const answer = await AnswerService.findAllBy(query);
+            return res.status(200).json({ message: "Sucessfull Ejecution", data: answer });
         } catch (err) {
             return res.status(500).json({ err });
         }
@@ -62,8 +62,8 @@ class answerController {
     static async updateAnswer(req, res) {
         try {
             const { id } = req.params;
-            const updateanswer = await AnswerService.update(req.body, id);
-            return res.status(200).json({ message: "Sucessfull Ejecution", data: updateanswer });
+            const answer = await AnswerService.update(req.body, id);
+            return res.status(200).json({ message: "Sucessfull Ejecution", data: answer });
         } catch (err) {
             return res.status(500).json({ err });
         }
@@ -72,11 +72,11 @@ class answerController {
     static async deleteAnswer(req, res) {
         try {
             const { id } = req.params;
-            const deleteanswer = await AnswerService.delete(id);
-            return res.status(200).json({ message: "Delete Sucessfull", data: deleteanswer });
+            const answer = await AnswerService.delete(id);
+            return res.status(200).json({ message: "Delete Sucessfull", data: answer });
         } catch (err) {
             return res.status(500).json({ err });
         }
     }
 }
-module.exports = answerController;
+module.exports = AnswerController;

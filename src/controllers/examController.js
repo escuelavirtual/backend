@@ -1,6 +1,6 @@
 const ExamService = require("../services/examService");
 
-class examController {
+class ExamController {
 
     static getExamComplet(req, res) {
         return ExamService.findAllById(req.params.id)
@@ -28,7 +28,7 @@ class examController {
 
     static createExam(req, res) {
         const exam = {
-            module_id: req.body.module_id,
+            moduleId: req.body.moduleId,
             type: req.body.type,
             name_exam: req.body.name_exam
         };
@@ -39,4 +39,4 @@ class examController {
     }
 
 }
-module.exports = examController;
+module.exports = ExamController;

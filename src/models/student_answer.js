@@ -8,22 +8,22 @@ const Student_Answer = sequelize.define('student_answers', {
         primaryKey: true,
         type: Sequelize.INTEGER
     },
-    exam_id: {
+    examId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'exams', key: 'id' }
     },
-    question_id: {
+    questionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'questions', key: 'id' }
     },
-    type_question_id: {
+    typeQuestionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'type_questions', key: 'id' }
     },
-    student_id: {
+    studentId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'students', key: 'id' }

@@ -8,12 +8,12 @@ const Student_Exam = sequelize.define('student_exams', {
         primaryKey: true,
         type: Sequelize.INTEGER
     },
-    student_id: {
+    studentId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'students', key: 'id' }
     },
-    exam_id: {
+    examId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'exams', key: 'id' }

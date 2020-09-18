@@ -9,7 +9,7 @@ class ExamService {
 
     static validate() {
         return [
-            check("module_id", "module_id is required").not().isEmpty().isNumeric().isLength({ min: 1, max: 15 }),
+            check("moduleId", "moduleId is required").not().isEmpty().isNumeric().isLength({ min: 1, max: 15 }),
             check("name_exam", "name_exam is required").not().isEmpty().isLength({ min: 2, max: 500 }),
         ];
     }
@@ -27,9 +27,9 @@ class ExamService {
 
     static async create(data) {
         try {
-            const { module_id, type, name_exam } = data;
+            const { moduleId, type, name_exam } = data;
             const hereExam = await Exam.create({
-                module_id,
+                moduleId,
                 type,
                 name_exam
             });
@@ -64,11 +64,11 @@ class ExamService {
 
     static async update(data, id) {
         try {
-            const { module_id, type, name_exam } = data;
+            const { moduleId, type, name_exam } = data;
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
                 hereExam.update({
-                    module_id,
+                    moduleId,
                     type,
                     name_exam
                 });
@@ -79,9 +79,9 @@ class ExamService {
         }
     }
 
-    static async findOneBy(consulta) {
+    static async findOneBy(query) {
         try {
-            const hereExam = await Exam.findOne(consulta);
+            const hereExam = await Exam.findOne(query);
             if (hereExam) {
                 return hereExam;
             }
@@ -94,8 +94,8 @@ class ExamService {
         let query = `
 	            SELECT *
                 FROM exams e
-                inner join questions as q on q.exam_id = e.id
-                INNER JOIN answers AS a ON a.question_id = q.id
+                inner join questions as q on q.examId = e.id
+                INNER JOIN answers AS a ON a.questionId = q.id
                 where e.id =:id;`;
         return sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
     }
@@ -106,7 +106,7 @@ class ExamService {
      * @returns {Promise}  message error if it exists
      */
     static findExists(exam) {
-        return Exam.findOne({ where: { module_id: exam.module_id, name_exam: exam.name_exam } })
+        return Exam.findOne({ where: { moduleId: exam.moduleId, name_exam: exam.name_exam } })
             .then((data) => {
                 if (data) {
                     const err = "The record exists";
