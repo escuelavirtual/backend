@@ -4,13 +4,20 @@ const e = require('debug')("error:data");
 
 class StudentService {
 
-    static async createStudent(id) {
+    static async createStudent(data) {
         try {
+            const user = await User.create(data);
             const student = await Student.create({
-                userId: id
+                userId: user.id
             });
 
-            return student;
+            return {id:student.id,
+                    userId:student.userId,
+                    firstname:user.firstname,
+                    lastname:user.lastname,
+                    email:user.email,
+                    createdAt:user.createdAt
+                };
 
         } catch (err) {
 
