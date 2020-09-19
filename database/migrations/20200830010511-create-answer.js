@@ -12,14 +12,13 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            question_id: {
+            questionId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: { model: 'questions', key: 'id' }
             },
             content: {
-                type: Sequelize.STRING,
-                allowNull: false,
+                type: Sequelize.STRING
             },
             isTrue: {
                 type: Sequelize.BOOLEAN,

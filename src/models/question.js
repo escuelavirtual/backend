@@ -8,12 +8,12 @@ const Question = sequelize.define('questions', {
         autoIncrement: true,
         primaryKey: true,
     },
-    exam_id: {
+    examId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'exams', key: 'id' }
     },
-    type_question_id: {
+    typeQuestionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'type_questions', key: 'id' }
@@ -23,7 +23,8 @@ const Question = sequelize.define('questions', {
         allowNull: false,
     },
     content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
     },
     minimum: {
         type: Sequelize.INTEGER
