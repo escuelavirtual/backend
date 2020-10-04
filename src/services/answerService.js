@@ -179,7 +179,6 @@ class AnswerService {
      * @returns {Promise.reject} alert message, if data is missing
      */
     static validateParameters(answer) {
-        // console.log('data ', JSON.stringify(answer))
         return new Promise((resolve, reject) => {
             if (answer.typeQuestionId == typeQuestion.OPENQUESTION && answer.content) {
                 reject("CONTENT parameter is not necessary for open questions");
