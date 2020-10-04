@@ -1,7 +1,6 @@
 const Exam = require("../models/exam");
 const { check } = require("express-validator");
 const { sequelize } = require("../../config/db/mysql");
-const Module = require("../models/module");
 
 class ExamService {
 
@@ -87,13 +86,7 @@ class ExamService {
 
     static updateNormal(data, id) {
         const { moduleId, type, name } = data;
-        return Module.findByPk(moduleId)
-            .then(theModule => {
-                if (theModule) {
-                    return Exam.findByPk(id);
-                }
-                return Promise.reject("no existe el modulo");
-            })
+        return Exam.findByPk(id)
             .then(hereExam => {
                 if (hereExam && hereExam.publishedAt === null) {
                     return hereExam.update({
@@ -102,7 +95,7 @@ class ExamService {
                         name
                     });
                 }
-                return Promise.reject("no existe el examen");
+                return Promise.reject("Not exists exam");
             })
             .then(data => {
                 // console.log('data ', data)
@@ -156,13 +149,7 @@ class ExamService {
      * @returns {Promise}  message error if it exists
      */
     static exists(exam) {
-        return Module.findByPk(exam.moduleId)
-            .then(theModule => {
-                if (theModule) {
-                    return Exam.findOne({ where: { moduleId: exam.moduleId, name: exam.name } });
-                }
-                return Promise.reject("no existe el modulo");
-            })
+        return Exam.findOne({ where: { moduleId: exam.moduleId, name: exam.name } })
             .then(data => {
                 if (data) {
                     return Promise.reject("Exists the record the exam");

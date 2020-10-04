@@ -2,37 +2,29 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../../src/index");
 
-const User = require("../../src/models/user");
-const Professor = require("../../src/models/professor");
-const Category = require("../../src/models/category");
-const Course = require("../../src/models/course");
-const Module = require("../../src/models/module");
-const Type_question = require("../../src/models/type_question.js");
-
 const { expect } = chai;
+const Exam = require("../../src/models/exam");
 
 chai.use(chaiHttp);
-before(async() => {
-    try {
-        await Type_question.create({ id: 1, type_question: 1, content: "abierta" });
-        await Type_question.create({ id: 2, type_question: 2, content: "cerrada" });
-        await Type_question.create({ id: 3, type_question: 3, content: "multiple" });
-        await Type_question.create({ id: 4, type_question: 4, content: "numerica" });
-        await User.create({ id: "1", firstname: "ana", lastname: "aa", email: "aaa@ddd.com", password: "sss" });
-        await Category.create({ id: "1", name: "alto", slug: "1" });
-        await Professor.create({ id: "1", userId: "1", valuation: "11" });
-        await Course.create({ id: "1", professorId: "1", categoryId: "1", title: "alto", description: "ssss", isPrivate: "0", invitationCode: "adfsdf677s" });
-        await Module.create({ id: 1, courseId: 1, title: "safsd", description: "sdfs" });
-
-    } catch (err) {
-        return new Error("An error has ocurred");
-    }
-});
-
-
 
 describe("Exam Test", () => {
 
+    after(async() => {
+        try {
+            //  await Exam.destroy({ force: true });
+
+            let data2 = await Exam.findAll();
+            if (data2) {
+                let vector2 = Object.values(data2);
+                vector2.forEach(item => item.destroy({ force: true }));
+            }
+
+        } catch (err) {
+            console.log("Error: ", err);
+            //  return new Error("An error has ocurred");
+        }
+
+    });
     it("Should return an Exam Created", (done) => {
 
         chai.request(app)

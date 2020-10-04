@@ -3,12 +3,10 @@ const chaiHttp = require("chai-http");
 const app = require("../../src/index");
 const { expect } = chai;
 
-const User = require("../../src/models/user");
-const Professor = require("../../src/models/professor");
-const Category = require("../../src/models/category");
-const Course = require("../../src/models/course");
-const Module = require("../../src/models/module");
+const Type_question = require("../../src/models/type_question.js");
 const Exam = require("../../src/models/exam");
+const Question = require("../../src/models/question");
+
 
 chai.use(chaiHttp);
 
@@ -16,12 +14,43 @@ describe("Question Tests", () => {
 
     before(async() => {
         try {
-            await User.create({ id: "1", firstname: "ana", lastname: "aa", email: "aaa@ddd.com", password: "sss" });
-            await Category.create({ id: "1", name: "alto", slug: "1" });
-            await Professor.create({ id: "1", userId: "1", valuation: "11" });
-            await Course.create({ id: "1", professorId: "1", categoryId: "1", title: "alto", description: "ssss", isPrivate: "0", invitationCode: "adfsdfs" });
-            await Module.create({ id: "1", courseId: "1", title: "safsd", description: "sdfs" });
+            await Type_question.create({ id: 1, type_question: 1, content: "abierta" });
+            await Type_question.create({ id: 2, type_question: 2, content: "cerrada" });
+            await Type_question.create({ id: 3, type_question: 3, content: "multiple" });
+            await Type_question.create({ id: 4, type_question: 4, content: "numerica" });
+
             await Exam.create({ id: "1", moduleId: "1", name: "sdfs" });
+
+        } catch (err) {
+            return new Error("An error has ocurred");
+        }
+    });
+
+    after(async() => {
+        try {
+            /*
+                    await Question.destroy({ force: true });
+                    await Exam.destroy({ force: true });
+                    await Type_question.destroy({ force: true });
+    
+                    */
+
+            let data1 = await Question.findAll();
+            if (data1) {
+                let vector1 = Object.values(data1);
+                vector1.forEach(item => item.destroy({ force: true }));
+            }
+
+            let data2 = await Exam.findAll();
+            if (data2) {
+                let vector2 = Object.values(data2);
+                vector2.forEach(item => item.destroy({ force: true }));
+            }
+            let data4 = await Type_question.findAll();
+            if (data4) {
+                let vector4 = Object.values(data4);
+                vector4.forEach(item => item.destroy({ force: true }));
+            }
 
         } catch (err) {
             return new Error("An error has ocurred");
@@ -35,7 +64,6 @@ describe("Question Tests", () => {
             chai.request(app)
                 .post("/api/v1/question")
                 .send({
-                    "id": 1,
                     "examId": 1,
                     "typeQuestionId": 1,
                     "code": "E1.q1.1",
