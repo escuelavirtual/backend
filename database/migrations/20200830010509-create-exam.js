@@ -16,9 +16,13 @@ module.exports = {
             type: {
                 type: Sequelize.STRING
             },
-            name_exam: {
+            name: {
                 type: Sequelize.STRING,
                 allowNull: false,
+            },
+            publishedAt: {
+                allowNull: true,
+                type: Sequelize.DATE
             },
             createdAt: {
                 allowNull: false,

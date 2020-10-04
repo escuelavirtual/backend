@@ -8,7 +8,7 @@ router.post("/", validator(AnswerService.validate()), AnswerController.createAns
 router.get("/:id", AnswerController.getAnswer);
 router.get("/question/:questionId", AnswerController.getByQuestion);
 router.delete("/:id", AnswerController.deleteAnswer);
-router.put("/:id", AnswerController.updateAnswer);
+router.put("/:id", validator(AnswerService.validate()), AnswerController.updateNormal);
 router.get("/", AnswerController.listAll);
 
 module.exports = router;

@@ -1,16 +1,14 @@
 const Exam = require("../models/exam");
 const { check } = require("express-validator");
-const models = require("../../config/db/mysql");
-
-let sequelize;
-sequelize = models.sequelize;
+const { sequelize } = require("../../config/db/mysql");
+const Module = require("../models/module");
 
 class ExamService {
 
     static validate() {
         return [
-            check("moduleId", "moduleId is required").not().isEmpty().isNumeric().isLength({ min: 1, max: 15 }),
-            check("name_exam", "name_exam is required").not().isEmpty().isLength({ min: 2, max: 500 }),
+            check("moduleId", "moduleId is required").notEmpty().isNumeric().isLength({ min: 1, max: 15 }),
+            check("name", "name is required").notEmpty().isLength({ min: 2, max: 500 }),
         ];
     }
 
@@ -27,17 +25,18 @@ class ExamService {
 
     static async create(data) {
         try {
-            const { moduleId, type, name_exam } = data;
+            const { moduleId, type, name } = data;
             const hereExam = await Exam.create({
                 moduleId,
                 type,
-                name_exam
+                name
             });
             return hereExam;
         } catch (err) {
             return new Error("An error has ocurred");
         }
     }
+
     static async findById(id) {
         try {
             const hereExam = await Exam.findByPk(id);
@@ -62,15 +61,66 @@ class ExamService {
         }
     }
 
-    static async update(data, id) {
+    static async deleteNormal(id) {
         try {
-            const { moduleId, type, name_exam } = data;
+            const hereExam = await Exam.findByPk(id);
+            if (hereExam && hereExam.publishedAt === null) {
+                await hereExam.destroy();
+                return hereExam;
+            }
+        } catch (err) {
+            return new Error("An error has ocurred");
+        }
+    }
+
+    static async deleteRestringuido(id) {
+        try {
+            const hereExam = await Exam.findByPk(id);
+            if (hereExam) {
+                await hereExam.destroy();
+                return hereExam;
+            }
+        } catch (err) {
+            return new Error("An error has ocurred");
+        }
+    }
+
+    static updateNormal(data, id) {
+        const { moduleId, type, name } = data;
+        return Module.findByPk(moduleId)
+            .then(theModule => {
+                if (theModule) {
+                    return Exam.findByPk(id);
+                }
+                return Promise.reject("no existe el modulo");
+            })
+            .then(hereExam => {
+                if (hereExam && hereExam.publishedAt === null) {
+                    return hereExam.update({
+                        moduleId,
+                        type,
+                        name
+                    });
+                }
+                return Promise.reject("no existe el examen");
+            })
+            .then(data => {
+                // console.log('data ', data)
+                return Promise.resolve(data);
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    static async updateRestringuido(data, id) {
+        try {
+            const { moduleId, type, name, publishedAt } = data;
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
                 hereExam.update({
                     moduleId,
                     type,
-                    name_exam
+                    name,
+                    publishedAt
                 });
                 return hereExam;
             }
@@ -105,15 +155,19 @@ class ExamService {
      * @param {object} exam containing info about a post
      * @returns {Promise}  message error if it exists
      */
-    static findExists(exam) {
-        return Exam.findOne({ where: { moduleId: exam.moduleId, name_exam: exam.name_exam } })
-            .then((data) => {
-                if (data) {
-                    const err = "The record exists";
-                    return Promise.reject(err);
-                } else {
-                    return Promise.resolve({ message: "The record does not exist" });
+    static exists(exam) {
+        return Module.findByPk(exam.moduleId)
+            .then(theModule => {
+                if (theModule) {
+                    return Exam.findOne({ where: { moduleId: exam.moduleId, name: exam.name } });
                 }
+                return Promise.reject("no existe el modulo");
+            })
+            .then(data => {
+                if (data) {
+                    return Promise.reject("Exists the record the exam");
+                }
+                return Promise.resolve(1);
             })
             .catch((err) => {
                 return Promise.reject(err);

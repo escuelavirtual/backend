@@ -5,7 +5,9 @@ const ExamService = require("../../services/examService");
 const { validator } = require("../middlewares/validator");
 
 router.post("/", validator(ExamService.validate()), ExamController.createExam);
-router.get("/:id", ExamController.getExamComplet);
+router.get("/:id", ExamController.getExam); //.getExamComplet);
+router.put("/:id", ExamController.updateNormal);
+router.patch("/close/:id", ExamController.close);
 
 module.exports = router;
 

@@ -8,12 +8,14 @@ class AnswerService {
 
     static validate() {
         return [
-            check("code", "code is required").not().isEmpty().isLength({ min: 2, max: 15 }).withMessage("Allowable range 2-15"),
-            check("questionId", "questionId is required").not().isEmpty().isNumeric(),
-            check("isTrue", "isTrue is required").not().isEmpty().isIn([1, 0]),
+            check("code", "code is required").notEmpty().isLength({ min: 2, max: 15 }).withMessage("Allowable range 2-15"),
+            check("questionId", "questionId is required").notEmpty().isNumeric(),
+            check("isTrue", "isTrue is required").notEmpty().isIn([1, 0]),
             check("score", "score is required").custom((val, { req }) => {
                 if (!val && req.body.isTrue == 1) {
                     throw new Error("Score is required");
+                } else if (!val && req.body.isTrue == 0) {
+                    return true;
                 } else if (val && req.body.isTrue == 0) {
                     throw new Error("Score not required, because isTrue = false");
                 } else if (val && req.body.isTrue == 1 && (val < 0 || val > 100)) {
@@ -105,19 +107,53 @@ class AnswerService {
         }
     }
 
-    static async findExam(query) {
+    static async findExam(idAnswer, questionId) {
+        let respuesta = {};
+        return Answer.findByPk(idAnswer)
+            .then(data => {
+                if (data) {
+                    respuesta.answer = data;
+                    return QuestionService.findById(questionId);
+                }
+                return Promise.reject("No existe answer")
+            })
+            .then(data => {
+                if (data) {
+                    respuesta.question = data;
+                    return ExamService.findById(data.examId);
+                }
+                return Promise.reject("No existe question")
+            })
+            .then(data => {
+                if (data && data.publisheAt === null) {
+                    respuesta.exam = data;
+                    return Promise.resolve(respuesta);
+                }
+                return Promise.reject("No existe exam o esta close")
+            })
+            .catch(err => Promise.reject(err))
+    }
+
+    // questionId can be not changed
+    static async updateNormal(data, id) {
         try {
-            const data = await QuestionService.findOneBy({ where: { id: query.questionId } });
-            if (data) {
-                const answerExists = await ExamService.findOneBy({ where: { id: data.examId } });
-                return answerExists;
+            const { code, content, isTrue, score } = data;
+            const foundAnswer = await Answer.findByPk(id);
+            if (foundAnswer) {
+                foundAnswer.update({
+                    code,
+                    content: content || null,
+                    isTrue,
+                    score: score || 0,
+                });
+                return foundAnswer;
             }
         } catch (err) {
             return new Error("An error has ocurred");
         }
     }
 
-    static async update(data, id) {
+    static async updateRestricted(data, id) {
         try {
             const { code, questionId, content, isTrue, score } = data;
             const foundAnswer = await Answer.findByPk(id);
@@ -125,9 +161,9 @@ class AnswerService {
                 foundAnswer.update({
                     code,
                     questionId,
-                    content,
+                    content: content || null,
                     isTrue,
-                    score,
+                    score: score || 0,
                 });
                 return foundAnswer;
             }
@@ -137,17 +173,18 @@ class AnswerService {
     }
 
     /**
-     * Verification of data to add
+     * Verification of consistency of the data to add
      * @param {Object} answer post data to add
      * @returns {Promise.resolve} message for correct data
      * @returns {Promise.reject} alert message, if data is missing
      */
     static validateParameters(answer) {
+        // console.log('data ', JSON.stringify(answer))
         return new Promise((resolve, reject) => {
             if (answer.typeQuestionId == typeQuestion.OPENQUESTION && answer.content) {
-                reject("Parameter CONTENT no required ");
+                reject("CONTENT parameter is not necessary for open questions");
             } else if (answer.typeQuestionId != typeQuestion.OPENQUESTION && !answer.content) {
-                reject("Mandatory parameters are missing");
+                reject("Parameter content is mandatory");
             } else return resolve(1);
         });
     }
