@@ -1,6 +1,9 @@
 const Exam = require("../models/exam");
 const { check } = require("express-validator");
-const { sequelize } = require("../../config/db/mysql");
+
+const Question = require("../models/question");
+const Answer = require("../models/answer");
+const Type_question = require("../models/type_question");
 
 class ExamService {
 
@@ -98,7 +101,7 @@ class ExamService {
                 return Promise.reject("Not exists exam");
             })
             .then(data => {
-                // console.log('data ', data)
+                // console.log("data ", data)
                 return Promise.resolve(data);
             })
             .catch(err => Promise.reject(err));
@@ -134,13 +137,25 @@ class ExamService {
     }
 
     static findAllById(id) {
-        let query = `
-	            SELECT *
-                FROM exams e
-                inner join questions as q on q.examId = e.id
-                INNER JOIN answers AS a ON a.questionId = q.id
-                where e.id =:id;`;
-        return sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
+        let query = {
+            include: [{
+                model: Question,
+                attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+                include: [{
+                    model: Type_question,
+                    attributes: ["content"],
+                }, {
+                    model: Answer,
+                    attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+                }],
+            }],
+            attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+            where: { id: id }
+        };
+
+        return Exam.findAll(query)
+            .then(data => Promise.resolve(data))
+            .catch(err => Promise.reject(err));
     }
 
     /**
@@ -156,9 +171,7 @@ class ExamService {
                 }
                 return Promise.resolve(1);
             })
-            .catch((err) => {
-                return Promise.reject(err);
-            });
+            .catch((err) => Promise.reject(err));
     }
 
 }

@@ -15,7 +15,6 @@ const Answer = sequelize.define('answers', {
     questionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'questions', key: 'id' }
     },
     content: {
         type: Sequelize.STRING
