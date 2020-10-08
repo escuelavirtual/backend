@@ -8,8 +8,16 @@ const Exam = require("../../src/models/exam");
 const Question = require("../../src/models/question");
 const Type_question = require("../../src/models/type_question.js");
 
-
 chai.use(chaiHttp);
+
+const deleteRegister = async(data) => {
+    let vector = await Object.values(data);
+    for (const item of vector) {
+        const erased = await item.destroy({ force: true });
+        // console.log('erased ', JSON.stringify(erased))
+    }
+    return 1;
+};
 
 describe("Answer Tests", () => {
 
@@ -21,7 +29,7 @@ describe("Answer Tests", () => {
             await Type_question.create({ id: 3, type_question: 3, content: "multiple" });
             await Type_question.create({ id: 4, type_question: 4, content: "numerica" });
 
-            await Exam.create({ id: "1", moduleId: "1", name: "sdfs" });
+            await Exam.create({ id: "1", moduleId: "1", name: "exam de answer" });
             await Question.create({ id: 1, examId: 1, typeQuestionId: 1, code: "q1", content: "pregunta abierta", minimum: 20, length: 100 });
             await Question.create({ id: 2, examId: 1, typeQuestionId: 2, code: "q2", content: "pregunta cerrada" });
             await Question.create({ id: 3, examId: 1, typeQuestionId: 3, code: "q3", content: "pregunta multi opcion" });
@@ -41,27 +49,16 @@ describe("Answer Tests", () => {
                     await Type_question.destroy({ force: true });
             */
             let data = await Answer.findAll();
-            if (data) {
-                let vector1 = Object.values(data);
-                vector1.forEach(item => item.destroy({ force: true }));
-            }
+            await deleteRegister(data)
 
             let data1 = await Question.findAll();
-            if (data1) {
-                let vector1 = Object.values(data1);
-                vector1.forEach(item => item.destroy({ force: true }));
-            }
+            await deleteRegister(data1)
 
             let data2 = await Exam.findAll();
-            if (data2) {
-                let vector2 = Object.values(data2);
-                vector2.forEach(item => item.destroy({ force: true }));
-            }
+            await deleteRegister(data2)
+
             let data4 = await Type_question.findAll();
-            if (data4) {
-                let vector4 = Object.values(data4);
-                vector4.forEach(item => item.destroy({ force: true }));
-            }
+            await deleteRegister(data4);
 
         } catch (err) {
             return new Error("An error has ocurred");
@@ -199,7 +196,7 @@ describe("Answer Tests", () => {
                 });
         });
 
-        it("Should return an Error, if add other answer", (done) => {
+        it("Should return an Error, if you add another answer to the same question", (done) => {
 
             chai.request(app)
                 .post("/api/v1/answer")

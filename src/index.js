@@ -9,7 +9,7 @@ const path = require('path');
 
 //creation of the service
 const app = express();
-require("./conexiones")
+
 app.set("view engine", "hbs");
 
 app.engine(".hbs", exphbs({

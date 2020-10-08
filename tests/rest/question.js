@@ -2,13 +2,20 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../../src/index");
 const { expect } = chai;
-
 const Type_question = require("../../src/models/type_question.js");
 const Exam = require("../../src/models/exam");
 const Question = require("../../src/models/question");
 
-
 chai.use(chaiHttp);
+
+const clearRegistry = async(data) => {
+    let vector = await Object.values(data);
+    for (const item of vector) {
+        const erased = await item.destroy({ force: true });
+        // console.log('erased ', JSON.stringify(erased))
+    }
+    return 1;
+};
 
 describe("Question Tests", () => {
 
@@ -19,7 +26,7 @@ describe("Question Tests", () => {
             await Type_question.create({ id: 3, type_question: 3, content: "multiple" });
             await Type_question.create({ id: 4, type_question: 4, content: "numerica" });
 
-            await Exam.create({ id: "1", moduleId: "1", name: "sdfs" });
+            await Exam.create({ id: "1", moduleId: "1", name: "exam de question" });
 
         } catch (err) {
             return new Error("An error has ocurred");
@@ -29,28 +36,18 @@ describe("Question Tests", () => {
     after(async() => {
         try {
             /*
-                    await Question.destroy({ force: true });
-                    await Exam.destroy({ force: true });
-                    await Type_question.destroy({ force: true });
-    
-                    */
-
+                        await Question.destroy({ force: true });
+                        await Exam.destroy({ force: true });
+                        await Type_question.destroy({ force: true });
+            */
             let data1 = await Question.findAll();
-            if (data1) {
-                let vector1 = Object.values(data1);
-                vector1.forEach(item => item.destroy({ force: true }));
-            }
+            await clearRegistry(data1);
 
             let data2 = await Exam.findAll();
-            if (data2) {
-                let vector2 = Object.values(data2);
-                vector2.forEach(item => item.destroy({ force: true }));
-            }
+            await clearRegistry(data2);
+
             let data4 = await Type_question.findAll();
-            if (data4) {
-                let vector4 = Object.values(data4);
-                vector4.forEach(item => item.destroy({ force: true }));
-            }
+            await clearRegistry(data4);
 
         } catch (err) {
             return new Error("An error has ocurred");

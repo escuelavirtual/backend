@@ -5,6 +5,7 @@ const Question = require("../models/question");
 const Answer = require("../models/answer");
 const Type_question = require("../models/type_question");
 
+require("../models/associations");
 class ExamService {
 
     static validate() {
