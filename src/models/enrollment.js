@@ -4,7 +4,17 @@ const { Student } = require("./student");
 const Course = require("./course");
 
 const Enrollment = sequelize.define('enrollments', 
-{
+{   
+    studentId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'students', key: 'id' }
+    },
+    courseId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'courses', key: 'id' }
+    },
     calification: {
         type: Sequelize.DOUBLE,
         allowNull: false
