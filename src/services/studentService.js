@@ -22,7 +22,7 @@ class StudentService {
         } catch (err) {
 
             e(err);
-            return new Error('An error has ocurred');
+            return new Error(err);
         }
 
     }
