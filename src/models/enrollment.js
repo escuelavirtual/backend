@@ -21,5 +21,7 @@ const Enrollment = sequelize.define('enrollments',
 { timestamps: false }
 );
 
+Enrollment.removeAttribute('id');//Remove the default field named 'id'
+
 module.exports = Enrollment
 
