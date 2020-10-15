@@ -1,4 +1,4 @@
-const e = require("debug")("error:data");
+const LOG = require("debug")("error:data");
 const Enrollment = require('../models/enrollment');
 
 class EnrollmentController {

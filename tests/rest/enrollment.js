@@ -27,7 +27,7 @@ const server = require('../../src/index');
 chai.use(chaiHttp);
 describe('Enrollment Tests', () => {
     describe('A student can enroll to a course', () => {
-        const existentCourseId = 100;
+        const existentCourseId = 5;
         let student, token;
         before(async function(){
             student = await StudentService.createStudent({firstname: 'Rigoberto', lastname: 'Pérez', email: 'ed2@gmail.com', password: 'cisco123'});
@@ -46,7 +46,74 @@ describe('Enrollment Tests', () => {
                     
                     done();
                 });                
-        });                
+        });
+        
+        after(function(){
+            const starterPromise = Promise.resolve();
+            const asyncThingsToDo = [
+                'DELETE_ENROLLMENT_ROWS', 
+                'DELETE_STUDENT_ROWS', 
+                'DELETE_USER_ROWS', 
+                'ALTER_AUTOINCREMENT_STUDENT',
+                'ALTER_AUTOINCREMENT_USER',
+                'CLOSE_DB_CONNECTION',
+                'CLOSE_SERVER_CONNECTION'
+            ];
+
+
+            asyncThingsToDo.reduce(async (previous, task) => { 
+                try {
+                    const log = await previous;
+                    LOG(log);
+                } catch(err) {
+                    LOG(err)
+                }
+                return cleanTables(task);
+            },starterPromise);
+            
+        });
+
+        function cleanTables(task) {
+            switch(task) {
+                case 'DELETE_ENROLLMENT_ROWS':
+                    LOG('Inside DELETE_ENROLLMENT_ROWS');
+                    return Enrollment.destroy({
+                        where: {
+                            studentId: student.id,
+                            courseId
+                        },
+                        force: true
+                    }).then(num => `Enrollment rows deleted ${num}`);
+                case 'DELETE_STUDENT_ROWS':
+                    LOG('Inside DELETE_STUDENT_ROWS');
+                    return Student.destroy({
+                        where: {
+                            id: student.id
+                        }, 
+                        force: true
+                    }).then(num => `Student rows deleted ${num}`);
+                case 'DELETE_USER_ROWS':
+                    LOG('Inside DELETE_USER_ROWS');
+                    return User.destroy({
+                        where: {
+                            id: student.userId
+                        },
+                        force: true
+                    }).then(num => `User rows deleted ${num}`);
+                case 'ALTER_AUTOINCREMENT_STUDENT':
+                    LOG('Inside ALTER_AUTOINCREMENT_STUDENT');
+                    return sequelize.query(`ALTER TABLE students AUTO_INCREMENT ${student.id}`)
+                        //.then(result => result);
+                case 'ALTER_AUTOINCREMENT_USER':
+                    LOG('Inside ALTER_AUTOINCREMENT_USER');
+                    return sequelize.query(`ALTER TABLE users AUTO_INCREMENT ${student.userId}`)
+                    //.then(result => result);
+                case  'CLOSE_DB_CONNECTION':
+                    return sequelize.close();
+                case 'CLOSE_SERVER_CONNECTION':
+                    return server.close();
+            }
+        }        
     });
 });
 
