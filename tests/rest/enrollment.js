@@ -31,14 +31,14 @@ describe('Enrollment Tests', () => {
         let student, token;
         before(async function(){
             student = await StudentService.createStudent({firstname: 'Rigoberto', lastname: 'Pérez', email: 'ed2@gmail.com', password: 'cisco123'});
-            //token = generateValidToken(student);
+            token = generateValidToken(student);
         });
 
         it.only('should return true if the course exists', (done) => {             
             chai.request(app)
                 .get("/api/v1/enrollment")
                 .query({studentId: student.id, courseId: existentCourseId})
-                //.set( 'Authorization', `Bearer ${token}` )
+                .set( 'Authorization', `Bearer ${token}` )
                 .end(function(err, res) {
                     if (err) done(err);
                     expect(res).to.have.property('ok', true);
@@ -80,7 +80,7 @@ describe('Enrollment Tests', () => {
                     return Enrollment.destroy({
                         where: {
                             studentId: student.id,
-                            courseId
+                            courseId: existentCourseId
                         },
                         force: true
                     }).then(num => `Enrollment rows deleted ${num}`);
