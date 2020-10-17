@@ -14,6 +14,7 @@ module.exports = function(app) {
         { path: "/answer", file: "./answers" },
         { path: "/question", file: "./questions" },
         { path: "/exam", file: "./exams" },
+        { path: "/enrollment", file: './enrollment'}
     ];
 
     routes.forEach(route => {
