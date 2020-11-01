@@ -15,6 +15,18 @@ class QuestionController {
             .catch((err) => res.status(500).json({ err }));
     }
 
+    static getAll(req, res) {
+        return QuestionService.show(req.body.id)
+            .then((data) => {
+                if (data && data.length > 0) {
+                    return res.status(200).json({ message: "Query executed correctly", data });
+                } else {
+                    return res.status(404).json({ err: "Question not found" });
+                }
+            })
+            .catch((err) => res.status(500).json({ err }));
+    }
+
     static createQuestion(req, res) {
         const question = {
                 examId: req.body.examId,
@@ -45,6 +57,7 @@ class QuestionController {
         let change = req.body;
         return Promise.all([ExamService.findById(req.body.examId), QuestionService.findById(id)])
             .then(examQuestion => {
+                console.log('sss ', examQuestion)
                 if (examQuestion[0] && examQuestion[0].publishedAt === null && examQuestion[1]) {
                     return QuestionService.changeType(change, examQuestion[1]);
                 }
@@ -60,6 +73,16 @@ class QuestionController {
                 return res.status(500).json({ err: "Error in update" });
             })
             .catch(err => res.status(500).json({ err }));
+    }
+
+    static async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const question = await QuestionService.delete(id);
+            return res.status(200).json({ message: "Delete Sucessfull", data: question });
+        } catch (err) {
+            return res.status(500).json({ err });
+        }
     }
 }
 

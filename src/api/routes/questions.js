@@ -5,7 +5,9 @@ const QuestionService = require("../../services/questionService");
 const { validator } = require("../middlewares/validator");
 
 router.post("/", validator(QuestionService.validate()), QuestionController.createQuestion);
+router.get("/", QuestionController.getAll);
 router.get("/:id", QuestionController.getQuestion);
 router.put("/:id", validator(QuestionService.validate()), QuestionController.updateQuestion);
+router.delete("/:id", QuestionController.delete);
 
 module.exports = router;

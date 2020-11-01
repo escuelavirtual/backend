@@ -72,17 +72,17 @@ class AnswerController {
 
     /**
      * The complete registration must be sent, to validate
-     * 
+     * You can change the relationship with the question, questionId
      */
     static async updateNormal(req, res) {
         const { id } = req.params;
         let answerVerify = Object.assign({}, req.body);
         //  delete answerVerify.questionId;
         return AnswerService.findExam(id, answerVerify.questionId)
-            .then(exam => {
-                if (exam && exam.publishedAt === null && exam.question) {
+            .then(data => {
+                if (data.exam && data.exam[0].questions[0]) {
                     // answerVerify.questionId = exam.question.id;
-                    answerVerify.typeQuestionId = exam.question.typeQuestionId;
+                    answerVerify.typeQuestionId = data.exam[0].questions[0].typeQuestionId;
                     return AnswerService.validateParameters(answerVerify);
                 }
                 return res.status(500).json({ err: "Exam not found" });

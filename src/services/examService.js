@@ -21,8 +21,9 @@ class ExamService {
             if (hereExam) {
                 return hereExam;
             }
+            return Promise.reject("Not exists Exam");
         } catch (err) {
-            return new Error("An error has ocurred");
+            return Promise.reject("An error has ocurred");
         }
     }
 
@@ -52,7 +53,7 @@ class ExamService {
     }
 
     static async delete(id) {
-        // si un estudiante no hizo el examen se borra.. el profesor puede borrar con alumnos borrado logico
+        // the teacher can delete an exam with enrolled students 
         try {
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
@@ -64,28 +65,20 @@ class ExamService {
         }
     }
 
-    static async deleteNormal(id) {
-        try {
-            const hereExam = await Exam.findByPk(id);
-            if (hereExam && hereExam.publishedAt === null) {
-                await hereExam.destroy();
-                return hereExam;
-            }
-        } catch (err) {
-            return new Error("An error has ocurred");
-        }
-    }
-
-    static async deleteRestringuido(id) {
-        try {
-            const hereExam = await Exam.findByPk(id);
-            if (hereExam) {
-                await hereExam.destroy();
-                return hereExam;
-            }
-        } catch (err) {
-            return new Error("An error has ocurred");
-        }
+    /**
+     * the exam is logically deleted if it is not published and does not have a related question
+     * @param {integer} id identificator of exam
+     */
+    static deleteNormal(id) {
+        return Promise.all([Exam.findByPk(id), Question.findOne({ where: { examId: id } })])
+            .then(exam => {
+                if (exam[0] && exam[0].publishedAt === null && !exam[1]) {
+                    exam[0].destroy();
+                    return exam[0];
+                }
+                return Promise.reject("Exam is running or There is related question");
+            })
+            .catch(err => Promise.reject(err));
     }
 
     static updateNormal(data, id) {
@@ -141,13 +134,13 @@ class ExamService {
         let query = {
             include: [{
                 model: Question,
-                attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+                attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
                 include: [{
                     model: Type_question,
                     attributes: ["content"],
                 }, {
                     model: Answer,
-                    attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
                 }],
             }],
             attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },

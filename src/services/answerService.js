@@ -1,6 +1,7 @@
 const Answer = require("../models/answer");
-const ExamService = require("./examService");
-const QuestionService = require("./questionService");
+const Question = require("../models/question");
+const Exam = require("../models/exam");
+
 const { check } = require("express-validator");
 const typeQuestion = require("../../config/enum/typeOfQuestion");
 
@@ -95,6 +96,7 @@ class AnswerService {
             return new Error("An error has ocurred");
         }
     }
+
     static async delete(id) {
         try {
             const answer = await Answer.findByPk(id);
@@ -107,31 +109,41 @@ class AnswerService {
         }
     }
 
+    /** *****
+     * Find out if the answer exists and the question can be another or old, 
+     * always checking that the exam is not published
+     * @param {Integer} idAnswer identifier of the answer to update
+     * @param {Integer} questionId identificador of question
+     */
     static async findExam(idAnswer, questionId) {
         let respuesta = {};
-        return Answer.findByPk(idAnswer)
+        let query = {
+            include: [{
+                model: Question,
+                attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                where: { id: questionId }
+            }],
+            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+            where: {
+                publishedAt: null
+            }
+        };
+        return await Answer.findByPk(idAnswer)
             .then(data => {
                 if (data) {
                     respuesta.answer = data;
-                    return QuestionService.findById(questionId);
+                    return Exam.findAll(query); //  return QuestionService.findById(questionId);
                 }
-                return Promise.reject("No existe answer")
+                return Promise.reject("There is NO answer");
             })
             .then(data => {
-                if (data) {
-                    respuesta.question = data;
-                    return ExamService.findById(data.examId);
-                }
-                return Promise.reject("No existe question")
-            })
-            .then(data => {
-                if (data && data.publisheAt === null) {
+                if (data.length > 0) {
                     respuesta.exam = data;
                     return Promise.resolve(respuesta);
                 }
-                return Promise.reject("No existe exam o esta close")
+                return Promise.reject("There is NO exam or is it published");
             })
-            .catch(err => Promise.reject(err))
+            .catch(err => Promise.reject(err));
     }
 
     // questionId can be not changed

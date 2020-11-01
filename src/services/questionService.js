@@ -30,7 +30,7 @@ class QuestionService {
                         break;
                     default:
                         if (!minimum) return true;
-                        else throw new Error("Parameter NOT required");
+                        else throw new Error("Parameter NOT required for the type of question");
                 }
                 return true;
             }),
@@ -41,7 +41,7 @@ class QuestionService {
                 } else if (req.body.typeQuestionId != typeQuestion.NUMERICALQUESTION && !val) {
                     return true;
                 } else if (req.body.typeQuestionId != typeQuestion.NUMERICALQUESTION && val) {
-                    throw new Error("Parameter NOT required");
+                    throw new Error("Parameter NOT required for the type of question");
                 } else return true;
             }),
             check("length").custom((val, { req }) => {
@@ -51,7 +51,7 @@ class QuestionService {
                 } else if (req.body.typeQuestionId != typeQuestion.OPENQUESTION && !val) {
                     return true;
                 } else if (req.body.typeQuestionId != typeQuestion.OPENQUESTION && val) {
-                    throw new Error("Parameter NOT required");
+                    throw new Error("Parameter NOT required for the type of question");
                 } else if (req.body.typeQuestionId == typeQuestion.OPENQUESTION && val && parseInt(val, 10) > 1 && parseInt(val, 10) < 500) {
                     return true;
                 }
@@ -85,7 +85,7 @@ class QuestionService {
             });
             return question;
         } catch (err) {
-            return new Error("An error has ocurred");
+            return Promise.reject("An error has ocurred");
         }
     }
 
@@ -124,6 +124,18 @@ class QuestionService {
     }
 
     static async delete(id) {
+        return Promise.all([Question.findByPk(id), Answer.findOne({ where: { questionId: id } })])
+            .then(questionAnswer => {
+                if (questionAnswer[0] && !questionAnswer[1]) {
+                    questionAnswer[0].destroy();
+                    return questionAnswer[0];
+                }
+                return Promise.reject("There is related answer");
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    static async deleteOrigin(id) {
         try {
             const question = await Question.findByPk(id);
             if (question) {
@@ -175,12 +187,11 @@ class QuestionService {
      * @returns {Promise} reject, when the question exists in the exam
      */
     static findExists(question) {
-        return QuestionService.findOneBy({ where: { examId: question.examId, content: question.content } })
+        return Question.findOne({ where: { examId: question.examId, content: question.content } })
             .then((data) => {
+                //  console.log('findExists ', data)
                 if (data) {
-                    const err = { error: "The Question already exists" };
-                    err.data = data;
-                    return Promise.reject(err);
+                    return Promise.reject("The Question already exists");
                 } else {
                     return Promise.resolve("There is no Question");
                 }
@@ -222,7 +233,6 @@ class QuestionService {
     }
 
     /**
-     * validar the update, parameter and logica
      * if change of type the question then change the answers
      * 
      */
