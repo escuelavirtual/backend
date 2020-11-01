@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
     up: async(queryInterface, Sequelize) => {
@@ -8,10 +8,10 @@ module.exports = {
             { studentId: 1, examId: 3, createdAt: new Date(), updatedAt: new Date() },
             { studentId: 1, examId: 4, createdAt: new Date(), updatedAt: new Date() },
         ];
-        await queryInterface.bulkInsert('student_exams', obj, {});
+        await queryInterface.bulkInsert("student_exams", obj, {});
     },
 
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('student_exams', null, {});
+        await queryInterface.bulkDelete("student_exams", null, {});
     }
 };

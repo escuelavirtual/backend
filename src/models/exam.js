@@ -11,14 +11,17 @@ const Exam = sequelize.define('exams', {
     moduleId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'modules', key: 'id' }
     },
     type: {
         type: Sequelize.STRING
     },
-    name_exam: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
+    },
+    publishedAt: {
+        allowNull: true,
+        type: Sequelize.DATE
     },
     createdAt: {
         allowNull: false,

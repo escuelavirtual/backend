@@ -1,16 +1,17 @@
 const Exam = require("../models/exam");
 const { check } = require("express-validator");
-const models = require("../../config/db/mysql");
 
-let sequelize;
-sequelize = models.sequelize;
+const Question = require("../models/question");
+const Answer = require("../models/answer");
+const Type_question = require("../models/type_question");
 
+require("../models/associations");
 class ExamService {
 
     static validate() {
         return [
-            check("moduleId", "moduleId is required").not().isEmpty().isNumeric().isLength({ min: 1, max: 15 }),
-            check("name_exam", "name_exam is required").not().isEmpty().isLength({ min: 2, max: 500 }),
+            check("moduleId", "moduleId is required").notEmpty().isNumeric().isLength({ min: 1, max: 15 }),
+            check("name", "name is required").notEmpty().isLength({ min: 2, max: 500 }),
         ];
     }
 
@@ -20,24 +21,26 @@ class ExamService {
             if (hereExam) {
                 return hereExam;
             }
+            return Promise.reject("Not exists Exam");
         } catch (err) {
-            return new Error("An error has ocurred");
+            return Promise.reject("An error has ocurred");
         }
     }
 
     static async create(data) {
         try {
-            const { moduleId, type, name_exam } = data;
+            const { moduleId, type, name } = data;
             const hereExam = await Exam.create({
                 moduleId,
                 type,
-                name_exam
+                name
             });
             return hereExam;
         } catch (err) {
             return new Error("An error has ocurred");
         }
     }
+
     static async findById(id) {
         try {
             const hereExam = await Exam.findByPk(id);
@@ -50,7 +53,7 @@ class ExamService {
     }
 
     static async delete(id) {
-        // si un estudiante no hizo el examen se borra.. el profesor puede borrar con alumnos borrado logico
+        // the teacher can delete an exam with enrolled students 
         try {
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
@@ -62,15 +65,52 @@ class ExamService {
         }
     }
 
-    static async update(data, id) {
+    /**
+     * the exam is logically deleted if it is not published and does not have a related question
+     * @param {integer} id identificator of exam
+     */
+    static deleteNormal(id) {
+        return Promise.all([Exam.findByPk(id), Question.findOne({ where: { examId: id } })])
+            .then(exam => {
+                if (exam[0] && exam[0].publishedAt === null && !exam[1]) {
+                    exam[0].destroy();
+                    return exam[0];
+                }
+                return Promise.reject("Exam is running or There is related question");
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    static updateNormal(data, id) {
+        const { moduleId, type, name } = data;
+        return Exam.findByPk(id)
+            .then(hereExam => {
+                if (hereExam && hereExam.publishedAt === null) {
+                    return hereExam.update({
+                        moduleId,
+                        type,
+                        name
+                    });
+                }
+                return Promise.reject("Not exists exam");
+            })
+            .then(data => {
+                // console.log("data ", data)
+                return Promise.resolve(data);
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    static async updateRestringuido(data, id) {
         try {
-            const { moduleId, type, name_exam } = data;
+            const { moduleId, type, name, publishedAt } = data;
             const hereExam = await Exam.findByPk(id);
             if (hereExam) {
                 hereExam.update({
                     moduleId,
                     type,
-                    name_exam
+                    name,
+                    publishedAt
                 });
                 return hereExam;
             }
@@ -91,13 +131,25 @@ class ExamService {
     }
 
     static findAllById(id) {
-        let query = `
-	            SELECT *
-                FROM exams e
-                inner join questions as q on q.examId = e.id
-                INNER JOIN answers AS a ON a.questionId = q.id
-                where e.id =:id;`;
-        return sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
+        let query = {
+            include: [{
+                model: Question,
+                attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                include: [{
+                    model: Type_question,
+                    attributes: ["content"],
+                }, {
+                    model: Answer,
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                }],
+            }],
+            attributes: { exclude: ["publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+            where: { id: id }
+        };
+
+        return Exam.findAll(query)
+            .then(data => Promise.resolve(data))
+            .catch(err => Promise.reject(err));
     }
 
     /**
@@ -105,19 +157,15 @@ class ExamService {
      * @param {object} exam containing info about a post
      * @returns {Promise}  message error if it exists
      */
-    static findExists(exam) {
-        return Exam.findOne({ where: { moduleId: exam.moduleId, name_exam: exam.name_exam } })
-            .then((data) => {
+    static exists(exam) {
+        return Exam.findOne({ where: { moduleId: exam.moduleId, name: exam.name } })
+            .then(data => {
                 if (data) {
-                    const err = "The record exists";
-                    return Promise.reject(err);
-                } else {
-                    return Promise.resolve({ message: "The record does not exist" });
+                    return Promise.reject("Exists the record the exam");
                 }
+                return Promise.resolve(1);
             })
-            .catch((err) => {
-                return Promise.reject(err);
-            });
+            .catch((err) => Promise.reject(err));
     }
 
 }

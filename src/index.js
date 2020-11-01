@@ -12,14 +12,14 @@ const app = express();
 
 app.set("view engine", "hbs");
 
-app.engine(".hbs",exphbs({
-    layoutsDir: path.join(__dirname,"../views/layouts"),
-    defaultLayout:'main',
+app.engine(".hbs", exphbs({
+    layoutsDir: path.join(__dirname, "../views/layouts"),
+    defaultLayout: 'main',
     extname: ".hbs",
-    partialsDir: path.join(__dirname,"../views/partials"),
+    partialsDir: path.join(__dirname, "../views/partials"),
 }));
 
-app.set('views', path.join(__dirname,'../views'));
+app.set('views', path.join(__dirname, '../views'));
 
 app.use(express.static(path.join(__dirname, '/public')));
 

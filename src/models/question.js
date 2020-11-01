@@ -11,12 +11,10 @@ const Question = sequelize.define('questions', {
     examId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'exams', key: 'id' }
     },
     typeQuestionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'type_questions', key: 'id' }
     },
     code: {
         type: Sequelize.STRING,

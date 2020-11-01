@@ -1,0 +1,115 @@
+POST http://localhost:3000/api/v1/exam HTTP/1.1
+content-type: application/json
+
+{
+    "moduleId": 1,
+    "name": "JS X"
+}
+
+###
+GET  http://localhost:3000/api/v1/exam HTTP/1.1
+content-type: application/json
+
+###
+GET  http://localhost:3000/api/v1/exam/6 HTTP/1.1
+content-type: application/json
+
+###
+PUT  http://localhost:3000/api/v1/exam/6 HTTP/1.1
+content-type: application/json
+
+{
+    "moduleId": 1,
+    "name": "js VI"
+}
+
+### Exam closed for editing because it is running
+PATCH   http://localhost:3000/api/v1/exam/close/6 HTTP/1.1
+content-type: application/json
+
+### Exam closed for editing because it is running
+DELETE   http://localhost:3000/api/v1/exam/6 HTTP/1.1
+content-type: application/json
+
+### ######################### QUESTION #########################
+###
+POST http://localhost:3000/api/v1/question HTTP/1.1
+content-type: application/json
+
+{
+    "examId": 6,
+    "typeQuestionId": 2,
+    "code":"q1.1",
+    "content": "pregunta 41"
+}
+###
+POST http://localhost:3000/api/v1/question HTTP/1.1
+content-type: application/json
+
+{
+    "examId": 6,
+    "typeQuestionId": 4,
+    "code":"q1.1",
+    "content": "pregunta 2",
+    "minimum": 2,
+    "tope":50
+}
+###
+GET  http://localhost:3000/api/v1/question HTTP/1.1
+content-type: application/json
+
+###
+GET  http://localhost:3000/api/v1/question/107 HTTP/1.1
+content-type: application/json
+
+###
+PUT  http://localhost:3000/api/v1/question/5 HTTP/1.1
+content-type: application/json
+
+{
+    "examId": 3,
+    "typeQuestionId": 4,
+    "code":"q1.1",
+    "content": "Pregunta 2da.",
+    "minimum": 2,
+    "tope":50
+}
+
+###
+DELETE   http://localhost:3000/api/v1/question/5 HTTP/1.1
+content-type: application/json
+
+### ######################### ANSWER #########################
+###
+POST http://localhost:3000/api/v1/answer HTTP/1.1
+content-type: application/json
+
+{
+    "questionId": 22,
+    "content": "red q1",
+    "code":"a1.1",
+    "isTrue": 1,
+    "score": 20
+}
+
+###
+GET  http://localhost:3000/api/v1/answer HTTP/1.1
+content-type: application/json
+
+###
+GET  http://localhost:3000/api/v1/answer/1 HTTP/1.1
+content-type: application/json
+
+###
+PUT  http://localhost:3000/api/v1/answer/1 HTTP/1.1
+content-type: application/json
+
+{
+     "questionId": 3,
+    "content": "blue",
+    "code":"a1.1",
+    "isTrue": 0
+}
+###
+DELETE   http://localhost:3000/api/v1/answer/1 HTTP/1.1
+content-type: application/json
